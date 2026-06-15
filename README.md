@@ -53,4 +53,4 @@ It also has a **glossary mode** — `/glossary liveness`, `/define atomicity`, o
 
 ## License
 
-Personal project. All rights reserved (for now).
+[MIT](LICENSE) © Alexander Abramovich.
