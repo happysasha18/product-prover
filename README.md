@@ -1,6 +1,6 @@
 # product-prover
 
-**A senior-architect review of your product spec — through the lens of formal verification. A [Claude Code](https://claude.com/claude-code) skill.**
+**A senior-architect review of your product spec — through the lens of [formal verification](https://en.wikipedia.org/wiki/Formal_verification). A [Claude Code](https://claude.com/claude-code) skill.**
 
 Point it at a PRD, feature spec, HLD, LLD, or design proposal, and it reviews the document the way a principal architect would: a short opening assessment, the structural model it extracted, the gaps that matter most, and what to fix before you build.
 
