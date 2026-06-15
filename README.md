@@ -1,0 +1,50 @@
+# product-prover
+
+**A senior-architect review of your product spec — through the lens of formal verification. A [Claude Code](https://claude.com/claude-code) skill.**
+
+Point it at a PRD, feature spec, HLD, LLD, or design proposal, and it reviews the document the way a principal architect would: a short opening assessment, the structural model it extracted, the gaps that matter most, and what to fix before you build.
+
+It thinks in formal-verification primitives — entities, states, transitions, invariants, safety, liveness, atomicity, composition — but it **never lectures you in jargon.** The framework stays private; what you get back is in operational terms you can act on.
+
+---
+
+## The rule it won't break
+
+> Never produce a finding the reader can't trace back to the document.
+
+Every finding quotes the source and pins its location. Every consequence is concrete — *who* is affected, *what* triggers the failure, *what* goes wrong, *what they see* — not "this could be a problem." Every proposed fix is a specific artifact or decision; vague verbs (`define`, `ensure`, `handle`, `consider`) are banned. When the doc is too vague to support a concrete consequence, it says so plainly — *"the spec needs to state X"* — instead of inventing one.
+
+Same instinct as its sibling **[track-coach](https://github.com/happysasha18/track-coach)**: facts over plausible fiction, and the decision always stays with the author.
+
+---
+
+## What it does
+
+A continuous, structured pass — no pausing between phases:
+
+- **Triage** — is this even an analyzable spec, or marketing copy? Says so up front.
+- **Opening assessment** — the 30-second verdict: what it's trying to do, what's working, what needs attention, how close it is to buildable.
+- **The model** — extracts entities, states + transitions, actors, and composition boundaries. Tells you exactly **what it assumed** where the doc was ambiguous.
+- **Structural issues** — incomplete state space, undefined actors, components mixing roles, abstraction problems.
+- **Property analysis** — safety (invariants, pre/postconditions, atomicity, rollback), liveness (dead-ends, termination, silent failure masking), enforceability, and internal consistency — plus generative stress-testing against six families of questions, not pattern-matching.
+- **Acknowledged gaps** — the Open Items and TBDs the doc already flags, kept separate so you see what you *missed* first.
+- **Human + operational factors** — observability, cognitive load, debuggability.
+- **Closing summary** — top 3 things to fix, properties to state explicitly (phrased so you can paste them straight in), and the genuine open questions only you can answer.
+
+Findings come tagged `severity · plain-label (formal-term)` — `must-fix`, `should-clarify`, or `worth-considering` — with severity reflecting real production impact, not formal imperfection.
+
+---
+
+## Usage
+
+This is a **Claude Code skill** — drop the folder into `~/.claude/skills/product-prover/` and just ask:
+
+> *"review this spec"* · *"poke holes in this design"* · *"is this PRD ready / what did I miss?"* · *"Product Prover this"*
+
+It also has a **glossary mode** — `/glossary liveness`, `/define atomicity`, or just *"what does composition mean?"* — for the formal terms, each with a plain definition, an example, and the question it prompts in a review.
+
+---
+
+## License
+
+Personal project. All rights reserved (for now).
