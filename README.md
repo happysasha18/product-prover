@@ -35,6 +35,12 @@ Findings come tagged `severity · plain-label (formal-term)` — `must-fix`, `sh
 
 ---
 
+## What's inside
+
+No code, no dependencies, nothing to build or install — product-prover is a single `SKILL.md`: a structured set of review instructions Claude follows. Drop it in, point Claude at a spec, read the findings. Works anywhere Claude Code runs.
+
+---
+
 ## Usage
 
 This is a **Claude Code skill** — drop the folder into `~/.claude/skills/product-prover/` and just ask:
