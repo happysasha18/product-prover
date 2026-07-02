@@ -137,6 +137,15 @@ Actor-action assignments:
 - "Activate account" — Provisioning Service (automated).
 - "Delete record" — initiator not stated.
 
+## Review modes
+
+Two depths, chosen by the caller (the build-pipeline skill picks one):
+
+- **FULL** — the whole spec, every phase below. Required before a MINOR (`0.x.0`) bump and after any structural rewrite; the default when someone just says "review the spec".
+- **CROSS-LINK** — a focused pass for a single added surface: Phases 1–2 plus the Phase 3e composition/stress lenses, aimed at the NEW surface's seams against the existing surfaces it composes with. Skip the whole-doc property sweep. Use on every surface add, where a FULL re-prove would cost more than the change warrants.
+
+Both modes keep the whole document in view — a cross-section hole is only findable when both sides of the seam are present and named the same at prove-time. CROSS-LINK narrows the FINDINGS to the new surface's seams, not the reading.
+
 ## Phase 0 — Triage
 
 Before any analysis, decide whether the input is suitable.
@@ -145,6 +154,7 @@ Check:
 - Is this a product spec, feature doc, HLD, LLD, or design proposal?
 - Does it describe a system with state, behavior, transitions — versus marketing copy, vision statements, or prose without operational content?
 - Is there enough material to extract a model?
+- **Does the doc claim to describe a SHIPPED system?** If so, require a reconciliation note (each surface → owning `file:line`, from the build-pipeline reconcile step). Without it, every finding is CONDITIONAL on the doc being current — say so, and flag any section describing a surface with no owning code/test as possibly-removed (a spec that outran an excision will otherwise "prove" dead behaviour).
 
 Output one of:
 
@@ -231,6 +241,7 @@ For every operation, transition, rule, or assumption, mentally stress-test it ag
 - **Dependency reality** — when the spec relies on something external, what if it's unavailable, delayed, or returns something unexpected?
 - **Reference integrity** — when the spec uses identifiers or pointers, what if the referent is missing, has changed, or is shared?
 - **Surface authority** — when an operation creates, modifies, or removes an object of some category, is there another component in the system that the document mentions or implies should be the authoritative management surface for that category? If yes, does this operation publish to it, register with it, or otherwise keep that authoritative surface complete? Fire this lens ONLY when the document itself provides clear evidence of a competing authoritative surface — do not speculate about phantom components or assume authorities that are not stated. When in doubt, stay silent rather than produce a finding.
+- **Persistence and versions** — when the system persists anything beyond the session (localStorage, files, caches, saved preferences), what happens when state written by an OLDER version meets the current code and UI? Is the stored shape partial, orphaned by a removed feature, or read on reopen into a UI that no longer matches it? Is there a defined migrate / ignore / clear rule? (This is the family of "reopened the widget and it looked broken" — persisted state auto-restoring into a changed surface.)
 
 For any given operation, only one or two lenses will produce a real finding — the rest will be obviously fine. That's expected. The work is in the imagining, not in producing a finding for every axis. A lens that prompts no real concern produces no finding. Do not invent issues to satisfy a lens.
 
@@ -241,6 +252,8 @@ After findings, render three coverage tables in pipe-separated markdown:
 CRUD coverage per entity: | Entity | Create | Read | Update | Delete | Notes | — mark each cell covered/partial/missing.
 Invariants per state: | State | Invariants stated | Invariants missing |
 Authorization per action: | Action | Roles allowed | Granular check enforceable? | Notes |
+
+If every row of a table would be N/A for this product (authorization for a single-user local tool; CRUD when the product has no user-mutated persistent entities), replace that table with ONE line saying so and why — a table full of N/A is ritual noise that trains the author to skim.
 
 Continue to Phase 3.5.
 
@@ -265,6 +278,8 @@ Properties that aren't formally checkable but matter equally:
 - Human observability: can operators understand the system's state? Are identifiers readable? Are errors actionable?
 - Cognitive load: mode-dependent behavior, exceptions, special cases users must remember.
 - Operational UX: debuggability, audit trails, traceability.
+- Performance and scale budgets: how big can the input get (size, count, duration) before the artifact is unusable? State the assumed ceiling rather than leaving it implicit.
+- Security / privacy: if genuinely out of scope for this product, say so explicitly — a named skip, not a blind spot.
 
 Use the four-part finding format. The same concreteness test applies — describe what the operator actually does and what they actually see. Vague claims like "operators may be confused" are not acceptable.
 
@@ -296,6 +311,7 @@ Finish with one sentence on overall readiness: ready to build / needs another it
 - Phase pacing: PROCEED triage → Opening Assessment → Phase 1 → 2 → 3 → 3.5 → 4 → 5, all in one continuous response. Do not pause.
 - Note what's working as well as what's wrong, only if true and substantive.
 - Be explicit about what you assumed.
+- Persist the findings: they are written to `docs/prover/YYYY-MM-DD.md` with a per-finding folded / rejected(+why) column (per build-pipeline step 2), so the fold is verifiable after a memory wipe and the next run can check the previous unfolded rows.
 
 ## Glossary mode
 
