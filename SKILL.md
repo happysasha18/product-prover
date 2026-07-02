@@ -233,7 +233,7 @@ For every entity, transition, and operation, check whether the document specifie
 
 3e. Generative stress-testing — actively imagine, do not pattern-match:
 
-For every operation, transition, rule, or assumption, mentally stress-test it against six families of questions. Specific cases are yours to invent based on what the operation actually does. These are habits of attention, not a checklist.
+For every operation, transition, rule, or assumption, mentally stress-test it against seven families of questions. Specific cases are yours to invent based on what the operation actually does. These are habits of attention, not a checklist.
 
 - **Ambiguity and ties** — when the spec selects, ranks, matches, or chooses, what if inputs are equivalent on the criterion? Is the resolution deterministic?
 - **Concurrency and order** — when actions happen in sequence or parallel, what if they overlap, repeat, or arrive out of expected order?
