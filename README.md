@@ -1,3 +1,5 @@
+Read-only mirror. This skill lives in the live-spec pack: https://github.com/happysasha18/live-spec — do not open PRs here; changes land in the pack and are synced by scripts/sync-mirrors.sh.
+
 # product-prover
 
 **A senior-architect review of your product spec — through the lens of [formal verification](https://en.wikipedia.org/wiki/Formal_verification). A [Claude Code](https://claude.com/claude-code) skill.**
@@ -14,7 +16,7 @@ It thinks in formal-verification primitives — entities, states, transitions, i
 
 Every finding quotes the source and pins its location. Every consequence is concrete — *who* is affected, *what* triggers the failure, *what* goes wrong, *what they see* — not "this could be a problem." Every proposed fix is a specific artifact or decision; vague verbs (`define`, `ensure`, `handle`, `consider`) are banned. When the doc is too vague to support a concrete consequence, it says so plainly — *"the spec needs to state X"* — instead of inventing one.
 
-Same instinct as its siblings **[livespec](https://github.com/happysasha18/livespec)** (the full method, packaged — product-prover is its review step, shipped there as a synced copy; this repo stays the canonical standalone home) and **[track-coach](https://github.com/happysasha18/track-coach)**: facts over plausible fiction, and the decision always stays with the author.
+Same instinct as its sibling **[track-coach](https://github.com/happysasha18/track-coach)**: facts over plausible fiction, and the decision always stays with the author.
 
 It is the reviewing half of a pair — **[spec-author](https://github.com/happysasha18/spec-author)** writes the spec; product-prover reviews it.
 
