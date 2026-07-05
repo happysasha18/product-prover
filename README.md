@@ -1,4 +1,4 @@
-Read-only mirror. This skill lives in the live-spec pack: https://github.com/happysasha18/live-spec — do not open PRs here; changes land in the pack and are synced by scripts/sync-mirrors.sh.
+**product-prover** — one skill from the [live-spec pack](https://github.com/happysasha18/live-spec), installable on its own. Read-only mirror: do not open PRs here; changes land in the pack and are synced by scripts/sync-mirrors.sh.
 
 # product-prover
 
@@ -18,7 +18,7 @@ Every finding quotes the source and pins its location. Every consequence is conc
 
 Same instinct as its sibling **[track-coach](https://github.com/happysasha18/track-coach)**: facts over plausible fiction, and the decision always stays with the author.
 
-It is the reviewing half of a pair — **[spec-author](https://github.com/happysasha18/spec-author)** writes the spec; product-prover reviews it.
+It is the reviewing half of a pair — **[spec-author](https://github.com/happysasha18/live-spec/tree/main/skills/spec-author)** writes the spec; product-prover reviews it.
 
 ---
 

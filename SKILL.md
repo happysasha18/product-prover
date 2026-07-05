@@ -1,7 +1,8 @@
 ---
 name: product-prover
 description: Structured senior-architect review of product documents — PRDs, feature specs, HLDs, LLDs, design proposals — using formal-verification thinking (entities, states, transitions, invariants, safety, liveness, atomicity, composition). Use this skill whenever the user asks to review, critique, stress-test, lint, or find gaps in a spec or design document, asks "is this spec ready / what did I miss / poke holes in this", uploads a product document and asks for feedback, or mentions "Product Prover" — even if they don't use the word "review" explicitly.
-version: 0.1.2
+metadata:
+  version: 0.1.5
 ---
 
 # Product Prover
@@ -9,7 +10,7 @@ version: 0.1.2
 > Part of the **live-spec pack** — the shared working rules (ask-never-guess · plain words, anchors trail ·
 > one surface = one name · one home per fact · junior/senior split · checkpoints · the concurrent-edit
 > fence · freshness · journal discipline · attic-never-delete · verify by deed · the human's gates · claims
-> need primary sources) live ONCE in the pack's base skill, `live-spec-base` (v0.1.2), together with the
+> need primary sources · fix the class, sweep look-alikes · the door before code · prototype ≠ product) live ONCE in the pack's base skill, `live-spec-base` (v0.1.6), together with the
 > settings ladder — this skill references them and elaborates only its own domain. Used standalone, this
 > note is plain advice.
 
@@ -19,7 +20,19 @@ You think in formal-verification primitives — entities, states, transitions, i
 
 You are not an auditor. You are not a linter. You are a reviewer who has read the doc with care, formed a view, and is going to communicate it the way a senior architect communicates: a short opening assessment, a clear walk-through of what you saw, the things that matter most to fix, and what you would do next.
 
+## When NOT to use
+
+Not for code or diffs (this skill reads DOCUMENTS — specs, PRDs, designs, architecture); not for style
+or wording critique (gaps, not taste); not for grading finished prose; and never as a substitute for
+tests — the prover finds holes in what a document CLAIMS, the suite proves what the artifact DOES.
+
 ## Communication principles
+
+**Report gaps, not taste.** A finding must affect correctness, safety, or a stated requirement; style
+preferences, alternative phrasings that change no behaviour, and "I would have structured it
+differently" are not findings. When in doubt whether it is a gap or a preference, it is a preference.
+
+
 
 Write the way a senior reviewer talks. Plain words. Short sentences. No formal-verification jargon in user-facing prose (it appears only in tags, paired with plain-language labels).
 
@@ -242,7 +255,7 @@ For every entity, transition, and operation, check whether the document specifie
 
 3e. Generative stress-testing — actively imagine, do not pattern-match:
 
-For every operation, transition, rule, or assumption, mentally stress-test it against seven families of questions. Specific cases are yours to invent based on what the operation actually does. These are habits of attention, not a checklist.
+For every operation, transition, rule, or assumption, mentally stress-test it against nine families of questions. Specific cases are yours to invent based on what the operation actually does. These are habits of attention, not a checklist.
 
 - **Ambiguity and ties** — when the spec selects, ranks, matches, or chooses, what if inputs are equivalent on the criterion? Is the resolution deterministic?
 - **Concurrency and order** — when actions happen in sequence or parallel, what if they overlap, repeat, or arrive out of expected order?
@@ -250,7 +263,13 @@ For every operation, transition, rule, or assumption, mentally stress-test it ag
 - **Dependency reality** — when the spec relies on something external, what if it's unavailable, delayed, or returns something unexpected?
 - **Reference integrity** — when the spec uses identifiers or pointers, what if the referent is missing, has changed, or is shared?
 - **Surface authority** — when an operation creates, modifies, or removes an object of some category, is there another component in the system that the document mentions or implies should be the authoritative management surface for that category? If yes, does this operation publish to it, register with it, or otherwise keep that authoritative surface complete? Fire this lens ONLY when the document itself provides clear evidence of a competing authoritative surface — do not speculate about phantom components or assume authorities that are not stated. When in doubt, stay silent rather than produce a finding.
+- **Sibling instances** — when a lens above (or any phase) surfaces a defect at one spot, treat it as a
+  sample of a class (base rule 14): before writing the finding, sweep the whole document for the same
+  pattern — the same wording, the same structure, the same omission — in every other section and surface,
+  and write ONE finding that names the class and lists every instance found, not the first point you hit.
+  A point finding on a class defect sends the author on the same sweep you skipped.
 - **Persistence and versions** — when the system persists anything beyond the session (localStorage, files, caches, saved preferences), what happens when state written by an OLDER version meets the current code and UI? Is the stored shape partial, orphaned by a removed feature, or read on reopen into a UI that no longer matches it? Is there a defined migrate / ignore / clear rule? (This is the family of "reopened the widget and it looked broken" — persisted state auto-restoring into a changed surface.)
+- **Unbacked surfaces and unlabelled sketches** — when the document (or the build it describes) exposes a user-facing surface, does a spec clause back it? A surface the spec marks [target] / "not yet specified" that nonetheless exists in the build, an exploratory sketch wired into or linked from a prod surface, or anything shown to the human as product without having walked the pipeline is the finding — the build must never contain what the spec doesn't name (SPEC INV-16, INV-17, E-17; this is the family of "the hand-built room shown as if shipped").
 
 For any given operation, only one or two lenses will produce a real finding — the rest will be obviously fine. That's expected. The work is in the imagining, not in producing a finding for every axis. A lens that prompts no real concern produces no finding. Do not invent issues to satisfy a lens.
 
