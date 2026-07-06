@@ -2,7 +2,7 @@
 name: product-prover
 description: Structured senior-architect review of product documents — PRDs, feature specs, HLDs, LLDs, design proposals — using formal-verification thinking (entities, states, transitions, invariants, safety, liveness, atomicity, composition). Use this skill whenever the user asks to review, critique, stress-test, lint, or find gaps in a spec or design document, asks "is this spec ready / what did I miss / poke holes in this", uploads a product document and asks for feedback, or mentions "Product Prover" — even if they don't use the word "review" explicitly.
 metadata:
-  version: 0.1.5
+  version: 0.1.9
 ---
 
 # Product Prover
@@ -10,7 +10,7 @@ metadata:
 > Part of the **live-spec pack** — the shared working rules (ask-never-guess · plain words, anchors trail ·
 > one surface = one name · one home per fact · junior/senior split · checkpoints · the concurrent-edit
 > fence · freshness · journal discipline · attic-never-delete · verify by deed · the human's gates · claims
-> need primary sources · fix the class, sweep look-alikes · the door before code · prototype ≠ product) live ONCE in the pack's base skill, `live-spec-base` (v0.1.6), together with the
+> need primary sources · fix the class, sweep look-alikes · the door before code · prototype ≠ product) live ONCE in the pack's base skill, `live-spec-base` (v0.1.13), together with the
 > settings ladder — this skill references them and elaborates only its own domain. Used standalone, this
 > note is plain advice.
 
@@ -164,6 +164,7 @@ Two depths, chosen by the caller (the build-pipeline skill picks one):
 
 - **FULL** — the whole spec, every phase below. Required before a MINOR (`0.x.0`) bump and after any structural rewrite; the default when someone just says "review the spec".
 - **CROSS-LINK** — a focused pass for a single added surface: Phases 1–2 plus the Phase 3e composition/stress lenses, aimed at the NEW surface's seams against the existing surfaces it composes with. Skip the whole-doc property sweep. Use on every surface add, where a FULL re-prove would cost more than the change warrants.
+- **FEATURE-FIT** — a focused pass on ONE feature's spec-delta at intake (SPEC INV-29): walk its journey seams — arrival, every next-step, return visit, cross-entry, implied neighbour state, feel bar, invited-next (or its kind's flow/trigger lenses) — against the whole spec, the way CROSS-LINK walks a new surface's seams. Verdict per lens: backed by a clause · closed trivially (written how) · `[default]`-tagged · a batched question. Runs with the spec step, before prove; it validates the FIT, not the document's internal consistency.
 
 Both modes keep the whole document in view — a cross-section hole is only findable when both sides of the seam are present and named the same at prove-time. CROSS-LINK narrows the FINDINGS to the new surface's seams, not the reading.
 
@@ -304,6 +305,10 @@ If there are no acknowledged gaps, write "No explicit Open Items or TBDs in the 
 Properties that aren't formally checkable but matter equally:
 
 - Human observability: can operators understand the system's state? Are identifiers readable? Are errors actionable?
+- Domain language on every user-facing surface: the visible text speaks the product's words — never an
+  internal identifier, code, or mechanism name leaking through (a card labelled by a dev tag, a page
+  titled by an id). Extract the visible strings the spec promises and read them as the USER would; a
+  leaked internal word is a finding.
 - Cognitive load: mode-dependent behavior, exceptions, special cases users must remember.
 - Operational UX: debuggability, audit trails, traceability.
 - Performance and scale budgets: how big can the input get (size, count, duration) before the artifact is unusable? State the assumed ceiling rather than leaving it implicit.
