@@ -34,8 +34,8 @@ A continuous, structured pass — no pausing between phases:
 - **Acknowledged gaps** — the Open Items and TBDs the doc already flags, kept separate so you see what you *missed* first.
 - **Human + operational factors** — observability, cognitive load, debuggability.
 - **Closing summary** — top 3 things to fix, properties to state explicitly (phrased so you can paste them straight in), and the genuine open questions only you can answer.
-- **Two depths** — a full whole-spec pass, or a focused cross-link pass for a single added surface; the depth is chosen per change.
-- **Persisted findings** — findings are written to a dated file with a resolved/rejected column, so the next review starts from the last one's open rows.
+- **Three review modes** — a full whole-spec pass, a focused cross-link pass for a single added surface, or a feature-fit pass for one feature's spec-delta at intake; the mode is chosen per change.
+- **Persisted findings** — findings are written to a dated file with a folded/rejected column, so the next review starts from the last one's open rows.
 - **Shipped-system triage** — for a system already in production, a Phase 0 reconciliation note flags where spec claims may not yet match the code, so findings are properly conditioned on what's actually shipped.
 
 Findings come tagged `severity · plain-label (formal-term)` — `must-fix`, `should-clarify`, or `worth-considering` — with severity reflecting real production impact, not formal imperfection.
@@ -61,3 +61,7 @@ It also has a **glossary mode** — `/glossary liveness`, `/define atomicity`, o
 ## License
 
 [MIT](LICENSE) © Alexander Abramovich.
+
+---
+
+made with [live-spec](https://github.com/happysasha18/live-spec) v1.0.9
