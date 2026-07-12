@@ -64,4 +64,4 @@ It also has a **glossary mode** — `/glossary liveness`, `/define atomicity`, o
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v1.0.9
+made with [live-spec](https://github.com/happysasha18/live-spec) v1.1.0

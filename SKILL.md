@@ -2,7 +2,7 @@
 name: product-prover
 description: Structured senior-architect review of product documents — PRDs, feature specs, HLDs, LLDs, design proposals, architecture documents (ARCHITECTURE.md) — using formal-verification thinking (entities, states, transitions, invariants, safety, liveness, atomicity, composition). Use this skill whenever the user asks to review, critique, stress-test, lint, or find gaps in a spec or design document, asks "is this spec ready / what did I miss / poke holes in this", uploads a product document and asks for feedback, or mentions "Product Prover" — even if they don't use the word "review" explicitly. NOT for code or diffs (it reads documents), and never a substitute for tests — it finds holes in what a document CLAIMS.
 metadata:
-  version: 1.0.0
+  version: 1.0.3
 ---
 
 # Product Prover
@@ -10,7 +10,7 @@ metadata:
 > Part of the **live-spec pack** — the shared working rules (ask-never-guess · plain words, anchors trail ·
 > one surface = one name · one home per fact · junior/senior split · checkpoints · the concurrent-edit
 > fence · freshness · journal discipline · attic-never-delete · verify by deed · the human's gates · claims
-> need primary sources · fix the class, sweep look-alikes · the door before code · prototype ≠ product) live ONCE in the pack's base skill, `live-spec-base` (v1.0.1), together with the
+> need primary sources · fix the class, sweep look-alikes · the door before code · prototype ≠ product) live ONCE in the pack's base skill, `live-spec-base` (v1.0.5), together with the
 > settings ladder — this skill references them and elaborates only its own domain. Used standalone, this
 > note is plain advice.
 
@@ -166,6 +166,8 @@ Three modes, chosen by the caller (the build-pipeline skill picks one):
 
 All three modes keep the whole document in view — a cross-section hole is only findable when both sides of the seam are present and named the same at prove-time. CROSS-LINK narrows the FINDINGS to the new surface's seams, and FEATURE-FIT to the feature's fit; the reading still covers the whole document.
 
+**The restructure-merge gate: judge the delta.** When a restructure or a migration is gated for merging back into main, a restructure or migration merge gate judges the delta. It has three parts: load-bearing token identity old-versus-new modulo the per-chunk named deltas plus the punctuation-multiset check (SPEC INV-111); the full suite green on the merged tree (SPEC INV-39); and a full prover pass on both sides whose blocking set is delta-scoped — an unmatched token, a red suite, a new-side finding absent on the old side, or an unnamed meaning change. Pre-existing findings equal on both sides route to queue rows in the same landing and never block; the merge is not held on debts it did not create. And a session that sharpens a human's spoken bar beyond his words says the sharpened form back and marks it as its own interpretation, so a bar the human never spoke is never applied as his (SPEC INV-114). The pass reads both the old tree and the merged tree; a finding present on both is pre-existing, a finding new to the merged side is delta-scoped and blocks. The token-identity part scopes to a content-preserving restructure. A deliberate redesign changes content by intent, so it routes by the architecture-redesign law (SPEC INV-113), and its merge stands on the green suite and the delta-scoped prover pass, with no token-identity demand over text the redesign meant to change.
+
 ## Phase 0 — Triage
 
 Before any analysis, decide whether the input is suitable.
@@ -275,6 +277,7 @@ For every operation, transition, rule, or assumption, mentally stress-test it ag
   contradict its own artifact (prose demanding a question the approved door shows wordless — the
   tlvphoto class)? A prototype-born clause with no pointer, or clause text contradicting its own
   artifact, is a finding (SPEC INV-43).
+- **Declared cross-cutting laws** — read the spec's declared-laws home (the one place it names the laws that cut across every surface: measurement, accessibility, error handling, a register — what the product declares); per declared law, enumerate every surface and transition and demand the law's clause or a dated exemption on each item. A missing clause ranks as a broken invariant. A spec with no declared-laws home earns ONE finding naming that; the per-item walk starts only once the home exists. The author's twin habit (spec-author) writes each section's line first, so this station audits instead of discovers. (SPEC INV-101 — the law's owner is spec-author; the worked miss: analytics covered some beats while whole surfaces emitted nothing, only the human's eye found it, 2026-07-10.)
 - **Entry symmetry** — for every FACE, MODE, or PANEL entered under a condition (first visit, empty
   state, onboarding, a one-time banner): what deliberate path re-enters it later? A get with no set is
   a finding unless the spec states the one-way as a decision, by name (SPEC INV-50). Trigger patterns:
@@ -393,4 +396,4 @@ Glossary requests are standalone. Do not re-run the review.
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v1.0.9
+made with [live-spec](https://github.com/happysasha18/live-spec) v1.1.0
