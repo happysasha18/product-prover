@@ -2,7 +2,7 @@
 name: product-prover
 description: Structured senior-architect review of product documents — PRDs, feature specs, HLDs, LLDs, design proposals, architecture documents (ARCHITECTURE.md) — using formal-verification thinking (entities, states, transitions, invariants, safety, liveness, atomicity, composition). Use this skill whenever the user asks to review, critique, stress-test, lint, or find gaps in a spec or design document, asks "is this spec ready / what did I miss / poke holes in this", uploads a product document and asks for feedback, or mentions "Product Prover" — even if they don't use the word "review" explicitly. NOT for code or diffs (it reads documents), and never a substitute for tests — it finds holes in what a document CLAIMS.
 metadata:
-  version: 1.0.10
+  version: 1.1.0
 ---
 
 # Product Prover
@@ -10,7 +10,7 @@ metadata:
 > Part of the **live-spec pack** — the shared working rules (ask-never-guess · plain words, anchors trail ·
 > one surface = one name · one home per fact · junior/senior split · checkpoints · the concurrent-edit
 > fence · freshness · journal discipline · attic-never-delete · verify by deed · the human's gates · claims
-> need primary sources · fix the class, sweep look-alikes · the door before code · prototype ≠ product) live ONCE in the pack's base skill, `live-spec-base` (v1.0.10), together with the
+> need primary sources · fix the class, sweep look-alikes · the door before code · prototype ≠ product) live ONCE in the pack's base skill, `live-spec-base` (v1.0.11), together with the
 > settings ladder — this skill references them and elaborates only its own domain. Used standalone, this
 > note is plain advice.
 
@@ -105,7 +105,7 @@ KIND (defect or recommendation — say which for every finding):
 - `defect` — a stated invariant is violated, a claim the spec makes is false, or a required invariant or answer the spec owes is missing (a completeness gap). A defect BLOCKS: the design becomes buildable only once it is folded. A defect is a `must-fix`.
 - `recommendation` — nothing stated is broken and nothing required is missing; a consistency or quality gain is on offer. A recommendation does not block; it queues for a taste call. A recommendation is a `should-clarify` or a `worth-considering`.
 
-The kind is the coarse reading of the severity: a defect is exactly a `must-fix`, and a recommendation is a `should-clarify` or a `worth-considering`. So the kind and the severity never disagree on whether a finding blocks — the kind names the blocks-or-queues verdict in one word, the severity grades the impact behind it, and the push gate folds every defect (every `must-fix`) and queues every recommendation, its rule living at the gate itself [M-6]. Derive the kind from the finding's own ground: a finding that names a broken or missing invariant or a false claim is a defect; a finding standing only on "these siblings should match" or "this could read clearer", with no invariant behind it, is a recommendation. (SPEC INV-140)
+The kind is the coarse reading of the severity: a defect is exactly a `must-fix`, and a recommendation is a `should-clarify` or a `worth-considering`. So the kind and the severity never disagree on whether a finding blocks — the kind names the blocks-or-queues verdict in one word, the severity grades the impact behind it, and the push gate folds every defect (every `must-fix`) and queues every recommendation, its rule living at the gate itself [M-6]. At a delta-scoped gate [INV-114] a pre-existing defect routes to a queue row by that law and never blocks the merge it did not create — the fold-every-defect rule is the ordinary push gate's, not an override of the delta-scoped one. Derive the kind from the finding's own ground: a finding that names a broken or missing invariant or a false claim is a defect; a finding standing only on "these siblings should match" or "this could read clearer", with no invariant behind it, is a recommendation. A Phase 3.5 acknowledged gap keeps its `acknowledged` tag and carries no kind — it is the document's own known issue, not a new finding. (SPEC INV-140)
 
 CATEGORY — use the hybrid format `plain-label (formal-term)`:
 
@@ -434,4 +434,4 @@ Glossary requests are standalone. Do not re-run the review.
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v1.1.25
+made with [live-spec](https://github.com/happysasha18/live-spec) v1.2.0
