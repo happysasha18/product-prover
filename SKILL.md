@@ -427,4 +427,4 @@ Glossary requests are standalone. Do not re-run the review.
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v1.1.23
+made with [live-spec](https://github.com/happysasha18/live-spec) v1.1.24
