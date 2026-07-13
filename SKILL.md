@@ -78,7 +78,7 @@ If the doc is too vague to support a concrete consequence, do NOT write a vague 
 
 If multiple options exist, list them tersely (a/b/c) WITH a one-phrase tradeoff each, and state your preference if you have one.
 
-End each finding with a single short tag: `severity · plain-label (formal-term)`.
+End each finding with a single short tag: `kind · severity · plain-label (formal-term)`, where `kind` is `defect` or `recommendation` (see the KIND block below).
 
 Example:
 
@@ -91,7 +91,7 @@ Without an explicit field in the API contract, the downstream system defaults to
 
 Add a required policy field to the request payload. Default behavior should be set per tier and documented as part of the contract.
 
-`must-fix · boundary-issue (composition)`
+`defect · must-fix · boundary-issue (composition)`
 ----
 
 SEVERITY (use exactly these):
@@ -100,6 +100,12 @@ SEVERITY (use exactly these):
 - `worth-considering` — possible improvement or future risk
 
 Severity reflects what could plausibly go wrong in production, not just formal imperfection. The same atomicity issue is `should-clarify` for a manual quarterly operation, `must-fix` for an automated path running thousands of times daily. Pick the severity that matches operational impact; explain briefly when non-obvious.
+
+KIND (defect or recommendation — say which for every finding):
+- `defect` — a stated invariant is violated, a claim the spec makes is false, or a required invariant or answer the spec owes is missing (a completeness gap). A defect BLOCKS: the design becomes buildable only once it is folded. A defect is a `must-fix`.
+- `recommendation` — nothing stated is broken and nothing required is missing; a consistency or quality gain is on offer. A recommendation does not block; it queues for a taste call. A recommendation is a `should-clarify` or a `worth-considering`.
+
+The kind is the coarse reading of the severity: a defect is exactly a `must-fix`, and a recommendation is a `should-clarify` or a `worth-considering`. So the kind and the severity never disagree on whether a finding blocks — the kind names the blocks-or-queues verdict in one word, the severity grades the impact behind it, and the push gate folds every defect (every `must-fix`) and queues every recommendation, its rule living at the gate itself [M-6]. Derive the kind from the finding's own ground: a finding that names a broken or missing invariant or a false claim is a defect; a finding standing only on "these siblings should match" or "this could read clearer", with no invariant behind it, is a recommendation. (SPEC INV-140)
 
 CATEGORY — use the hybrid format `plain-label (formal-term)`:
 
@@ -364,11 +370,12 @@ Continue to Phase 5.
 
 ## Phase 5 — Closing summary
 
-Three short blocks:
+Four short blocks:
 
 1. Top 3 things to fix before development. Reference finding IDs. One line each.
 2. Properties that should be stated explicitly in the doc. Plain language. Phrase them so the author can paste them straight in. Examples: "Every Failed state has a guaranteed path to either Updated or Reverted." "The sum of allocated units across all groups equals the total count of active units."
 3. Open questions where you genuinely need author input — only those that cannot be resolved by inspection.
+4. Recommendations queued for a taste call. The findings labelled `recommendation` — nothing blocks, a consistency or quality gain is on offer; list them so the human weighs each as a taste call, apart from the defects that must fold first (SPEC INV-140).
 
 If clarity benefits, render a coverage tree as a real visual diagram. Skip if the textual summary already conveys the picture.
 
@@ -389,7 +396,7 @@ Finish with one sentence on overall readiness: ready to build / needs another it
 - Phase pacing: PROCEED triage → Opening Assessment → Phase 1 → 2 → 3 → 3.5 → 4 → 5, all in one continuous response. Do not pause.
 - Note what's working as well as what's wrong, only if true and substantive.
 - Be explicit about what you assumed.
-- Persist the findings: they are written to the project's `docs/prover/YYYY-MM-DD.md` (in the repo under review, separate from this skill's own repo) with a per-finding folded / rejected(+why) column (per build-pipeline step 2), so the fold is verifiable after a memory wipe and the next run can check the previous unfolded rows. The record OPENS by naming the prover skill version that ran the pass — a later session can then tell whether a "recently proven" spec was proven under the current lens set or an older one (a prover that grew a lens re-arms the full pass; the adoption walk reads exactly this line).
+- Persist the findings: they are written to the project's `docs/prover/YYYY-MM-DD.md` (in the repo under review, separate from this skill's own repo) with a per-finding folded / rejected(+why) column and the finding's kind (defect / recommendation) (per build-pipeline step 2), so the fold is verifiable after a memory wipe and the next run can check the previous unfolded rows. The record OPENS by naming the prover skill version that ran the pass — a later session can then tell whether a "recently proven" spec was proven under the current lens set or an older one (a prover that grew a lens re-arms the full pass; the adoption walk reads exactly this line).
 
 ## Glossary mode
 
@@ -427,4 +434,4 @@ Glossary requests are standalone. Do not re-run the review.
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v1.1.24
+made with [live-spec](https://github.com/happysasha18/live-spec) v1.1.25
