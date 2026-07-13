@@ -2,7 +2,7 @@
 name: product-prover
 description: Structured senior-architect review of product documents — PRDs, feature specs, HLDs, LLDs, design proposals, architecture documents (ARCHITECTURE.md) — using formal-verification thinking (entities, states, transitions, invariants, safety, liveness, atomicity, composition). Use this skill whenever the user asks to review, critique, stress-test, lint, or find gaps in a spec or design document, asks "is this spec ready / what did I miss / poke holes in this", uploads a product document and asks for feedback, or mentions "Product Prover" — even if they don't use the word "review" explicitly. NOT for code or diffs (it reads documents), and never a substitute for tests — it finds holes in what a document CLAIMS.
 metadata:
-  version: 1.0.3
+  version: 1.0.9
 ---
 
 # Product Prover
@@ -10,7 +10,7 @@ metadata:
 > Part of the **live-spec pack** — the shared working rules (ask-never-guess · plain words, anchors trail ·
 > one surface = one name · one home per fact · junior/senior split · checkpoints · the concurrent-edit
 > fence · freshness · journal discipline · attic-never-delete · verify by deed · the human's gates · claims
-> need primary sources · fix the class, sweep look-alikes · the door before code · prototype ≠ product) live ONCE in the pack's base skill, `live-spec-base` (v1.0.5), together with the
+> need primary sources · fix the class, sweep look-alikes · the door before code · prototype ≠ product) live ONCE in the pack's base skill, `live-spec-base` (v1.0.9), together with the
 > settings ladder — this skill references them and elaborates only its own domain. Used standalone, this
 > note is plain advice.
 
@@ -177,7 +177,7 @@ Check:
 - Does it describe a system with state, behavior, transitions — versus marketing copy, vision statements, or prose without operational content?
 - Is there enough material to extract a model?
 - **Does the doc claim to describe a SHIPPED system?** If so, require the architecture doc's node pins (each surface → owning `file:line`, written at the build-pipeline architecture step). Without them, every finding is CONDITIONAL on the doc being current — say so, and flag any section describing a surface with no owning code/test as possibly-removed (a spec that outran an excision will otherwise "prove" dead behaviour).
-- **Is the input an ARCHITECTURE.md (the pack's architecture doc)?** Valid input; the review runs with the **architecture lens** — six checks, each judged at the project's kind scale: every spec fact is owned by exactly one node · no node stands without spec backing · every seam names what crosses it and which side owns the format · the quality budgets are stated with their instrumentation homes (SPEC INV-41) · the runtime view walks every flow the spec promises (SPEC INV-74) · the placement view says where every node runs, with its load-bearing technology where one exists (SPEC INV-75). Every pin is a real `file:line` citation; a prose description does not qualify. The paired PRODUCT_SPEC.md must be in view — ownership is only checkable against the fact list it owns. The lens grew from three checks to six on observed evidence: a real derivation passed the three-check lens and shipped with no budgets and no views (tlvphoto validation, 2026-07-09) — a mandate the lens never asks about gets skipped.
+- **Is the input an ARCHITECTURE.md (the pack's architecture doc)?** Valid input; the review runs with the **architecture lens** — six checks, each judged at the project's kind scale: every spec fact is owned by exactly one node · no node stands without spec backing — and a node with one caller and no promised second is flagged as speculative for an answer (a named plan or a fold, not auto-rejection), the one-no case of the three-question node-fitness test (SPEC INV-122) · every seam names what crosses it and which side owns the format · the quality budgets are stated with their instrumentation homes (SPEC INV-41) · the runtime view walks every flow the spec promises (SPEC INV-74) · the placement view says where every node runs, with its load-bearing technology where one exists (SPEC INV-75). Every pin is a real `file:line` citation; a prose description does not qualify. The paired PRODUCT_SPEC.md must be in view — ownership is only checkable against the fact list it owns. The lens grew from three checks to six on observed evidence: a real derivation passed the three-check lens and shipped with no budgets and no views (tlvphoto validation, 2026-07-09) — a mandate the lens never asks about gets skipped.
 
 Output one of:
 
@@ -264,26 +264,55 @@ For every operation, transition, rule, or assumption, mentally stress-test it ag
 - **Dependency reality** — when the spec relies on something external, what if it's unavailable, delayed, or returns something unexpected?
 - **Reference integrity** — when the spec uses identifiers or pointers, what if the referent is missing, has changed, or is shared?
 - **Surface authority** — when an operation creates, modifies, or removes an object of some category, is there another component in the system that the document mentions or implies should be the authoritative management surface for that category? If yes, does this operation publish to it, register with it, or otherwise keep that authoritative surface complete? Fire this lens ONLY when the document itself provides clear evidence of a competing authoritative surface — do not speculate about phantom components or assume authorities that are not stated. When in doubt, stay silent rather than produce a finding.
-- **Sibling instances** — when a lens above (or any phase) surfaces a defect at one spot, treat it as a
-  sample of a class (base rule 14): before writing the finding, sweep the whole document for the same
-  pattern — the same wording, the same structure, the same omission — in every other section and surface,
-  and write ONE finding that names the class and lists every instance found. Do not stop at the first point you hit.
-  A point finding on a class defect sends the author on the same sweep you skipped.
+- **Class lens** — when a lens above (or any phase) surfaces a defect at one spot, treat it as a
+  sample of a class (base rule 14; SPEC INV-124) and ask its three questions before writing the finding.
+  First, does the same KIND live elsewhere: sweep the whole document for the same pattern — the same
+  wording, the same structure, the same omission — in every other section and surface, and write ONE
+  finding that names the class and lists every instance found; do not stop at the first point you hit, a
+  point finding on a class defect sends the author on the same sweep you skipped. Second, does the
+  architecture account for the defect's cause, or does a boundary drawn wrong or left silent let the class
+  exist — a structural cause is a finding against ARCHITECTURE.md, not only the instance. Third, does the
+  spec describe the broken behaviour at all — a spec silent on it or under-describing its composition is
+  the real defect the finding names, since a prover cannot catch what the spec never states. The three
+  questions are the document-side face of the confirmed-bug class hunt (SPEC INV-124).
 - **Persistence and versions** — when the system persists anything beyond the session (localStorage, files, caches, saved preferences), what happens when state written by an OLDER version meets the current code and UI? Is the stored shape partial, orphaned by a removed feature, or read on reopen into a UI that no longer matches it? Is there a defined migrate / ignore / clear rule? (This is the family of "reopened the widget and it looked broken" — persisted state auto-restoring into a changed surface.)
 - **Unwritten seams** — for every stateful surface, do not settle for the axes the author remembered to fill; derive the surface's reachable situations yourself and check each for a written answer. Walk every axis it passes through while already shown (view, mode, tier, viewport, reopen — a relayout when the window changes shape re-runs an entry animation nobody composed), and — the axis authors forget most — every other surface that can be present at the same time: siblings on its screen, the surface one step before and one step after it in the flow, whether or not that other surface itself holds state (a static end screen counts). For each situation ask: is this surface's behaviour stated while that other one is present, or through that change? A reachable situation with a blank answer is a finding, of the same class as a fact no node owns — a state the spec leaves out while the running product still reaches it. Report the missing seam; the prover invents no answer and asks the human nothing — the author writes the sentence as a composition invariant, `[default]`-tagged like the facet sweep (SPEC INV-72, C-1, INV-18, INV-31; born of a real door: a caption stranded over the closing screen because "what the caption shows when the finale is in view" was never a sentence). [INV-72]
+- **Cross-surface policy uniformity** — when a clause states a policy for an interaction KIND that lives on several sibling surfaces (a gesture policy like "browser pinch-zoom is refused", an affordance, an input-to-action mapping), enumerate the surfaces of that kind from the surface registry and check whether the clause governs ALL of them or only the one surface where the decision was born. A policy written for a single surface while siblings of the same kind exist is a finding: the clause should name the surface CLASS and enumerate its members, so the policy holds uniformly. This is the check the owner asked the prover to write for itself; it catches upstream, at spec time, what a suite asserting only the named surface passes green while the running product stays non-uniform (a rendered product also gets the mechanical floor — the completeness guardrail asserts the policy across every registered sibling root). The preventive twin of the class lens above: that sweeps a found defect's siblings, this holds a decided policy uniform before any defect is filed (SPEC INV-125; born of a pinch-zoom policy shipped for one surface while its siblings kept the browser default, found only by a hand on a real phone, 2026-07-12). [INV-125]
+- **Paired-transition symmetry** — when a surface declares a transition on one direction of a paired state change (open/close, enter/exit, expand/collapse, show/hide), check whether the OPPOSITE direction is stated. A pair where one direction has a described transition and the other is silent is a finding: the exit's answer should be written — mirror, a named shorter exit, or deliberately instant — never left blank, because an instant exit that nobody decided reads to the human as a crafted-in and hard-out asymmetry. The default is symmetry, and since motion feel is the human's own gate the undecidable pair is surfaced to him rather than judged from the text. The temporal twin of the cross-surface lens above: that holds a policy uniform across sibling surfaces in space, this holds a transition uniform across the two directions of one change in time (SPEC INV-126; born of a side-room revealed under a soft veil and closed on a hard cut, felt on a real phone, 2026-07-12). [INV-126]
 - **Unbacked surfaces and unlabelled sketches** — when the document (or the build it describes) exposes a user-facing surface, does a spec clause back it? A surface the spec marks [target] / "not yet specified" that nonetheless exists in the build, an exploratory sketch wired into or linked from a prod surface, or anything shown to the human as product without having walked the pipeline is the finding — the build must never contain what the spec doesn't name (SPEC INV-16, INV-17, E-17; this is the family of "the hand-built room shown as if shipped").
 - **Norm-backed visual clauses** — when a clause encodes an approved look (a prototype the human
   approved as the norm), does it carry its `norm: <path>` pointer, and does the clause's TEXT
   contradict its own artifact (prose demanding a question the approved door shows wordless — the
   tlvphoto class)? A prototype-born clause with no pointer, or clause text contradicting its own
   artifact, is a finding (SPEC INV-43).
-- **Declared cross-cutting laws** — read the spec's declared-laws home (the one place it names the laws that cut across every surface: measurement, accessibility, error handling, a register — what the product declares); per declared law, enumerate every surface and transition and demand the law's clause or a dated exemption on each item. A missing clause ranks as a broken invariant. A spec with no declared-laws home earns ONE finding naming that; the per-item walk starts only once the home exists. The author's twin habit (spec-author) writes each section's line first, so this station audits instead of discovers. (SPEC INV-101 — the law's owner is spec-author; the worked miss: analytics covered some beats while whole surfaces emitted nothing, only the human's eye found it, 2026-07-10.)
+- **Declared cross-cutting laws** — read the spec's declared-laws home (the one place it names the laws that cut across every surface: measurement, accessibility, error handling, a register — what the product declares); per declared law, enumerate every surface and transition and demand the law's clause or a dated exemption on each item. A missing clause ranks as a broken invariant. A spec with no declared-laws home earns ONE finding naming that; the per-item walk starts only once the home exists. The author's twin habit (spec-author) writes each section's line first, so this station audits instead of discovers. **And every declared law owns a test per surface, not only a prose clause (P9):** the station demands, per declared law, a test row on each surface the law governs, so a law stated everywhere but tested nowhere is a finding of the same class as an untested surface — the traceability test carries the mechanical floor (a declared law with a surface that has no test row goes red, `tests/test_interface_coverage.py`), and this station is its semantic reviewer. (SPEC INV-101 — the law's owner is spec-author; the worked miss: analytics covered some beats while whole surfaces emitted nothing, only the human's eye found it, 2026-07-10.)
 - **Entry symmetry** — for every FACE, MODE, or PANEL entered under a condition (first visit, empty
   state, onboarding, a one-time banner): what deliberate path re-enters it later? A get with no set is
   a finding unless the spec states the one-way as a decision, by name (SPEC INV-50). Trigger patterns:
   "only on first visit", "only on first run", "until dismissed" — each such clause owes its return
   sentence (born of a real door: six seams found, the one-way face missed — the dead-end lens tests
   STATES for exits, this lens tests FACES for re-entry over the visit's lifetime).
+- **Scenario entry and exit** — for every person-facing SCENARIO (a flow: "walking the gallery",
+  "answering the quiz", "when a bug cuts the line"), check that the spec states how it is ENTERED — from
+  which prior scenario or state, with what already true (the preconditions the walk assumes) — and how it
+  EXITS — to where the person lands, and what it leaves true for the next scenario (the postcondition). A
+  flow whose entry or exit is unstated is a finding, the same blank-answer class as an unwritten seam. This
+  is the per-operation precondition and postcondition lenses lifted to the scenario level, kin of the entry
+  symmetry lens above (that tests a face's re-entry; this tests a whole flow's edges) and the runtime
+  view's flow walks (SPEC INV-74). A trivially-none edge stated as such — a top-level scenario entered from
+  nowhere, a terminal one exiting to nowhere — is a decided answer, not a gap; a silent edge is the gap.
+  The duty binds forward (SPEC INV-127, INV-15): flag an existing scenario's unstated edge as a finding,
+  never blocking the lane on the backlog of edges older scenarios never wrote. (recorded 2026-07-09: the
+  prover should say which preconditions and postconditions hold at a scenario's entry and exit.) [INV-127]
+- **Three-source disagreement** — the entry impact read reads a change against the spec, the architecture,
+  and the code together (SPEC INV-128); carry the lens that names where they DISAGREE. A surface the spec
+  promises with no owning node, a behaviour in the code no spec clause backs, a node pinned to a line that
+  moved — each is a finding routed to the home that owns it (a bug row for code past spec, a spec fix for a
+  moved pin, a restructure row for a missing node, SPEC INV-37), never a silent pick of one source as the
+  winner. This pulls the architecture step's spec-to-code reconciliation forward to intake, so drift is a
+  finding at entry rather than a surprise at code. Kin of the unwritten-seam hunt (a drift with no routed
+  home is itself the finding); it is also the read that produces the derive-before-fork verdict — the three
+  sources are what tell whether a proven artifact already settles a question (SPEC INV-121). [INV-128]
 
 For any given operation, only one or two lenses will produce a real finding — the rest will be obviously fine. That's expected. The work is in the imagining. A finding is not owed for every axis. A lens that prompts no real concern produces no finding. Do not invent issues to satisfy a lens.
 
@@ -396,4 +425,4 @@ Glossary requests are standalone. Do not re-run the review.
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v1.1.0
+made with [live-spec](https://github.com/happysasha18/live-spec) v1.1.16

@@ -2,11 +2,37 @@
 
 # product-prover
 
-**A senior-architect review of your product spec — through the lens of [formal verification](https://en.wikipedia.org/wiki/Formal_verification). A [Claude Code](https://claude.com/claude-code) skill.**
+**A senior-architect review of your product spec, through the lens of [formal verification](https://en.wikipedia.org/wiki/Formal_verification). A [Claude Code](https://claude.com/claude-code) skill.**
 
-Point it at a PRD, feature spec, HLD, LLD, or design proposal, and it reviews the document the way a principal architect would: a short opening assessment, the structural model it extracted, the gaps that matter most, and what to fix before you build.
+Point it at a PRD, feature spec, HLD, or design proposal. It reads the document the way a principal architect would: a short verdict, the structural model it extracted, the gaps that matter, and what to fix before you build.
 
-It thinks in formal-verification primitives — entities, states, transitions, invariants, safety, liveness, atomicity, composition — but it **never lectures you in jargon.** The framework stays private; what you get back is in operational terms you can act on.
+---
+
+## Why
+
+A spec passes review because reviewers can only catch errors in the language the document is written in. A missing rollback, a state with no exit, an operation that isn't atomic — these have no words on the page to argue with, so nobody argues.
+
+That used to be survivable, because a human had to read the document before building against it, and a person building against a hole produces friction: a question in grooming, a spike, an argument. An agent generating from the same document produces no friction at all. It fills the hole with a plausible default and keeps going. Then the tests get derived from the same document, so they say nothing about the missing property either.
+
+Green suite. Shipped gap. The review has to happen on the document, before anything is generated from it.
+
+---
+
+## What a finding looks like
+
+Findings arrive in operational terms, each one traced to a quote in your document. Illustrative:
+
+> **A failed update can be silently overwritten by the next one**
+>
+> *Spec §4.2:* "If the update fails, the tenant enters `Failed to Update`." The document defines no transition out of that state, and §4.3 allows a new update from any state.
+>
+> **Consequence:** a tenant whose update failed at 14:02 receives a second update at 14:05 that succeeds. The tenant now reads `Updated`. The billing service that consumed the first update never learns it was lost, and no operator sees an error — the failure is gone from the record.
+>
+> **Fix:** state the exit from `Failed to Update` — retry, revert to last consistent state, or a hard stop that alerts an operator — and state whether a new update is accepted before that exit is taken.
+>
+> `must-fix · unresolved-failure-state (liveness)`
+
+The formal vocabulary appears only in that last tag. The framework stays private; you get the finding.
 
 ---
 
@@ -14,47 +40,94 @@ It thinks in formal-verification primitives — entities, states, transitions, i
 
 > Never produce a finding the reader can't trace back to the document.
 
-Every finding quotes the source and pins its location. Every consequence is concrete — *who* is affected, *what* triggers the failure, *what* goes wrong, *what they see* — not "this could be a problem." Every proposed fix is a specific artifact or decision; vague verbs (`define`, `ensure`, `handle`, `consider`) are banned. When the doc is too vague to support a concrete consequence, it says so plainly — *"the spec needs to state X"* — instead of inventing one.
+Every finding quotes its source and pins the location. Every consequence is concrete — who is affected, what triggers it, what breaks, what they see — not "this could be a problem." Every fix names a specific artifact or decision; the vague verbs (`define`, `ensure`, `handle`, `consider`) are banned. When the document is too vague to support a concrete consequence, it says so plainly instead of inventing one.
 
-Same instinct as its sibling **[track-coach](https://github.com/happysasha18/track-coach)**: facts over plausible fiction, and the decision always stays with the author.
+An adversarial reviewer that produces plausible fiction is worse than no reviewer.
 
-It is the reviewing half of a pair — **[spec-author](https://github.com/happysasha18/live-spec/tree/main/skills/spec-author)** writes the spec; product-prover reviews it.
+Severity tracks production impact, not formal purity: the same atomicity gap is `should-clarify` for a manual quarterly job and `must-fix` for an automated path that runs a thousand times a day.
+
+---
+
+## Install
+
+Claude Code required. No code, no dependencies, nothing to build — the skill is a single `SKILL.md`.
+
+```bash
+git clone https://github.com/happysasha18/product-prover.git
+mkdir -p ~/.claude/skills/product-prover
+cp product-prover/SKILL.md ~/.claude/skills/product-prover/
+```
+
+It also ships inside the [live-spec](https://github.com/happysasha18/live-spec) plugin, if you want the whole pipeline:
+
+```
+/plugin marketplace add happysasha18/live-spec
+/plugin install live-spec@live-spec
+```
+
+Then just ask, in any project:
+
+> *"review this spec"* · *"poke holes in this design"* · *"is this PRD ready — what did I miss?"* · *"Product Prover this"*
 
 ---
 
 ## What it does
 
-A continuous, structured pass — no pausing between phases:
+One continuous pass, no pausing between phases.
 
-- **Triage** — is this even an analyzable spec, or marketing copy? Says so up front.
-- **Opening assessment** — the 30-second verdict: what it's trying to do, what's working, what needs attention, how close it is to buildable.
-- **The model** — extracts entities, states + transitions, actors, and composition boundaries. Tells you exactly **what it assumed** where the doc was ambiguous.
-- **Structural issues** — incomplete state space, undefined actors, components mixing roles, abstraction problems.
-- **Property analysis** — safety (invariants, pre/postconditions, atomicity, rollback), liveness (dead-ends, termination, silent failure masking), enforceability, and internal consistency — plus generative stress-testing against a set of stress-test lenses — habits of attention, not a checklist.
-- **Acknowledged gaps** — the Open Items and TBDs the doc already flags, kept separate so you see what you *missed* first.
-- **Human + operational factors** — observability, cognitive load, debuggability.
-- **Closing summary** — top 3 things to fix, properties to state explicitly (phrased so you can paste them straight in), and the genuine open questions only you can answer.
-- **Three review modes** — a full whole-spec pass, a focused cross-link pass for a single added surface, or a feature-fit pass for one feature's spec-delta at intake; the mode is chosen per change.
-- **Persisted findings** — findings are written to a dated file with a folded/rejected column, so the next review starts from the last one's open rows.
-- **Shipped-system triage** — for a system already in production, a Phase 0 reconciliation note flags where spec claims may not yet match the code, so findings are properly conditioned on what's actually shipped.
+- **Triage** — is this an analyzable spec at all, or marketing copy? It says so up front rather than pretending.
+- **Opening assessment** — the thirty-second verdict: what the document is trying to do, what works, how close it is to buildable.
+- **The model** — entities, states and transitions, actors, composition boundaries. Including what it had to *assume* where you were ambiguous, listed explicitly.
+- **Structural issues** — incomplete state space, undefined actors, components mixing roles.
+- **Property analysis** — safety (invariants, pre/postconditions, atomicity, rollback), liveness (dead ends, silent failure masking), enforceability, internal consistency. Then stress lenses: ties, concurrency, boundaries, dependency failures, dangling references, older persisted state meeting current code. These are habits of attention, not a checklist — most produce nothing on most operations, and inventing a finding to satisfy one is a failure, not a pass.
+- **Your acknowledged gaps, kept separate** — the Open Items and TBDs you already flagged are reported *after* the ones you missed, so the signal isn't diluted by things you already know.
+- **Human factors** — observability, cognitive load, debuggability. The system that is formally perfect and operationally unusable is a real system.
+- **Closing summary** — the top three fixes, properties phrased so you can paste them straight into the spec, and the genuine open questions only you can answer.
 
-Findings come tagged `severity · plain-label (formal-term)` — `must-fix`, `should-clarify`, or `worth-considering` — with severity reflecting real production impact, not formal imperfection.
+**Three review modes:** a full pass over a whole spec, a cross-link pass for one added surface, or a feature-fit pass on a single feature's delta at intake.
 
----
+**Persisted findings:** written to a dated file with a folded/rejected column, so the next review starts from the last one's open rows instead of relitigating them.
 
-## What's inside
-
-No code, no dependencies, nothing to build or install — product-prover is a single `SKILL.md`: a structured set of review instructions Claude follows. Drop it in, point Claude at a spec, read the findings. Works anywhere Claude Code runs.
+**Shipped systems:** a reconciliation note flags where spec claims may no longer match the code, so findings are conditioned on what actually shipped.
 
 ---
 
-## Usage
+## Glossary mode
 
-This is a **Claude Code skill** — drop the folder into `~/.claude/skills/product-prover/` and just ask:
+The terms are half the point. `/glossary liveness`, `/define atomicity`, or just *"what does composition mean?"* — each gives a plain definition, an example, and the question the concept makes you ask in a review.
 
-> *"review this spec"* · *"poke holes in this design"* · *"is this PRD ready / what did I miss?"* · *"Product Prover this"*
+---
 
-It also has a **glossary mode** — `/glossary liveness`, `/define atomicity`, or just *"what does composition mean?"* — for the formal terms, each with a plain definition, an example, and the question it prompts in a review.
+## What counts as a spec
+
+It doesn't know what a PRD is. It knows entities, states, transitions, invariants, preconditions, atomicity, liveness — so any document that implies a state machine is fair game:
+
+- protocol and API designs — retry semantics, idempotency, error contracts
+- workflow and approval flows — anything with a status field
+- permission and access models
+- migration and rollout plans, which are state machines with a deadline
+- failure and recovery runbooks
+- firmware and device state machines
+
+Two constraints, and they're hard ones. **It needs a document** — not a codebase, not a diagram in your head. It reads what is written and reports what is missing, and there is nothing to read in an undocumented system. (For an existing system, live-spec's [adoption walk](https://github.com/happysasha18/live-spec/blob/main/docs/adoption.md) writes the spec from the code first.) And **the document has to claim behaviour**: point it at a vision deck and triage says so up front rather than pretending to find state machines in it.
+
+Product specs are where it has been used most, and its output leans on that vocabulary. Nothing in the method is product-specific.
+
+---
+
+## What it isn't
+
+It reads documents, not code. It finds holes in what a document *claims*; your test suite proves what the artifact *does*. It is not a substitute for review, either — it is the part of a review that shouldn't depend on which reviewer was in the room that morning.
+
+The judgment stays with you. It is instructed to recommend rather than ask: a reviewer that hands you back a list of questions has moved the work, not done it.
+
+---
+
+## Related
+
+- **[live-spec](https://github.com/happysasha18/live-spec)** — the pack product-prover is the review station of: wish → spec → prove → tests → code → commit, with the spec as the single authority. The prover runs standalone; you don't have to adopt the pipeline.
+- **[spec-author](https://github.com/happysasha18/live-spec/tree/main/skills/spec-author)** — the writing half of the pair. It writes the spec; product-prover reviews it.
+- **[track-coach](https://github.com/happysasha18/track-coach)** — same instinct, different domain: facts over plausible fiction, and the decision always stays with the author.
 
 ---
 
@@ -62,6 +135,8 @@ It also has a **glossary mode** — `/glossary liveness`, `/define atomicity`, o
 
 [MIT](LICENSE) © Alexander Abramovich.
 
+*Read-only mirror of one skill from the [live-spec pack](https://github.com/happysasha18/live-spec) — don't open PRs here; changes land in the pack and sync via `scripts/sync-mirrors.sh`. Made with live-spec v1.1.16.*
+
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v1.1.0
+made with [live-spec](https://github.com/happysasha18/live-spec) v1.1.16
