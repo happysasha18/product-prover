@@ -30,9 +30,11 @@ Findings arrive in operational terms, each one traced to a quote in your documen
 >
 > **Fix:** state the exit from `Failed to Update` — retry, revert to last consistent state, or a hard stop that alerts an operator — and state whether a new update is accepted before that exit is taken.
 >
-> `must-fix · unresolved-failure-state (liveness)`
+> `defect · unresolved-failure-state (liveness)`
 
 The formal vocabulary appears only in that last tag. The framework stays private; you get the finding.
+
+Every finding is one of two kinds, and the tag says which. A **defect** — a violated invariant, a false claim, or a missing required answer — blocks the build: it is folded into the spec before you ship. A **recommendation** — a consistency or quality gain with nothing broken — queues for a taste call, and you decide.
 
 ---
 
@@ -44,7 +46,7 @@ Every finding quotes its source and pins the location. Every consequence is conc
 
 An adversarial reviewer that produces plausible fiction is worse than no reviewer.
 
-Severity tracks production impact, not formal purity: the same atomicity gap is `should-clarify` for a manual quarterly job and `must-fix` for an automated path that runs a thousand times a day.
+The verdict tracks production impact, not formal purity: the same atomicity gap is a recommendation for a manual quarterly job and a defect for an automated path that runs a thousand times a day. The reasoning lives in the finding, not in a second tag.
 
 ---
 
@@ -135,8 +137,8 @@ The judgment stays with you. It is instructed to recommend rather than ask: a re
 
 [MIT](LICENSE) © Alexander Abramovich.
 
-*Read-only mirror of one skill from the [live-spec pack](https://github.com/happysasha18/live-spec) — don't open PRs here; changes land in the pack and sync via `scripts/sync-mirrors.sh`. Made with live-spec v1.1.16.*
+*Read-only mirror of one skill from the [live-spec pack](https://github.com/happysasha18/live-spec) — don't open PRs here; changes land in the pack and sync via `scripts/sync-mirrors.sh`. Made with live-spec v1.3.0.*
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v1.3.0
+made with [live-spec](https://github.com/happysasha18/live-spec) v1.4.0
