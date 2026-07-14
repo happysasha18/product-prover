@@ -139,4 +139,4 @@ The judgment stays with you. It is instructed to recommend rather than ask: a re
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v1.2.0
+made with [live-spec](https://github.com/happysasha18/live-spec) v1.3.0
