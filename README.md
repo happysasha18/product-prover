@@ -133,12 +133,20 @@ The judgment stays with you. It is instructed to recommend rather than ask: a re
 
 ---
 
+## Its younger sibling
+
+The prover asks whether the spec holds together as written. Its younger sibling, the design review — the `design-reviewer` skill — reads the same spec right after and asks a different question: whether the design itself is right. Do the things a person acts on the same way actually behave the same way, and what groupings did the text never declare? The prover argues with the sentences on the page; the design review looks into the space between them, where two elements that share a role were never put side by side.
+
+It ships in the same [live-spec](https://github.com/happysasha18/live-spec) pack, so adopting the pipeline brings both passes — the prover first, the design review right behind it.
+
+---
+
 ## License
 
 [MIT](LICENSE) © Alexander Abramovich.
 
-*Read-only mirror of one skill from the [live-spec pack](https://github.com/happysasha18/live-spec) — don't open PRs here; changes land in the pack and sync via `scripts/sync-mirrors.sh`. Made with live-spec v1.3.0.*
+*Read-only mirror of one skill from the [live-spec pack](https://github.com/happysasha18/live-spec) — don't open PRs here; changes land in the pack and sync via `scripts/sync-mirrors.sh`.*
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v1.4.2
+made with [live-spec](https://github.com/happysasha18/live-spec) v1.5.0
