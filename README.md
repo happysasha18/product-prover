@@ -149,4 +149,32 @@ It ships in the same [live-spec](https://github.com/happysasha18/live-spec) pack
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v2.1.1
+## Release history
+
+One line per release, generated from the pack's own history at every sync; the full story per release lives in the pack's [JOURNAL.md](https://github.com/happysasha18/live-spec/blob/main/JOURNAL.md).
+
+- 2.2.0 · 2026-07-16 — mirrors tell their story
+- 2.1.1 · 2026-07-16 — the day-after sweep
+- 2.1.0 · 2026-07-16 — the enforcement release
+- 2.0.0 · 2026-07-16 — the readability + compaction release
+- 1.10.1 · 2026-07-15 — the launch sweep clears stale temp litter by age, safely
+- 1.10.0 · 2026-07-15 — a cleanup touches only what it owns, never a shared resource in use
+- 1.9.0 · 2026-07-15 — the pack grows a third arrow
+- 1.8.0 · 2026-07-15 — forward-binding law gets one home, test-infrastructure family becomes a class, harness net hardens
+- 1.7.0 · 2026-07-15 — the pack ships the canonical browser test harness
+- 1.6.1 · 2026-07-15 — deferral rule gains its mechanical net + delivery arm; build-pipeline thinned
+- 1.6.0 · 2026-07-15 — a flaky owned test is a defect fixed at its root
+- 1.5.0 · 2026-07-15 — the prover and design review as one bounded loop, design review shipped alongside the prover
+- 1.0.9 · 2026-07-10 — the attribution line carries the pack version
+- 1.0.8 · 2026-07-10 — the four host checks live
+- 1.0.7 · 2026-07-10 — a norm-pointered clause owes a norm-conformance matrix row
+- 1.0.6 · 2026-07-10 — the attribution line softens to an OFFER on his same-day correction
+- 1.0.5 · 2026-07-10 — everything built with the method says so
+- 1.0.4 · 2026-07-10 — the leave-command reaches a shutdown-safe stop
+- 0.9.0 · 2026-07-08 — milestone audit
+- 0.8.0 · 2026-07-05 — milestone mechanics
+- 0.5.0 · 2026-07-05 — preventive audit run + folded
+
+---
+
+made with [live-spec](https://github.com/happysasha18/live-spec) v2.2.0
