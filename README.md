@@ -149,4 +149,4 @@ It ships in the same [live-spec](https://github.com/happysasha18/live-spec) pack
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v2.0.0
+made with [live-spec](https://github.com/happysasha18/live-spec) v2.1.0
