@@ -181,4 +181,4 @@ One line per release, generated from the pack's own history at every sync; the f
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v2.6.0
+made with [live-spec](https://github.com/happysasha18/live-spec) v2.6.3
