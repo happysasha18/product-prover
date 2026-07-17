@@ -153,6 +153,7 @@ It ships in the same [live-spec](https://github.com/happysasha18/live-spec) pack
 
 One line per release, generated from the pack's own history at every sync; the full story per release lives in the pack's [JOURNAL.md](https://github.com/happysasha18/live-spec/blob/main/JOURNAL.md).
 
+- 2.6.0 · 2026-07-17 — agents learn to talk, and a law with no machine is a wish
 - 2.5.0 · 2026-07-17 — docs, gate records with addenda, version stamps
 - 2.4.0 · 2026-07-17 — every budget earns a watcher, the scoped run earns its net, the viewport becomes one banded quantity
 - 2.3.0 · 2026-07-16 — the push gate learns proportion, the lens learns depth, the harness learns distrust
@@ -180,4 +181,4 @@ One line per release, generated from the pack's own history at every sync; the f
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v2.5.0
+made with [live-spec](https://github.com/happysasha18/live-spec) v2.6.0
