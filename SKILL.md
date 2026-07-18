@@ -123,7 +123,7 @@ CATEGORY — use the hybrid format `plain-label (formal-term)`:
 | internal-conflict | consistency | two requirements can't simultaneously hold |
 | direct-contradiction | contradiction | two stated rules openly conflict |
 | hard-to-monitor | observability | operators can't see or understand the system's state |
-| confusing-for-users | cognitive-load | special cases or modes users have to remember |
+| confusing-for-users | cognitive-load | special cases or modes users have to remember; the reading-load reading of the same lens flags a prose paragraph that packs an enumeration of three or more distinct parallel facts that should read as a bulleted or numbered list (SPEC INV-215) — a recommendation, the fix being spec-author's structure rule, since telling a genuine list-owed enumeration from a rhetorical triad is a meaning call no regex makes |
 | hard-to-operate | ops-ux | debuggability, audit trails, traceability gaps |
 
 The plain label leads so a reader without FV background grasps the issue. The formal term in parens gives a precise handle for searching or learning. Categorization happens AFTER discovery. Never let the category list constrain what you discover.
