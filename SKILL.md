@@ -2,7 +2,7 @@
 name: product-prover
 description: Structured senior-architect review of product documents — PRDs, feature specs, HLDs, LLDs, design proposals, architecture documents (ARCHITECTURE.md) — using formal-verification thinking (entities, states, transitions, invariants, safety, liveness, atomicity, composition). Use this skill whenever the user asks to review, critique, stress-test, lint, or find gaps in a spec or design document, asks "is this spec ready / what did I miss / poke holes in this", uploads a product document and asks for feedback, or mentions "Product Prover" — even if they don't use the word "review" explicitly. NOT for code or diffs (it reads documents), and never a substitute for tests — it finds holes in what a document CLAIMS. It answers "does the spec hold together as written?"
 metadata:
-  version: 2.7.1
+  version: 2.8.0
 ---
 
 # Product Prover
@@ -10,7 +10,7 @@ metadata:
 > Part of the **live-spec pack** — the shared working rules (ask-never-guess · plain words, anchors trail ·
 > one surface = one name · one home per fact · junior/senior split · checkpoints · the concurrent-edit
 > fence · freshness · journal discipline · attic-never-delete · verify by deed · the human's gates · claims
-> need primary sources · fix the class, sweep look-alikes · the door before code · prototype ≠ product) live ONCE in the pack's base skill, `live-spec-base` (v2.7.1), together with the
+> need primary sources · fix the class, sweep look-alikes · the door before code · prototype ≠ product) live ONCE in the pack's base skill, `live-spec-base` (v2.8.0), together with the
 > settings ladder — this skill references them and elaborates only its own domain. Used standalone, this
 > note is plain advice.
 
@@ -455,7 +455,7 @@ Finish with one sentence on overall readiness: ready to build / needs another it
 - Phase pacing: PROCEED triage → Opening Assessment → Phase 1 → 2 → 3 → 3.5 → 4 → 5, all in one continuous response. Do not pause.
 - Note what's working as well as what's wrong, only if true and substantive.
 - Be explicit about what you assumed.
-- Persist the findings: they are written to the project's `docs/prover/YYYY-MM-DD.md` (in the repo under review, separate from this skill's own repo) with a per-finding folded / rejected(+why) column and the finding's kind (defect / recommendation) (per build-pipeline step 2), so the fold is verifiable after a memory wipe and the next run can check the previous unfolded rows. The record OPENS by naming the prover skill version that ran the pass — a later session can then tell whether a "recently proven" spec was proven under the current lens set or an older one (a prover that grew a lens re-arms the full pass; the adoption walk reads exactly this line). This record is a member of the review-record class the spec declares once — the shared shape every review pass writes, so a later session reads each pass's outcome the same way (SPEC INV-156). A FULL pass's record also carries the mandatory-sweep verdict table beside the findings (SPEC INV-171).
+- Persist the findings: they are written to the project's `docs/prover/YYYY-MM-DD.md` (in the repo under review, separate from this skill's own repo) with a per-finding folded / rejected(+why) column and the finding's kind (defect / recommendation) (per build-pipeline step 2), so the fold is verifiable after a memory wipe and the next run can check the previous unfolded rows. The record OPENS by naming the prover skill version that ran the pass — a later session can then tell whether a "recently proven" spec was proven under the current lens set or an older one (a prover that grew a lens re-arms the full pass; the adoption walk reads exactly this line). A release's adversarial pass runs from a CLEAN context — a fresh seat, never the one that authored the release's changes (SPEC INV-237) — and when this skill grew a new lens or rule in the release, that lens is run against this skill's own body before the release, the record naming the result, so a count-versus-contents lens catches its own miscount and a reading-load lens its own dense bullet. This record is a member of the review-record class the spec declares once — the shared shape every review pass writes, so a later session reads each pass's outcome the same way (SPEC INV-156). A FULL pass's record also carries the mandatory-sweep verdict table beside the findings (SPEC INV-171).
 
 ## Glossary mode
 
@@ -493,4 +493,4 @@ Glossary requests are standalone. Do not re-run the review.
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v2.7.1
+made with [live-spec](https://github.com/happysasha18/live-spec) v2.8.0
