@@ -170,6 +170,7 @@ It ships in the same [live-spec](https://github.com/happysasha18/live-spec) pack
 
 One line per release, generated from the pack's own history at every sync; the full story per release lives in the pack's [JOURNAL.md](https://github.com/happysasha18/live-spec/blob/main/JOURNAL.md).
 
+- 2.8.2 · 2026-07-19 — the register judge catches grading-worth-without-fact and unglossed-jargon
 - 2.8.1 · 2026-07-18 — the register judge holds base rule 2
 - 2.8.0 · 2026-07-18 — the clean-context review law
 - 2.7.1 · 2026-07-18 — patch version stamp across skills, plugin.json, and the spec title
@@ -202,4 +203,4 @@ One line per release, generated from the pack's own history at every sync; the f
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v2.8.1
+made with [live-spec](https://github.com/happysasha18/live-spec) v2.8.2
