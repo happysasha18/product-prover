@@ -170,6 +170,7 @@ It ships in the same [live-spec](https://github.com/happysasha18/live-spec) pack
 
 One line per release, generated from the pack's own history at every sync; the full story per release lives in the pack's [JOURNAL.md](https://github.com/happysasha18/live-spec/blob/main/JOURNAL.md).
 
+- 2.9.0 · 2026-07-20 — the comms/naming machinery
 - 2.8.3 · 2026-07-20 — the hedge gate reds the common offering-hedge frames
 - 2.8.2 · 2026-07-19 — the register judge catches grading-worth-without-fact and unglossed-jargon
 - 2.8.1 · 2026-07-18 — the register judge holds base rule 2
@@ -204,4 +205,4 @@ One line per release, generated from the pack's own history at every sync; the f
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v2.8.3
+made with [live-spec](https://github.com/happysasha18/live-spec) v2.9.0
