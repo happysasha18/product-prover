@@ -170,6 +170,7 @@ It ships in the same [live-spec](https://github.com/happysasha18/live-spec) pack
 
 One line per release, generated from the pack's own history at every sync; the full story per release lives in the pack's [JOURNAL.md](https://github.com/happysasha18/live-spec/blob/main/JOURNAL.md).
 
+- 3.1.0 · 2026-07-20 — the conduct-audit movement closes
 - 3.0.0 · 2026-07-20 — the back-describe migration
 - 2.9.0 · 2026-07-20 — the comms/naming machinery
 - 2.8.3 · 2026-07-20 — the hedge gate reds the common offering-hedge frames
@@ -206,4 +207,4 @@ One line per release, generated from the pack's own history at every sync; the f
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v3.0.0
+made with [live-spec](https://github.com/happysasha18/live-spec) v3.1.0
