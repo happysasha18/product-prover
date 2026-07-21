@@ -170,6 +170,7 @@ It ships in the same [live-spec](https://github.com/happysasha18/live-spec) pack
 
 One line per release, generated from the pack's own history at every sync; the full story per release lives in the pack's [JOURNAL.md](https://github.com/happysasha18/live-spec/blob/main/JOURNAL.md).
 
+- 3.5.0 · 2026-07-21 — INV-248 — delivery-separability prover lens
 - 3.4.0 · 2026-07-21 — INV-247 — re-derive a deferred item's state from code before resuming
 - 3.3.0 · 2026-07-21 — finalize four-movement integration
 - 3.1.0 · 2026-07-20 — the conduct-audit movement closes
@@ -209,4 +210,4 @@ One line per release, generated from the pack's own history at every sync; the f
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v3.4.0
+made with [live-spec](https://github.com/happysasha18/live-spec) v3.5.0

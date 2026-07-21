@@ -2,7 +2,7 @@
 name: product-prover
 description: Structured senior-architect review of product documents — PRDs, feature specs, HLDs, LLDs, design proposals, architecture documents (ARCHITECTURE.md) — using formal-verification thinking (entities, states, transitions, invariants, safety, liveness, atomicity, composition). Use this skill whenever the user asks to review, critique, stress-test, lint, or find gaps in a spec or design document, asks "is this spec ready / what did I miss / poke holes in this", uploads a product document and asks for feedback, or mentions "Product Prover" — even if they don't use the word "review" explicitly. NOT for code or diffs (it reads documents), and never a substitute for tests — it finds holes in what a document CLAIMS. It answers "does the spec hold together as written?"
 metadata:
-  version: 3.4.0
+  version: 3.5.0
 ---
 
 # Product Prover
@@ -10,7 +10,7 @@ metadata:
 > Part of the **live-spec pack** — the shared working rules (ask-never-guess · plain words, anchors trail ·
 > one surface = one name · one home per fact · junior/senior split · checkpoints · the concurrent-edit
 > fence · freshness · journal discipline · attic-never-delete · verify by deed · the human's gates · claims
-> need primary sources · fix the class, sweep look-alikes · the door before code · prototype ≠ product) live ONCE in the pack's base skill, `live-spec-base` (v3.4.0), together with the
+> need primary sources · fix the class, sweep look-alikes · the door before code · prototype ≠ product) live ONCE in the pack's base skill, `live-spec-base` (v3.5.0), together with the
 > settings ladder — this skill references them and elaborates only its own domain. Used standalone, this
 > note is plain advice.
 
@@ -378,6 +378,7 @@ For every operation, transition, rule, or assumption, stress-test it against the
   defaults to a possible error in the product checked against the spec, and a spec change is a decision
   the human ratifies, never a silent rewrite to match the product (SPEC INV-144). [INV-128]
 - **False-serialization / over-broad independence edge** — when the document under review is a concurrency plan (a departures board, a lane set, a queue-take dependency graph), read every serialization it declares and every edge it draws. Two findings, one per side of INV-49's edge rule. A plan that serializes two movements on mere shared-doc co-location — both land in PRODUCT_SPEC, ARCHITECTURE, or TEST_MATRIX and share nothing more — is a finding: the shared living docs are a convergence point reconciled at integration, never a serializing surface, so co-location alone owes a lane not a queue. An edge drawn without a true dependency (one movement needs another's landed output) or a same-section / same-behaviour collision (the two rewrite one clause or one behaviour's rule) is that finding from the other side. The safety twin is a finding of equal weight: two rows that truly collide — a real dependency or a same-section rewrite — marked independent and opened in parallel. This lens is the enforcement arm of INV-49's sharpened edge rule, and it stays a senior read: a gate keyed on it would red every lawful landing, since every movement lands in the shared docs, so judging a false edge or a false independence is the graph itself, not a diff (SPEC INV-49, INV-214). [INV-49]
+- **Delivery separability along a declared axis** — when the spec under review declares a cross-cutting composition axis that adds runtime code (an input capability, an assistant capability on or off, a rendering engine, a viewport tier), read the delivered artifact against that axis: does what the visitor receives divide along the axis, or ship as one piece? Composition asks whether behaviour splits along the axis [INV-244]; this is its dual, asking whether the delivered artifact splits along the same axis or arrives whole. The finding is an unexamined monolith — an axis adding runtime code whose design names neither a stated architectural reason to ship whole (one bundle, one page never torn down, a no-server delivery, a payload too small for a split to pay) nor a delivery road it owes (a platform split, a lazy load, a per-value chunk carried by a later row). A monolith named with its reason is a settled answer and no finding; byte weight is the symptom, the unasked separability question the root. It generalizes past input-capability to any owed axis, each only where covering that axis ships runtime code — a viewport answered by a media query or a locale by a logical property adds none, so the lens stays silent there — and it stays a senior read like the edge lens above: a named-reason monolith is lawful, so judging an examined against an unexamined choice reads the design's own reason, not a diff (SPEC INV-248, INV-244, INV-214). This lens was itself found as the dual of the composition law it enforces, and that pairing is a standing discovery habit here rather than a law: for a lens this list applies, ask whether that lens's dual bites the document — the way safety pairs with liveness, state with transition, atomicity with isolation. The habit surfaces a lens the list is missing; it never demands every lens ship a partner, since some duals fold into a lens already run (an invariant's dual is its decreasing progress measure, the liveness reading already present) and some are nameable yet rarely bite. [INV-248]
 
 
 
@@ -494,4 +495,4 @@ Glossary requests are standalone. Do not re-run the review.
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v3.4.0
+made with [live-spec](https://github.com/happysasha18/live-spec) v3.5.0
