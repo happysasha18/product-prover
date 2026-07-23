@@ -2,7 +2,7 @@
 name: product-prover
 description: Structured senior-architect review of product documents — PRDs, feature specs, HLDs, LLDs, design proposals, architecture documents (ARCHITECTURE.md) — using formal-verification thinking (entities, states, transitions, invariants, safety, liveness, atomicity, composition). Use this skill whenever the user asks to review, critique, stress-test, lint, or find gaps in a spec or design document, asks "is this spec ready / what did I miss / poke holes in this", uploads a product document and asks for feedback, or mentions "Product Prover" — even if they don't use the word "review" explicitly. NOT for code or diffs (it reads documents), and never a substitute for tests — it finds holes in what a document CLAIMS. It answers "does the spec hold together as written?"
 metadata:
-  version: 3.6.0
+  version: 4.0.0
 ---
 
 # Product Prover
@@ -10,7 +10,7 @@ metadata:
 > Part of the **live-spec pack** — the shared working rules (ask-never-guess · plain words, anchors trail ·
 > one surface = one name · one home per fact · junior/senior split · checkpoints · the concurrent-edit
 > fence · freshness · journal discipline · attic-never-delete · verify by deed · the human's gates · claims
-> need primary sources · fix the class, sweep look-alikes · the door before code · prototype ≠ product) live ONCE in the pack's base skill, `live-spec-base` (v3.6.0), together with the
+> need primary sources · fix the class, sweep look-alikes · the door before code · prototype ≠ product) live ONCE in the pack's base skill, `live-spec-base` (v4.0.0), together with the
 > settings ladder — this skill references them and elaborates only its own domain. Used standalone, this
 > note is plain advice.
 
@@ -25,6 +25,9 @@ You are a reviewer who has read the doc with care, formed a view, and is going t
 Reserve it for reviewing DOCUMENTS — specs, PRDs, designs, architecture. Skip it for code or diffs, for
 style or wording critique (it flags gaps; taste is out of scope), and for grading finished prose; and lean
 on tests for the rest — the prover finds holes in what a document CLAIMS, the suite proves what the artifact DOES.
+Whether a stranger can read the prose — an undefined term, a sentence read twice, a comprehension stop —
+routes to text-audit, the mirror of this pass: the prover argues with the claims, text-audit reads whether
+the words land on a reader with no context.
 Judging whether the design itself is right — do same-kind things behave alike, what groupings did the text
 never declare — is the design-reviewer's own pass [INV-141]; it runs right after this one, keyed to the
 review modes below. This pass verifies the document.
@@ -39,7 +42,7 @@ Write the way a senior reviewer talks. Plain words. Short sentences. No formal-v
 
 Always tell the author what you assumed when the doc was unclear. "I read this as X — let me know if you meant Y." Never silently fill gaps.
 
-Note what's done well, not just what's wrong. Two or three real observations is enough.
+Note what's done well, alongside what's wrong. Two or three real observations is enough.
 
 Recommend rather than ask. "Do X, here's why" or "Choose between A and B, here's the tradeoff." Save real questions for things only the author can answer (intent, business priority, internal politics).
 
@@ -101,7 +104,7 @@ KIND — the finding's verdict; every finding is a defect or a recommendation, a
 - `defect` — a stated invariant is violated, a claim the spec makes is false, or a required invariant or answer the spec owes is missing (a completeness gap). A defect BLOCKS: it folds at the push gate and the design becomes buildable only once it is folded [M-6]. The one exception: at a delta-scoped gate [INV-114] a pre-existing defect outside the delta queues by that law and never blocks the merge it did not create.
 - `recommendation` — nothing stated is broken and nothing required is missing; a consistency or quality gain is on offer. It does not block; it queues for a taste call. When the queue order matters, a recommendation may carry a light priority grade inside its tag — `recommendation · now · unclear-owner (actors)` or `recommendation · later · …`; a defect never carries a grade.
 
-Read the kind from the finding's own ground: a broken or missing invariant or a false claim is a defect; a finding standing only on "these siblings should match" or "this could read clearer", with no invariant behind it, is a recommendation. Production impact is the reasoning behind that call — an atomicity gap on an automated path run thousands of times a day is a defect, the same gap on a manual quarterly operation a recommendation — and it belongs in the finding's consequence, not in a tag token. A Phase 3.5 acknowledged gap keeps its `acknowledged` tag and carries no kind — it is the document's own known issue, not a new finding. (SPEC INV-140)
+Read the kind from the finding's own ground: a broken or missing invariant or a false claim is a defect; a finding standing only on "these siblings should match" or "this could read clearer", with no invariant behind it, is a recommendation. Production impact is the reasoning behind that call — an atomicity gap on an automated path run thousands of times a day is a defect, the same gap on a manual quarterly operation a recommendation — and it belongs in the finding's consequence; a tag token never carries it. A Phase 3.5 acknowledged gap keeps its `acknowledged` tag and carries no kind — it is the document's own known issue; the pass files no new finding for it. (SPEC INV-140)
 
 CATEGORY — use the hybrid format `plain-label (formal-term)`:
 
@@ -130,7 +133,7 @@ The plain label leads so a reader without FV background grasps the issue. The fo
 
 ## Hidden gaps vs acknowledged gaps
 
-**Hidden gaps** — things the author didn't notice. These go in main findings (Phase 2, Phase 3). The juice.
+**Hidden gaps** — things the author didn't notice. These go in main findings (Phase 2, Phase 3). These are the findings that matter most.
 
 **Acknowledged gaps** — things the doc itself flags: explicit Open Items, TBDs, rhetorical questions in the doc body ("what happens if X?" with no answer), sections marked "in progress." These go in Phase 3.5, framed as commentary on known issues. They are not new discoveries.
 
@@ -200,7 +203,7 @@ TRIAGE: PROCEED — analyzable. State a one-line reason. Continue immediately to
 
 TRIAGE: NEEDS_CLARIFICATION — insufficient operational content. List 2–4 observations, then 2–3 sharp clarifying questions. STOP and wait.
 
-TRIAGE: WRONG_ARTIFACT — vision deck, marketing copy, pitch, etc. Say so plainly. Offer to outline what would need to be specified to make it analyzable. STOP.
+TRIAGE: WRONG_ARTIFACT — vision deck, marketing copy, pitch, etc. State that plainly. Offer to outline what would need to be specified to make it analyzable. STOP.
 
 ## Opening assessment
 
@@ -212,7 +215,7 @@ Cover:
 - The biggest 1–2 things that need attention.
 - Overall confidence: ready to build, needs another iteration, needs significant rework, or unclear yet.
 
-5–8 sentences. If the design is mostly solid, say so. If it has serious problems, say so plainly. Then proceed to Phase 1.
+5–8 sentences. If the design is mostly solid, say so. If it has serious problems, state that plainly. Then proceed to Phase 1.
 
 ## Phase 1 — The model
 
@@ -276,11 +279,11 @@ For every operation, transition, rule, or assumption, stress-test it against the
 
 **Mandatory sweeps** — run each as a completeness sweep on every FULL pass; each owes ONE verdict line in the persisted record — hit / clean / N/A-with-reason — and the record renders the verdicts as the surface × sweep table (Phase 3's coverage tables). A missing verdict line reads as a skipped sweep, never as a clean one (SPEC INV-171):
 
-- **Declared cross-cutting laws** — read the spec's declared-laws home (the one place it names the laws that cut across every surface: measurement, accessibility, error handling, a register). Three demands per declared law, each a broken-invariant finding when unmet; a spec with no declared-laws home earns one finding naming that, and the per-law walk starts once the home exists. The author's twin habit (spec-author) writes each section's line first, so this station audits rather than discovers. (SPEC INV-101, INV-150; the worked miss is keyed in `docs/lenses.md`.)
+- **Declared cross-cutting laws** — read the spec's declared-laws home (the one place it names the laws that cut across every surface: measurement, accessibility, error handling, a register). Three demands per declared law, each a broken-invariant finding when unmet; a spec with no declared-laws home earns one finding naming that, and the per-law walk starts once the home exists. The author's twin habit (spec-author) writes each section's line first, so this station audits the line the author already wrote. (SPEC INV-101, INV-150; the worked miss is keyed in `docs/lenses.md`.)
   - *a clause per surface* — enumerate every surface and transition, demand the law's clause or a dated exemption on each; a missing clause ranks as a broken invariant.
   - *a test per surface (P9)* — demand a test row on each surface the law governs, so a law stated everywhere and tested nowhere is a finding of the untested-surface class. The traceability test carries the mechanical floor (`tests/test_interface_coverage.py` reds a governed surface with no test row); this station is its semantic reviewer.
   - *a named net (INV-150)* — every declared law names its net; demand the enforcer recorded beside the law: a mechanical gate (a named guardrail script or dedicated test, deterministic, blocking in CI), the prover's own judgment station (the violation pins to a stated sentence and the walk blocks), or the design review's recommendation (the deciding fact lives only in the human's intent, soft). A law with no named net ranks as a broken invariant. The pack's own three laws each name a mechanical gate.
-- **Edge-condition completeness** — the mechanical face of the bounds and dependency probes above, run as a completeness sweep rather than a spot-check. Five checks:
+- **Edge-condition completeness** — the mechanical face of the bounds and dependency probes above, run as a completeness sweep across every case. Five checks:
   - *range ends* — find every transition the spec gates on a quantity that runs on a line — elapsed time, a count, a distance, a size — and assert each names its behaviour at both ends of the range: what holds below the low end and above the high end. A clause like "on return", "after a while", "once there are several", or "when it gets large" names one point and leaves an unbounded interval silent, and that silence is the finding, the blank-answer class of an unwritten seam [INV-72].
   - *async pending/arrived/failed* — find every piece of content the spec produces asynchronously into a reserved on-screen slot, and assert the spec names its three states — pending, arrived, failed — with a visible pending state wherever the slot holds a place; a slot that renders empty and silent while its content is in flight is the finding. The author writes each edge as a spec sentence; the prover invents no answer and, where only the human can judge the timing, surfaces it to him [INV-30].
   - *the named-part ask* — a guarantee scoped to a named part of its domain draws the standing question about the remainder — a band of a ranged quantity, a user state, a network condition, a locale, any named sub-case of the domain it governs — and each remaining part owes a decided or `[default]`-tagged sentence [INV-31], a guarantee true as written over one part while the remainder stays silent the blank-answer class [INV-72].
@@ -289,7 +292,7 @@ For every operation, transition, rule, or assumption, stress-test it against the
 
   The range-and-lifecycle member of the composition-lens family (SPEC INV-138). [INV-138]
 - **Cross-surface policy uniformity** — when a clause states a policy for an interaction KIND that lives on several sibling surfaces (a gesture policy like "browser pinch-zoom is refused", an affordance, an input-to-action mapping), enumerate the surfaces of that kind from the surface registry and check whether the clause governs ALL of them or only the one surface where the decision was born. A policy written for a single surface while siblings of the same kind exist is a finding: the clause should name the surface CLASS and enumerate its members, so the policy holds uniformly. This is the check the owner asked the prover to write for itself; it catches upstream, at spec time, what a suite asserting only the named surface passes green while the running product stays non-uniform (a rendered product also gets the mechanical floor — the completeness guardrail asserts the policy across every registered sibling root). The preventive twin of the class lens above: that sweeps a found defect's siblings, this holds a decided policy uniform before any defect is filed (SPEC INV-125). Its discovery-side sibling is the design review [INV-141], the design-reviewer skill's pass, which reaches the undeclared same-kind groupings this lens is blind to because they were never declared; where a class is already declared, this lens governs, and where it is not, a confirmed grouping from the design review lands here as a class clause the author writes. The lens also fires on a **kind-general rule written in a single member's section** — a sentence stating a principle for a whole kind (a way in and out, a gesture, a treatment) homed on one surface while siblings of that kind exist. That is the same defect the moment the kind is recognizable from the sentence itself, before any class is declared; the finding demands the author lift the principle to a class clause enumerating its members, or scope it to the one member by a decided sentence. This is the prose-law form a declared-class enumeration alone would miss, since that enumeration presupposes the kind is already declared. [INV-125]
-- **Lifecycle** — one surface's whole life across enter, leave, cover, and return, gathered under the transition-payload parent (SPEC INV-168) so the one lifecycle is walked once rather than from five colliding angles; each sub-question keeps its own anchor:
+- **Lifecycle** — one surface's whole life across enter, leave, cover, and return, gathered under the transition-payload parent (SPEC INV-168) so the one lifecycle is walked once as a single pass; five separate angles would otherwise collide over it. Each sub-question keeps its own anchor:
   - **Transition payload** — the parent lens the topology checks (entry symmetry, dead-end, scenario
     entry/exit) all serve without naming: for every transition the spec states, enumerate the parameters a
     person perceives across it — where focus and selection land, what scroll or playback position holds,
@@ -315,8 +318,8 @@ For every operation, transition, rule, or assumption, stress-test it against the
     and its reset-or-resume semantics stay blank is a finding, the blank-answer class of an unwritten seam
     (SPEC INV-72) — the author writes the entry state as a spec sentence, and where only the human can
     judge whether entry should reset or resume, it is surfaced to him (SPEC INV-30). Entry symmetry above
-    tests that a re-entry PATH exists; this tests the STATE that path opens in, the complement it does not
-    ask. It closes a class the two path lenses missed: a series side-room reopened on the last picture a
+    tests that a re-entry PATH exists; this tests the STATE that path opens in — the question entry
+    symmetry does not ask. It closes a class the two path lenses missed: a series side-room reopened on the last picture a
     prior visit had scrolled its lane to, because no line stated the lane lands on the first member and
     resets at entry (2026-07-16). [INV-167]
   - **Paired-transition symmetry** — when a surface states a transition on one direction of a paired state change (open/close, enter/exit, expand/collapse, show/hide), the opposite direction owes an answer too. Three reads, each a blank-answer finding when its answer is missing; motion feel is the human's gate, so an open motion question surfaces to him on the batched-question path, `[default]`-tagged, and never holds the push. The transition read's birth story lives in `docs/lenses.md` (INV-126); the gesture and magnitude reads are stated inline below (SPEC INV-72, INV-4, INV-30, INV-31). The temporal twin of the cross-surface lens above (SPEC INV-126). [INV-126]
@@ -339,14 +342,14 @@ For every operation, transition, rule, or assumption, stress-test it against the
   The boundary lines, so a reviewer who ran one sub-question knows what it did NOT cover: the reopen case belongs to *entry state* (the re-entry transition's payload), while *persistence and versions* covers only a stored shape meeting newer code; *entry symmetry* tests that a re-entry path exists, *entry state* the state that path opens into; motion across the pair and the gesture's inverse are *paired-transition symmetry*; a whole flow's edges are *scenario entry and exit*.
 - **Unwritten seams** — for every stateful surface, do not settle for the axes the author remembered to fill; derive the surface's reachable situations yourself and check each for a written answer. Walk every axis it passes through while already shown (view, mode, tier, viewport, reopen — a relayout when the window changes shape re-runs an entry animation nobody composed), and — the axis authors forget most — every other surface that can be present at the same time: siblings on its screen, the surface one step before and one step after it in the flow, whether or not that other surface itself holds state (a static end screen counts). For each situation ask: is this surface's behaviour stated while that other one is present, or through that change? A reachable situation with a blank answer is a finding, of the same class as a fact no node owns — a state the spec leaves out while the running product still reaches it. Report the missing seam; the prover invents no answer and asks the human nothing — the author writes the sentence as a composition invariant, `[default]`-tagged like the facet sweep (SPEC INV-72, C-1, INV-18, INV-31). [INV-72]
 
-**Imaginative probes** — actively imagine, do not pattern-match; these are habits of attention rather than a checklist, and no verdict is owed:
+**Imaginative probes** — actively imagine, do not pattern-match; these are habits of attention; no checklist ticks them off, and no verdict is owed:
 
 - **Ambiguity and ties** — when the spec selects, ranks, matches, or chooses, what if inputs are equivalent on the criterion? Is the resolution deterministic?
 - **Concurrency and order** — when actions happen in sequence or parallel, what if they overlap, repeat, or arrive out of expected order?
 - **Bounds and edges** — when the spec assumes ranges, limits, or quantities, what at the boundaries — including absence (zero, missing, none)?
 - **Dependency reality** — when the spec relies on something external, what if it's unavailable, delayed, or returns something unexpected?
 - **Reference integrity** — when the spec uses identifiers or pointers, what if the referent is missing, has changed, or is shared?
-- **Surface authority** — when an operation creates, modifies, or removes an object of some category, is there another component in the system that the document mentions or implies should be the authoritative management surface for that category? If yes, does this operation publish to it, register with it, or otherwise keep that authoritative surface complete? Fire a FINDING only when the document itself provides clear evidence of a competing authoritative surface — do not speculate about phantom components or assume authorities that are not stated. When the document names no authoritative surface for the category, the fallback is a stated assumption, never silence: write "I found no authoritative surface for <category> named in this doc; if one exists in the product, this operation does not register with it" into the What-I-assumed lines — an assumption line rather than a finding, costing nothing when wrong and catching exactly the author who forgot the registry entirely (the case a clear-evidence gate self-disarms on). In pack use, the three-source lens below supplies the missing evidence: the architecture doc is in view and names the authoritative surfaces the document under review omits.
+- **Surface authority** — when an operation creates, modifies, or removes an object of some category, is there another component in the system that the document mentions or implies should be the authoritative management surface for that category? If yes, does this operation publish to it, register with it, or otherwise keep that authoritative surface complete? Fire a FINDING only when the document itself provides clear evidence of a competing authoritative surface — do not speculate about phantom components or assume authorities that are not stated. When the document names no authoritative surface for the category, the fallback is a stated assumption, never silence: write "I found no authoritative surface for <category> named in this doc; if one exists in the product, this operation does not register with it" into the What-I-assumed lines as an assumption line; it stays out of the findings, costs nothing when wrong, and catches exactly the author who forgot the registry entirely (the case a clear-evidence gate self-disarms on). In pack use, the three-source lens below supplies the missing evidence: the architecture doc is in view and names the authoritative surfaces the document under review omits.
 - **Class lens** — when a lens above (or any phase) surfaces a defect at one spot, treat it as a
   sample of a class (base rule 14; SPEC INV-124) and ask its three questions before writing the finding.
   First, does the same KIND live elsewhere: sweep the whole document for the same pattern — the same
@@ -354,7 +357,7 @@ For every operation, transition, rule, or assumption, stress-test it against the
   finding that names the class and lists every instance found; do not stop at the first point you hit, a
   point finding on a class defect sends the author on the same sweep you skipped. Second, does the
   architecture account for the defect's cause, or does a boundary drawn wrong or left silent let the class
-  exist — a structural cause is a finding against ARCHITECTURE.md, not only the instance. Third, does the
+  exist — a structural cause is a finding against ARCHITECTURE.md itself, reaching past the single instance. Third, does the
   spec describe the broken behaviour at all — a spec silent on it or under-describing its composition is
   the real defect the finding names, since a prover cannot catch what the spec never states. The three
   questions are the document-side face of the confirmed-bug class hunt (SPEC INV-124).
@@ -370,15 +373,15 @@ For every operation, transition, rule, or assumption, stress-test it against the
   promises with no owning node, a behaviour in the code no spec clause backs, a node pinned to a line that
   moved — each is a finding routed to the home that owns it (a bug row for code past spec, a spec fix for a
   moved pin, a restructure row for a missing node, SPEC INV-37), never a silent pick of one source as the
-  winner. This pulls the architecture step's spec-to-code reconciliation forward to intake, so drift is a
-  finding at entry rather than a surprise at code. Kin of the unwritten-seam hunt (a drift with no routed
+  winner. This pulls the architecture step's spec-to-code reconciliation forward to intake, so drift surfaces
+  as a finding at entry, caught before it becomes a surprise at code. Kin of the unwritten-seam hunt (a drift with no routed
   home is itself the finding); it is also the read that produces the derive-before-fork verdict — the three
   sources are what tell whether a proven artifact already settles a question (SPEC INV-121). When the
   disagreement is a product-vs-spec divergence, the spec is the definition of correct: the divergence
   defaults to a possible error in the product checked against the spec, and a spec change is a decision
   the human ratifies, never a silent rewrite to match the product (SPEC INV-144). [INV-128]
-- **False-serialization / over-broad independence edge** — when the document under review is a concurrency plan (a departures board, a lane set, a queue-take dependency graph), read every serialization it declares and every edge it draws. Two findings, one per side of INV-49's edge rule. A plan that serializes two movements on mere shared-doc co-location — both land in PRODUCT_SPEC, ARCHITECTURE, or TEST_MATRIX and share nothing more — is a finding: the shared living docs are a convergence point reconciled at integration, never a serializing surface, so co-location alone owes a lane not a queue. An edge drawn without a true dependency (one movement needs another's landed output) or a same-section / same-behaviour collision (the two rewrite one clause or one behaviour's rule) is that finding from the other side. The safety twin is a finding of equal weight: two rows that truly collide — a real dependency or a same-section rewrite — marked independent and opened in parallel. This lens is the enforcement arm of INV-49's sharpened edge rule, and it stays a senior read: a gate keyed on it would red every lawful landing, since every movement lands in the shared docs, so judging a false edge or a false independence is the graph itself, not a diff (SPEC INV-49, INV-214). [INV-49]
-- **Delivery separability along a declared axis** — when the spec under review declares a cross-cutting composition axis that adds runtime code (an input capability, an assistant capability on or off, a rendering engine, a viewport tier), read the delivered artifact against that axis: does what the visitor receives divide along the axis, or ship as one piece? Composition asks whether behaviour splits along the axis [INV-244]; this is its dual, asking whether the delivered artifact splits along the same axis or arrives whole. The finding is an unexamined monolith — an axis adding runtime code whose design names neither a stated architectural reason to ship whole (one bundle, one page never torn down, a no-server delivery, a payload too small for a split to pay) nor a delivery road it owes (a platform split, a lazy load, a per-value chunk carried by a later row). A monolith named with its reason is a settled answer and no finding; byte weight is the symptom, the unasked separability question the root. It generalizes past input-capability to any owed axis, each only where covering that axis ships runtime code — a viewport answered by a media query or a locale by a logical property adds none, so the lens stays silent there — and it stays a senior read like the edge lens above: a named-reason monolith is lawful, so judging an examined against an unexamined choice reads the design's own reason, not a diff (SPEC INV-248, INV-244, INV-214). This lens was itself found as the dual of the composition law it enforces, and that pairing is a standing discovery habit here rather than a law: for a lens this list applies, ask whether that lens's dual bites the document — the way safety pairs with liveness, state with transition, atomicity with isolation. The habit surfaces a lens the list is missing; it never demands every lens ship a partner, since some duals fold into a lens already run (an invariant's dual is its decreasing progress measure, the liveness reading already present) and some are nameable yet rarely bite. [INV-248]
+- **False-serialization / over-broad independence edge** — when the document under review is a concurrency plan (a departures board, a lane set, a queue-take dependency graph), read every serialization it declares and every edge it draws. Two findings, one per side of INV-49's edge rule. A plan that serializes two movements on mere shared-doc co-location — both land in PRODUCT_SPEC, ARCHITECTURE, or TEST_MATRIX and share nothing more — is a finding: the shared living docs are a convergence point reconciled at integration, never a serializing surface, so co-location alone owes a lane not a queue. An edge drawn without a true dependency (one movement needs another's landed output) or a same-section / same-behaviour collision (the two rewrite one clause or one behaviour's rule) is that finding from the other side. The safety twin is a finding of equal weight: two rows that truly collide — a real dependency or a same-section rewrite — marked independent and opened in parallel. This lens is the enforcement arm of INV-49's sharpened edge rule, and it stays a senior read: a gate keyed on it would red every lawful landing, since every movement lands in the shared docs, so judging a false edge or a false independence reads the graph itself; a diff cannot make that call (SPEC INV-49, INV-214). [INV-49]
+- **Delivery separability along a declared axis** — when the spec under review declares a cross-cutting composition axis that adds runtime code (an input capability, an assistant capability on or off, a rendering engine, a viewport tier), read the delivered artifact against that axis: does what the visitor receives divide along the axis, or ship as one piece? Composition asks whether behaviour splits along the axis [INV-244]; this is its dual, asking whether the delivered artifact splits along the same axis or arrives whole. The finding is an unexamined monolith — an axis adding runtime code whose design names neither a stated architectural reason to ship whole (one bundle, one page never torn down, a no-server delivery, a payload too small for a split to pay) nor a delivery road it owes (a platform split, a lazy load, a per-value chunk carried by a later row). A monolith named with its reason is a settled answer and no finding; byte weight is the symptom, the unasked separability question the root. It generalizes past input-capability to any owed axis, each only where covering that axis ships runtime code — a viewport answered by a media query or a locale by a logical property adds none, so the lens stays silent there — and it stays a senior read like the edge lens above: a named-reason monolith is lawful, so judging an examined against an unexamined choice reads the design's own reason; a diff cannot make that call (SPEC INV-248, INV-244, INV-214). This lens was itself found as the dual of the composition law it enforces, and that pairing is a standing discovery habit here, held as a habit and written into no law: for a lens this list applies, ask whether that lens's dual bites the document — the way safety pairs with liveness, state with transition, atomicity with isolation. The habit surfaces a lens the list is missing; it never demands every lens ship a partner, since some duals fold into a lens already run (an invariant's dual is its decreasing progress measure, the liveness reading already present) and some are nameable yet rarely bite. [INV-248]
 
 
 
@@ -421,7 +424,7 @@ Properties that resist formal checking but matter equally:
   leaked internal word is a finding.
 - Cognitive load: mode-dependent behavior, exceptions, special cases users must remember.
 - Operational UX: debuggability, audit trails, traceability.
-- Performance and scale budgets: how big can the input get (size, count, duration) before the artifact is unusable? State the assumed ceiling rather than leaving it implicit.
+- Performance and scale budgets: how big can the input get (size, count, duration) before the artifact is unusable? State the assumed ceiling explicitly.
 - Security / privacy: if genuinely out of scope for this product, name it as an explicit skip. Leaving it as a silent blind spot does not meet the bar.
 
 Use the four-part finding format. The same concreteness test applies — describe what the operator actually does and what they actually see. Vague claims like "operators may be confused" are not acceptable.
@@ -495,4 +498,4 @@ Glossary requests are standalone. Do not re-run the review.
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v3.6.0
+made with [live-spec](https://github.com/happysasha18/live-spec) v4.0.0

@@ -42,11 +42,11 @@ Every finding is one of two kinds, and the tag says which. A **defect** — a vi
 
 > Never produce a finding the reader can't trace back to the document.
 
-Every finding quotes its source and pins the location. Every consequence is concrete — who is affected, what triggers it, what breaks, what they see — not "this could be a problem." Every fix names a specific artifact or decision; the vague verbs (`define`, `ensure`, `handle`, `consider`) are banned. When the document is too vague to support a concrete consequence, it says so plainly instead of inventing one.
+Every finding quotes its source and pins the location. Every consequence is concrete: who is affected, what triggers it, what breaks, what they see. It never settles for "this could be a problem." Every fix names a specific artifact or decision; the vague verbs (`define`, `ensure`, `handle`, `consider`) are banned. When the document is too vague to support a concrete consequence, it says so plainly and invents nothing.
 
 An adversarial reviewer that produces plausible fiction is worse than no reviewer.
 
-The verdict tracks production impact, not formal purity: the same atomicity gap is a recommendation for a manual quarterly job and a defect for an automated path that runs a thousand times a day. The reasoning lives in the finding, not in a second tag.
+The verdict tracks production impact, and formal purity does not set it — the same atomicity gap is a recommendation for a manual quarterly job and a defect for an automated path that runs a thousand times a day. The reasoning lives in the finding; a second tag never carries it.
 
 ---
 
@@ -79,7 +79,7 @@ Point it at any PRD, design doc, or ARCHITECTURE.md. Claude Code picks up skills
 
 One continuous pass, no pausing between phases.
 
-- **Triage** — is this an analyzable spec at all, or marketing copy? It says so up front rather than pretending.
+- **Triage** — is this an analyzable spec at all, or marketing copy? It says so up front and does not pretend to find a spec where there is none.
 - **Opening assessment** — the thirty-second verdict: what the document is trying to do, what works, how close it is to buildable.
 - **The model** — entities, states and transitions, actors, composition boundaries. Including what it had to *assume* where you were ambiguous, listed explicitly.
 - **Structural issues** — incomplete state space, undefined actors, components mixing roles.
@@ -98,7 +98,7 @@ One continuous pass, no pausing between phases.
 
 **Three review modes:** a full pass over a whole spec, a cross-link pass for one added surface, or a feature-fit pass on a single feature's delta at intake. Used standalone, you get the full pass; the cross-link and feature-fit passes are selected automatically when this skill runs inside the live-spec pipeline.
 
-**Persisted findings:** written to a dated file that carries each finding's kind and a folded/rejected column, plus the verdict table for the mandatory sweeps, so the next review starts from the last one's open rows instead of relitigating them.
+**Persisted findings:** written to a dated file that carries each finding's kind and a folded/rejected column, plus the verdict table for the mandatory sweeps, so the next review starts from the last one's open rows and never relitigates them.
 
 **Shipped systems:** a reconciliation note flags where spec claims may no longer match the code, so findings are conditioned on what actually shipped.
 
@@ -128,7 +128,7 @@ It doesn't know what a PRD is. It knows entities, states, transitions, invariant
   - the runtime and placement views
   - a re-ask when a node has grown past its stated job
 
-Two constraints, and they're hard ones. **It needs a document** — not a codebase, not a diagram in your head. It reads what is written and reports what is missing, and there is nothing to read in an undocumented system. (For an existing system, live-spec's [adoption walk](https://github.com/happysasha18/live-spec/blob/main/docs/adoption.md) writes the spec from the code first.) And **the document has to claim behaviour**: point it at a vision deck and triage says so up front rather than pretending to find state machines in it.
+Two constraints, and they're hard ones. **It needs a document.** A codebase or a diagram in your head will not do. It reads what is written and reports what is missing, and there is nothing to read in an undocumented system. (For an existing system, live-spec's [adoption walk](https://github.com/happysasha18/live-spec/blob/main/docs/adoption.md) writes the spec from the code first.) And **the document has to claim behaviour**: point it at a vision deck and triage says so up front; it will not pretend to find state machines in it.
 
 Product specs are where it has been used most, and its output leans on that vocabulary. Nothing in the method is product-specific.
 
@@ -136,9 +136,9 @@ Product specs are where it has been used most, and its output leans on that voca
 
 ## What it isn't
 
-It reads documents, not code. It finds holes in what a document *claims*; your test suite proves what the artifact *does*. It is not a substitute for review, either — it is the part of a review that shouldn't depend on which reviewer was in the room that morning.
+It reads documents. It does not read code. It finds holes in what a document *claims*; your test suite proves what the artifact *does*. It does not replace a full review, either — it is the part of a review that shouldn't depend on which reviewer was in the room that morning.
 
-The judgment stays with you. It is instructed to recommend rather than ask: a reviewer that hands you back a list of questions has moved the work, not done it.
+The judgment stays with you. It is instructed to recommend rather than ask: a reviewer that hands you back a list of questions has shifted the work onto you and finished nothing.
 
 ---
 
@@ -211,4 +211,4 @@ One line per release, generated from the pack's own history at every sync; the f
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v3.6.0
+made with [live-spec](https://github.com/happysasha18/live-spec) v4.0.0
