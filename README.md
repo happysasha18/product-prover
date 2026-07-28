@@ -4,15 +4,15 @@
 
 **A senior-architect review of your product spec, through the lens of [formal verification](https://en.wikipedia.org/wiki/Formal_verification). A [Claude Code](https://claude.com/claude-code) skill.**
 
-Point it at a PRD, feature spec, HLD, or design proposal. It reads the document the way a principal architect would: a short verdict, the structural model it extracted, the gaps that matter, and what to fix before you build.
+Point it at a PRD, feature spec, HLD, or design proposal. It reads the document the way a principal architect would. You get four things back: a short verdict, the structural model it extracted, the gaps that matter, and what to fix before you build.
 
 ---
 
 ## Why
 
-A spec passes review because reviewers can only catch errors in the language the document is written in. A missing rollback, a state with no exit, an operation that isn't atomic — these have no words on the page to argue with, so nobody argues.
+A spec passes review because a reviewer catches errors in the language the document is written in. A missing rollback, a state with no exit, an operation that isn't atomic: these have no words on the page to argue with. So nobody argues.
 
-That used to be survivable, because a human had to read the document before building against it, and a person building against a hole produces friction: a question in grooming, a spike, an argument. An agent generating from the same document produces no friction at all. It fills the hole with a plausible default and keeps going. Then the tests get derived from the same document, so they say nothing about the missing property either.
+That used to be survivable. A human had to read the document before building against it. A person building against a hole produces friction: a question in grooming, a spike, an argument. An agent generating from the same document produces no friction at all. It fills the hole with a plausible default and keeps going. The tests are then derived from the same document, so they say nothing about the missing property either.
 
 Green suite. Shipped gap. The review has to happen on the document, before anything is generated from it.
 
@@ -24,17 +24,17 @@ Findings arrive in operational terms, each one traced to a quote in your documen
 
 > **A failed update can be silently overwritten by the next one**
 >
-> *Spec §4.2:* "If the update fails, the tenant enters `Failed to Update`." The document defines no transition out of that state, and §4.3 allows a new update from any state.
+> *Spec §4.2:* "If the update fails, the tenant enters `Failed to Update`." The document defines no transition out of that state. §4.3 allows a new update from any state.
 >
-> **Consequence:** a tenant whose update failed at 14:02 receives a second update at 14:05 that succeeds. The tenant now reads `Updated`. The billing service that consumed the first update never learns it was lost, and no operator sees an error — the failure is gone from the record.
+> **Consequence:** a tenant whose update failed at 14:02 receives a second update at 14:05 that succeeds. The tenant now reads `Updated`. The billing service that consumed the first update never learns it was lost, and no operator sees an error. The failure is gone from the record.
 >
-> **Fix:** state the exit from `Failed to Update` — retry, revert to last consistent state, or a hard stop that alerts an operator — and state whether a new update is accepted before that exit is taken.
+> **Fix:** state the exit from `Failed to Update`. Three answers fit: a retry, a revert to the last consistent state, or a hard stop that alerts an operator. Then state whether a new update is accepted before that exit is taken.
 >
 > `defect · stuck-state (liveness)`
 
 The formal vocabulary appears only in that last tag. The framework stays private; you get the finding.
 
-Every finding is one of two kinds, and the tag says which. A **defect** — a violated invariant, a false claim, or a missing required answer — blocks the build: it is folded into the spec before you ship. A **recommendation** — a consistency or quality gain with nothing broken — queues for a taste call, and you decide.
+Every finding is one of two kinds, and the tag says which. A **defect** is a violated invariant, a false claim, or a missing required answer. It blocks the build, and it is folded into the spec before you ship. A **recommendation** is a consistency or quality gain with nothing broken. It queues for a taste call, and you decide.
 
 ---
 
@@ -42,17 +42,17 @@ Every finding is one of two kinds, and the tag says which. A **defect** — a vi
 
 > Never produce a finding the reader can't trace back to the document.
 
-Every finding quotes its source and pins the location. Every consequence is concrete: who is affected, what triggers it, what breaks, what they see. It never settles for "this could be a problem." Every fix names a specific artifact or decision; the vague verbs (`define`, `ensure`, `handle`, `consider`) are banned. When the document is too vague to support a concrete consequence, it says so plainly and invents nothing.
+Every finding quotes its source and pins the location. Every consequence is concrete: who is affected, what triggers it, what breaks, and what they see. "This could be a problem" fails that bar. Every fix names a specific artifact or decision, and the vague verbs are banned: `define`, `ensure`, `handle`, `consider`. When the document is too vague to support a concrete consequence, it says so plainly and invents nothing.
 
 An adversarial reviewer that produces plausible fiction is worse than no reviewer.
 
-The verdict tracks production impact, and formal purity does not set it — the same atomicity gap is a recommendation for a manual quarterly job and a defect for an automated path that runs a thousand times a day. The reasoning lives in the finding; a second tag never carries it.
+The verdict tracks production impact, and formal purity leaves it alone. The same atomicity gap is a recommendation for a manual quarterly job. It is a defect for an automated path that runs a thousand times a day. The reasoning lives in the finding, and a second tag never carries it.
 
 ---
 
 ## Install
 
-Claude Code required. No code, no dependencies, nothing to build — the skill is a single `SKILL.md`.
+Claude Code required. The skill is a single `SKILL.md` file, and installing it is a copy.
 
 ```bash
 git clone https://github.com/happysasha18/product-prover.git
@@ -71,7 +71,7 @@ Then just ask, in any project:
 
 > *"review this spec"* · *"poke holes in this design"* · *"is this PRD ready — what did I miss?"* · *"Product Prover this"*
 
-Point it at any PRD, design doc, or ARCHITECTURE.md. Claude Code picks up skills placed in `~/.claude/skills/` automatically; open a new session if one was already running when you installed it.
+Point it at any PRD, design doc, or ARCHITECTURE.md. Claude Code picks up skills placed in `~/.claude/skills/` automatically. Open a new session if one was already running when you installed it.
 
 ---
 
@@ -79,11 +79,11 @@ Point it at any PRD, design doc, or ARCHITECTURE.md. Claude Code picks up skills
 
 One continuous pass, no pausing between phases.
 
-- **Triage** — is this an analyzable spec at all, or marketing copy? It says so up front and does not pretend to find a spec where there is none.
+- **Triage** — is this an analyzable spec at all, or marketing copy? It says so up front, and it reports plainly when the document holds no spec.
 - **Opening assessment** — the thirty-second verdict: what the document is trying to do, what works, how close it is to buildable.
-- **The model** — entities, states and transitions, actors, composition boundaries. Including what it had to *assume* where you were ambiguous, listed explicitly.
+- **The model** — entities, states and transitions, actors, and composition boundaries. It lists explicitly what it had to *assume* where you were ambiguous.
 - **Structural issues** — incomplete state space, undefined actors, components mixing roles.
-- **Property analysis** — safety (invariants, pre/postconditions, atomicity, rollback), liveness (dead ends, silent failure masking), enforceability, internal consistency. Then, on a full pass, it runs a fixed set of completeness checks and records a verdict for each — found something / clean / not applicable — so a skipped check is never mistaken for one that passed. The checks cover:
+- **Property analysis** — safety, meaning invariants, preconditions and postconditions, atomicity, and rollback; liveness, meaning dead ends and silent failure masking; enforceability; and internal consistency. Then, on a full pass, it runs a fixed set of completeness checks. Each one records a verdict: found something, clean, or not applicable. A skipped check therefore stays distinct from one that passed. The checks cover:
   - whether a rule meant to apply everywhere reaches every screen
   - whether both ends of every range are handled
   - whether every loading/loaded/failed outcome has a defined UI
@@ -91,14 +91,14 @@ One continuous pass, no pausing between phases.
   - whether a screen's whole lifecycle holds from entry back to return
   - whether any seam is left with an unwritten answer
 
-  Imaginative probes follow, with no verdict owed: ties, concurrency, bounds, dependency failures, dangling references. Most produce nothing on most operations, and inventing a finding to satisfy one is a failure.
-- **Your acknowledged gaps, kept separate** — the Open Items and TBDs you already flagged are reported *after* the ones you missed, so the signal isn't diluted by things you already know.
+  Imaginative probes follow, with no verdict owed: ties, concurrency, bounds, dependency failures, and dangling references. Most produce nothing on most operations, and inventing a finding to satisfy one is a failure.
+- **Your acknowledged gaps, kept separate** — the Open Items and TBDs you already flagged are reported *after* the ones you missed. The things you already know then leave the signal intact.
 - **Human factors** — observability, cognitive load, debuggability. The system that is formally perfect and operationally unusable is a real system.
-- **Closing summary** — five short blocks: the top three fixes; properties phrased so you can paste them straight into the spec; the genuine open questions only you can answer; the recommendations queued for a taste call, held apart from the defects that must fold first; and, on a full pass, a running count of the placeholder decisions still sitting in the doc, oldest first, so they don't quietly pile up.
+- **Closing summary** — five short blocks. The top three fixes. Properties phrased so you can paste them straight into the spec. The genuine open questions only you can answer. The recommendations queued for a taste call, held apart from the defects that fold first. And, on a full pass, a running count of the placeholder decisions still sitting in the document, oldest first, so they stay visible.
 
-**Three review modes:** a full pass over a whole spec, a cross-link pass for one added surface, or a feature-fit pass on a single feature's delta at intake. Used standalone, you get the full pass; the cross-link and feature-fit passes are selected automatically when this skill runs inside the live-spec pipeline.
+**Three review modes:** a full pass over a whole spec, a cross-link pass for one added surface, and a feature-fit pass on one feature's delta. Used on its own, the skill runs the full pass. The cross-link and feature-fit passes are selected automatically when this skill runs inside the live-spec pipeline.
 
-**Persisted findings:** written to a dated file that carries each finding's kind and a folded/rejected column, plus the verdict table for the mandatory sweeps, so the next review starts from the last one's open rows and never relitigates them.
+**Persisted findings:** written to a dated file carrying each finding's kind, a folded-or-rejected column, and the verdict table for the mandatory sweeps. The next review then starts from the last one's open rows, and it leaves the settled ones settled.
 
 **Shipped systems:** a reconciliation note flags where spec claims may no longer match the code, so findings are conditioned on what actually shipped.
 
@@ -106,13 +106,13 @@ One continuous pass, no pausing between phases.
 
 ## Glossary mode
 
-The terms are half the point. `/glossary liveness`, `/define atomicity`, or just *"what does composition mean?"* — each gives a plain definition, an example, and the question the concept makes you ask in a review.
+The terms are half the point. Ask `/glossary liveness`, `/define atomicity`, or *"what does composition mean?"*. Each answer gives a plain definition, an example, and the question the concept makes you ask in a review.
 
 ---
 
 ## What counts as a spec
 
-It doesn't know what a PRD is. It knows entities, states, transitions, invariants, preconditions, atomicity, liveness — so any document that implies a state machine is fair game:
+It works from entities, states, transitions, invariants, preconditions, atomicity, and liveness, rather than from a document's genre. Any document that implies a state machine is fair game:
 
 - protocol and API designs — retry semantics, idempotency, error contracts
 - workflow and approval flows — anything with a status field
@@ -128,7 +128,11 @@ It doesn't know what a PRD is. It knows entities, states, transitions, invariant
   - the runtime and placement views
   - a re-ask when a node has grown past its stated job
 
-Two constraints, and they're hard ones. **It needs a document.** A codebase or a diagram in your head will not do. It reads what is written and reports what is missing, and there is nothing to read in an undocumented system. (For an existing system, live-spec's [adoption walk](https://github.com/happysasha18/live-spec/blob/main/docs/adoption.md) writes the spec from the code first.) And **the document has to claim behaviour**: point it at a vision deck and triage says so up front; it will not pretend to find state machines in it.
+Two constraints, and they are hard ones.
+
+**It needs a document.** A codebase, and a diagram in your head, leave it nothing to read. It reads what is written and reports what is missing, and an undocumented system offers neither. For an existing system, live-spec's [adoption walk](https://github.com/happysasha18/live-spec/blob/main/docs/adoption.md) writes the spec from the code first.
+
+**The document has to claim behaviour.** Point it at a vision deck and triage says so up front. It reports the absence of state machines and invents none.
 
 Product specs are where it has been used most, and its output leans on that vocabulary. Nothing in the method is product-specific.
 
@@ -136,25 +140,25 @@ Product specs are where it has been used most, and its output leans on that voca
 
 ## What it isn't
 
-It reads documents. It does not read code. It finds holes in what a document *claims*; your test suite proves what the artifact *does*. It does not replace a full review, either — it is the part of a review that shouldn't depend on which reviewer was in the room that morning.
+It reads documents, and code stays outside its reach. It finds holes in what a document *claims*, and your test suite proves what the artifact *does*. It is one part of a review: the part that stays the same whichever reviewer was in the room that morning.
 
-The judgment stays with you. It is instructed to recommend rather than ask: a reviewer that hands you back a list of questions has shifted the work onto you and finished nothing.
+The judgment stays with you. It is instructed to recommend: a reviewer that hands you back a list of questions has shifted the work onto you and finished nothing.
 
 ---
 
 ## Related
 
-- **[live-spec](https://github.com/happysasha18/live-spec)** — the pack product-prover is the review station of: wish → spec → prove → tests → code → commit, with the spec as the single authority. The prover runs standalone; you don't have to adopt the pipeline.
+- **[live-spec](https://github.com/happysasha18/live-spec)** — the pack product-prover is the review station of. Its pipeline runs wish → spec → prove → tests → code → commit, and the spec is the single authority. The prover also runs on its own, with the pipeline left aside.
 - **[spec-author](https://github.com/happysasha18/live-spec/tree/main/skills/spec-author)** — the writing half of the pair. It writes the spec; product-prover reviews it.
-- **[track-coach](https://github.com/happysasha18/track-coach)** — same instinct, different domain: facts over plausible fiction, and the decision always stays with the author.
+- **[track-coach](https://github.com/happysasha18/track-coach)** — the same instinct in another domain: facts over plausible fiction, and the decision always stays with the author.
 
 ---
 
 ## Its younger sibling
 
-The prover asks whether the spec holds together as written. Its younger sibling, the design review — the `design-reviewer` skill — reads the same spec right after and asks a different question: whether the design itself is right. Do the things a person acts on the same way actually behave the same way, and what groupings did the text never declare? The prover argues with the sentences on the page; the design review checks whether elements that share a role behave alike, even when the text never put them side by side.
+The prover asks whether the spec holds together as written. Its younger sibling is the design review, the `design-reviewer` skill. It reads the same spec right after, and it asks whether the design itself is right. Do the things a person acts on the same way actually behave the same way, and what groupings did the text never declare? The prover argues with the sentences on the page. The design review checks whether elements that share a role behave alike, even where the text never put them side by side.
 
-It ships in the same [live-spec](https://github.com/happysasha18/live-spec) pack, so adopting the pipeline brings both passes — the prover first, the design review right behind it.
+It ships in the same [live-spec](https://github.com/happysasha18/live-spec) pack, so adopting the pipeline brings both passes: the prover first, and the design review right behind it.
 
 ---
 
@@ -162,7 +166,7 @@ It ships in the same [live-spec](https://github.com/happysasha18/live-spec) pack
 
 [MIT](LICENSE) © Alexander Abramovich.
 
-*Read-only mirror of one skill from the [live-spec pack](https://github.com/happysasha18/live-spec) — don't open PRs here; changes land in the pack and sync via `scripts/sync-mirrors.sh`.*
+*Read-only mirror of one skill from the [live-spec pack](https://github.com/happysasha18/live-spec). Changes land in the pack and reach this mirror through `scripts/sync-mirrors.sh`, so open pull requests against the pack.*
 
 ---
 
