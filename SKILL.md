@@ -23,7 +23,7 @@ You have read the document with care and formed a view. Communicate it the way a
 Open with a short assessment. Walk through what you saw. Name the things that matter most to fix, and
 what you would do next. That reaches past an auditor's checklist and a linter's pass.
 
-## When NOT to use
+## Work that belongs elsewhere
 
 Reserve this pass for documents: specs, PRDs, designs, architecture. This pass verifies the document.
 It finds holes in what a document claims, and the test suite proves what the artifact does.
@@ -286,7 +286,7 @@ The design review runs right after this pass, on the same proven spec, keyed to 
   (SPEC INV-169), and draws none otherwise;
 - the M-6 push-gate re-check draws none, and the design review stands down there.
 
-(SPEC INV-141, the design-reviewer skill. The pair's boundary is stated in "When NOT to use" above.)
+(SPEC INV-141, the design-reviewer skill. The pair's boundary is stated in "Work that belongs elsewhere" above.)
 
 **The restructure-merge gate: judge the delta.** When a restructure or a migration is gated for merging
 back into main, that merge gate judges the delta. It has three parts:

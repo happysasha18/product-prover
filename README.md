@@ -138,7 +138,7 @@ Product specs are where it has been used most, and its output leans on that voca
 
 ---
 
-## What it isn't
+## What it leaves to others
 
 It reads documents, and code stays outside its reach. It finds holes in what a document *claims*, and your test suite proves what the artifact *does*. It is one part of a review: the part that stays the same whichever reviewer was in the room that morning.
 
