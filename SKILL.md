@@ -1,6 +1,6 @@
 ---
 name: product-prover
-description: Structured senior-architect review of product documents: PRDs, feature specs, HLDs, LLDs, design proposals, and architecture documents (ARCHITECTURE.md). It reviews them with formal-verification thinking, covering entities, states, transitions, invariants, safety, liveness, atomicity, and composition. Use this skill whenever the user asks to review, critique, stress-test, lint, or find gaps in a spec or design document. It fires as well when they ask "is this spec ready / what did I miss / poke holes in this". It fires on an uploaded product document with a request for feedback, and on the words "Product Prover". The word "review" often goes unsaid, and the skill still fires. It reads documents, so code and diffs route elsewhere. It finds holes in what a document claims, and the test suite proves what the artifact does. It answers "does the spec hold together as written?"
+description: Use to review, critique, or find gaps in a spec or design document (PRD, HLD, LLD, architecture doc) before it ships. It fires as well on an uploaded document with a request for feedback, and where the word "review" goes unsaid. It answers one question: does the spec hold together as written?
 metadata:
   version: 4.3.0
 ---
