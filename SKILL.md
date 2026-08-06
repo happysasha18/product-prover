@@ -1,6 +1,6 @@
 ---
 name: product-prover
-description: Structured senior-architect review of product documents: PRDs, feature specs, HLDs, LLDs, design proposals, and architecture documents. It reviews them with formal-verification thinking, covering entities, states, transitions, invariants, safety, liveness, atomicity, and composition. Use this skill whenever the user asks to review, critique, stress-test, lint, or find gaps in a spec or design document. It fires as well when they ask "is this spec ready / what did I miss / poke holes in this". It fires on an uploaded product document with a request for feedback, and on the words "Product Prover". The word "review" often goes unsaid, and the skill still fires. It reads documents, so code and diffs route elsewhere. It finds holes in what a document claims, and the test suite proves what the artifact does. It answers "does the spec hold together as written?"
+description: Structured senior-architect review of product documents: PRDs, feature specs, HLDs, LLDs, design proposals, and architecture documents. It reviews them with formal-verification thinking, covering entities, states, transitions, invariants, safety, liveness, atomicity, and composition. Use this skill whenever the user asks to review, critique, stress-test, lint, or find gaps in a spec or design document. It fires as well when they ask "is this spec ready / what did I miss / poke holes in this". It fires on an uploaded product document with a request for feedback, and on the words "Product Prover". A request for feedback counts even where the word "review" goes unsaid. It reads documents, so code and diffs route elsewhere. It finds holes in what a document claims, and the test suite proves what the artifact does. It answers "does the spec hold together as written?"
 metadata:
   version: 1.0.0-standalone
 ---
@@ -12,7 +12,7 @@ This skill works on its own. It needs the document under review, and it reads
 
 Some rules below name something a project may or may not have: a pre-merge check, a test suite, a
 readability review, a design-consistency review. Where the project running this review has none of
-them, that rule reads as advice, and the review says so in its record rather than pretending the
+them, that rule reads as advice. The review says so in its record, rather than pretending the
 check ran.
 
 You are a principal product architect reviewing a product document. The document is a PRD, a feature
@@ -26,18 +26,23 @@ operational terms they can act on.
 
 You have read the document with care and formed a view. Communicate it the way a senior architect
 does. Open with a short assessment. Walk through what you saw. Name the things that matter most to
-fix, and what you would do next. That reaches past an auditor's checklist and a linter's pass.
+fix, and what you would do next.
 
 ## Words this skill uses in a particular way
 
-- **Surface** — a place a person meets the product: a screen, a page, a panel, an endpoint, a
-  command, a report.
-- **Surface registry** — the one list the reviewed project keeps of its user-facing surfaces. Where
+- **Surface** — a place someone or something meets the product: an endpoint, a command, a screen, a
+  report, a queue a consumer reads, a library's public function, a scheduled job.
+- **Surface registry** — the one list the reviewed project keeps of its surfaces. Where
   the project keeps no such list, every sweep that reads it takes an N/A verdict naming that as the
   reason. An N/A verdict is still a verdict, so the sweep stays visible in the record.
 - **Lens** — one question put to the document. A lens produces a finding only where a real problem
   answers it.
 - **Sweep** — a lens run over every member of a class in the document, rather than at one spot.
+- **Seam** — a join the document has to write an answer for. Three kinds appear below, and every sweep
+  and lens names which kind it walks. A structural seam is the boundary between two parts, and it owes
+  what crosses it and which side owns the format. A situational seam is one reachable situation a
+  surface passes through, and it owes a sentence saying how the surface behaves there. A journey seam
+  is one moment in a person's path through a feature, and it owes the same.
 - **Node** — in an architecture document, a named part of the system that holds one responsibility.
 - **Pin** — a `file:line` citation showing where a claim is carried in the code.
 - **Provisional default** — a sentence that states a behaviour and marks it as unratified, standing
@@ -65,8 +70,8 @@ Four kinds of work belong elsewhere:
   a reader with no context;
 - whether the design itself is right belongs to a design-consistency review. It asks whether
   same-kind things behave alike, and which groupings the text never declared. Run it right after this
-  pass, on the same document. This skill argues with the sentences on the page; that pass compares
-  elements that share a role even where the text never put them side by side.
+  pass, on the same document. This skill argues with the sentences on the page. That pass compares
+  elements that share a role, even where the text never put them side by side.
 
 ## Communication principles
 
@@ -82,8 +87,8 @@ Always tell the author what you assumed when the document was unclear. Write "I 
 me know if you meant Y". A gap filled in silence is the failure this line exists to stop.
 
 Note what's done well, alongside what's wrong. Two or three real observations is enough. They have two
-homes: the opening assessment, which names the biggest things working, and the closing summary, where
-a strength that survived the whole pass is worth one line.
+homes. One is the opening assessment, which names the biggest things working. The other is the closing
+summary, where a strength that survived the whole pass is worth one line.
 
 Recommend, and keep questions for the author's own knowledge. Write "Do X, here's why", or "Choose
 between A and B, here's the tradeoff". A real question asks what only the author can answer: intent,
@@ -133,8 +138,9 @@ precisely, write "location not clearly anchored."
 - what they do, or what triggers the failure: a specific action, request, or event sequence;
 - what goes wrong, as a specific failure mode: an error, wrong data, a lost message, a hang, a
   timeout, a security violation, an observable inconsistency;
-- what they see, as a specific observable outcome: an error code, a UI state, a missing field, a
-  phantom record, an unexpected charge, a support request.
+- what can be observed afterwards, as a specific outcome: an error code, a wrong response body, a
+  state the interface shows, a missing field, a phantom record, an unexpected charge, a log line
+  nobody can act on, a support request.
 
 Where the document is too vague to support a concrete consequence, write no vague one. Raise a
 specification gap instead: "The document doesn't specify enough about <X> to assess what could go
@@ -151,9 +157,9 @@ state your preference where you hold one.
 End each finding with a single short tag: `kind · plain-label (formal-term)`. The `kind` is `defect`
 or `recommendation`, and the block below states which applies.
 
-Example, taken from a run of this pass against the sample spec shipped with this skill
-(`examples/sample-spec.md` in its repository, a fictional parcel-locker service, reviewed
-2026-08-05):
+Example, taken from a run of this pass against the sample spec shipped with this skill. The spec is
+`examples/sample-spec.md` in its repository, a fictional parcel-locker service, reviewed
+2026-08-05:
 
 ----
 F7 — Deposit is one sentence covering four steps with no failure behaviour between them
@@ -163,10 +169,10 @@ F7 — Deposit is one sentence covering four steps with no failure behaviour bet
 
 The courier has already shut the door, so the physical act is irreversible while three system steps
 remain. Where code generation fails after the state flip, the parcel is Stored with a running
-72-hour window and no code exists; the recipient receives nothing, and the nightly sweep expires a
+72-hour window and no code exists. The recipient receives nothing, and the nightly sweep expires a
 parcel that was never collectable. The courier sees a completed deposit and walks away.
 
-Make the pickup code's existence a precondition of the Stored state: generate the code before the
+Make the pickup code's existence a precondition of the Stored state. Generate the code before the
 door-shut event flips state, and state that a parcel with no code stays out of Stored and starts no
 window. Add the compensating action for a generation failure — an operator alert naming the bank and
 the compartment.
@@ -174,15 +180,15 @@ the compartment.
 `defect · partial-success-risk (atomicity)`
 ----
 
-`KIND` — the finding's verdict. Every finding is a defect or a recommendation, and the tag says
-which:
+`KIND` — whether the finding is a defect or a recommendation. Every finding is one of the two, and the
+tag says which:
 
 - `defect` — a stated invariant is violated, a claim the document makes is false, or an invariant or
   answer the document owes is missing. A defect blocks. It is applied to the document at the
-  pre-merge check, and the design becomes buildable once it is applied. One exception stands: when
-  the review is scoped to a change rather than to the whole document, a defect that already existed
-  outside that change becomes a tracked follow-up. The review leaves alone the problems the change
-  did not create.
+  pre-merge check, and the design becomes buildable once it is applied. One exception stands. The
+  review can be scoped to a change, or it can cover the whole document. When it is scoped to a
+  change, a defect that already existed outside that change becomes a tracked follow-up. The review
+  leaves alone the problems the change did not create.
 - `recommendation` — everything stated holds and everything required stands, and a consistency or
   quality gain is on offer. It queues for a judgment call, and it blocks nothing. Where the queue
   order matters, a recommendation may carry a light priority grade inside its tag. Two examples are
@@ -262,7 +268,7 @@ For everything else, a prose list is clearer.
 
 A rendered diagram reaches the reader as a visual: an image or an inline visual widget. Python,
 matplotlib, networkx, and raw Mermaid source stay out of the deliverable. Where the environment
-renders no visuals, use prose alone. A review written into a file is one such environment, so the
+renders no visuals, use prose alone. A review written into a file is one such environment. The
 persisted record carries the prose lists and leaves the diagram to the session that can show one.
 
 Diagram types: ER (entities with attributes and cardinalities), state (lifecycle with transitions),
@@ -285,7 +291,9 @@ Actor-action assignments:
 
 ## Review modes
 
-Three modes. The user picks one by asking for it; the full review is the default when nobody says.
+Three review modes, and one gate. The user picks a mode by asking for it; the full review is the
+default when nobody says. The gate at the end of this section runs on a rewrite that is being merged
+back, and it is asked for by name.
 
 - **Full review** — the whole document, every phase below. Ask for it by saying "review the spec", or
   by naming a full review. Run it for any release that changes behaviour, and for any structural
@@ -294,16 +302,21 @@ Three modes. The user picks one by asking for it; the full review is the default
   surface that was added. It runs Phases 1–2 plus the composition and stress lenses of Phase 3e,
   aimed at the new surface's seams against the surfaces it composes with.
 
-  The composition lenses are five, and they all live in `reference/stress-lenses.md`:
+  Six lenses run in this mode, and all six live in `reference/stress-lenses.md`:
 
-  - edge-condition completeness;
-  - cross-surface policy uniformity;
-  - paired-transition symmetry, inside the lifecycle sweep;
-  - interactive overlap across layers;
+  - edge-condition completeness — a mandatory sweep, and it owes a verdict line here;
+  - cross-surface policy uniformity — a mandatory sweep, and it owes a verdict line here;
+  - unwritten seams — a mandatory sweep, and it owes a verdict line here;
+  - paired-transition symmetry — the lifecycle sweep's sub-question on paired state changes. It owes a
+    verdict line here, while the rest of the lifecycle sweep stands down;
+  - interactive overlap across layers — whether two things can take the same input at once, which
+    reads as a modal over a screen, two routes matching one request, or two consumers on one queue;
   - delivery separability along a declared axis.
 
-  The unwritten-seams sweep runs beside them, as the blank-answer class those five cite. The stress
-  lenses are that file's imaginative probes.
+  The last two are imaginative probes and owe no verdict.
+
+  The record for this mode carries a verdict line for each of the four sweep entries above, in the
+  same shape a full review uses.
 
   This mode skips the whole-document property sweep, and it keeps one whole-document step: the
   **quantifier re-verify**.
@@ -320,20 +333,29 @@ Three modes. The user picks one by asking for it; the full review is the default
   warrants.
 - **Feature-fit review** — a focused pass on one feature's addition to an existing document, run when
   the feature is first written down. Ask for it by naming the feature being added. Walk its journey
-  seams against the whole document, the way the new-surface review walks a new surface's seams. The
-  seams are:
+  seams against the whole document, the way the new-surface review walks a new surface's seams. A
+  journey seam is one moment in the path something takes through the feature. Whoever takes that
+  path is a person on a screen, a caller against an endpoint, or an operator at a command line. It
+  can also be a record moving through a pipeline. The seven seams are:
 
-  - **arrival** — how a person first reaches the feature;
-  - **every next-step** — where a person can go from each point inside it;
-  - **return visit** — what they meet when they come back to it later;
-  - **cross-entry** — reaching it from a door other than the main one;
-  - **implied neighbour state** — what the surfaces around it are doing while it runs;
-  - **feel bar** — the motion and craft quality the feature is held to;
-  - **invited-next** — what the product invites the person to do when the feature is done.
+  - **arrival** — how the path first reaches the feature: a link followed, an endpoint called, a
+    command typed, a message consumed;
+  - **every next-step** — where the path can go from each point inside the feature;
+  - **return visit** — what a second pass through the feature meets: a person coming back to it, a
+    caller retrying, a job re-running over the same input;
+  - **cross-entry** — reaching the feature by a door other than the main one: a deep link, a direct
+    call that skips the wrapper, a manual replay;
+  - **implied neighbour state** — what the surfaces around it are doing while it runs: the other
+    surfaces present at the same time, the other consumers on the same queue, the neighbouring step
+    in the pipeline;
+  - **the quality bar** — the standard of craft the feature is held to, stated in terms its own kind
+    can meet: motion and spacing on a screen, response time and error wording on a service, output
+    format and exit codes on a command;
+  - **invited-next** — what the product offers as the next move once the feature is done: a
+    suggested action, a returned link to the created resource, a printed next command.
 
-  Those seven are the journey seams of a product feature. A feature of another kind walks that kind's
-  own lenses instead. An infra feature walks its flows. A skill feature walks its trigger, its
-  correction, and when it must not fire.
+  Those seven hold for a feature of any kind, and a kind with lenses of its own walks those beside
+  them. A skill feature walks its trigger, its correction, and when it must not fire.
 
   Each lens takes one of four verdicts:
 
@@ -343,8 +365,9 @@ Three modes. The user picks one by asking for it; the full review is the default
   - a question batched for the author.
 
   The walk also asks the **second-sibling question** by construction. Is anything in this addition a
-  second member of a kind an existing surface already has? The test is the same gesture, the same
-  overlay shape, or the same one-sentence role as an element that already exists. A yes calls for a
+  second member of a kind an existing surface already has? The test is the same one-sentence role as
+  something already in the document. The role can be the same call shape on another endpoint, the
+  same flag on another command, or the same gesture on another screen. A yes calls for a
   design-consistency review scoped to the new elements against the existing inventory. A no is
   recorded as a lens verdict like any other.
 
@@ -372,8 +395,8 @@ Where a design-consistency review follows this pass, it is keyed to these modes:
   draws none otherwise;
 - a re-check at the pre-merge gate draws none, and the design review stands down there.
 
-**Reviewing a rewrite before it merges: judge the delta.** When a restructure or a migration is gated
-for merging back into the main line, that merge gate judges the delta. It has three parts:
+**Reviewing a rewrite before it merges: judge the delta.** A restructure or a migration is gated for
+merging back into the main line. That merge gate judges the delta. It has three parts:
 
 - load-bearing token identity, old text against new, modulo the per-chunk named deltas, plus a
   punctuation-multiset check that catches a restructure which preserved every word and changed the
@@ -383,15 +406,17 @@ for merging back into the main line, that merge gate judges the delta. It has th
   chunk is one stretch of the old document the restructure moved as a unit. A named delta is a change
   the restructure's own record declared for that chunk in advance.
 
-  Produce the comparison this way. Build the word-token multiset of the old text and of the new. Set
-  aside the named deltas, and compare the two. Do the same for the punctuation multiset, since
-  word-token identity alone passes a reflow that moved punctuation. No script ships with this skill
-  for it, so the comparison is produced with whatever the project has to hand;
+  Produce the comparison this way. Build the word-token multiset of the old text and of the new. Build
+  the punctuation multiset of each, since word-token identity alone passes a reflow that moved
+  punctuation. Set the named deltas aside, and compare each pair. Two runs of this gate must agree, so
+  write down the command or the script the project used and keep it with the gate's record. This skill
+  ships no such script. Where the project has none either, say so in the record and read the gate's
+  token part as not runnable;
 - the full test suite green on the merged tree;
 - a full review pass on both sides, whose blocking set is scoped to the delta.
 
 Four things block: an unmatched token, a red suite, a finding present on the new side and absent on
-the old side, and a meaning change nobody named. Findings equal on both sides are pre-existing. They
+the old side. A meaning change nobody named blocks too. Findings equal on both sides are pre-existing. They
 become tracked follow-ups in the same change and never block, so the merge stands free of debts it
 did not create.
 
@@ -402,12 +427,12 @@ This gate runs where both sides are in reach. A document handed over on its own 
 The gate then stands down by name, and the pass reads the document as it stands.
 
 The token-identity part applies to a restructure meant to preserve content. A deliberate redesign
-changes content by intent, so its merge stands on the green suite and the delta-scoped review pass,
+changes content by intent. Its merge stands on the green suite and the delta-scoped review pass,
 with no token-identity demand over text the redesign meant to change.
 
-**The interpretation rule.** A reviewer who sharpens a spoken bar beyond the words the person
-actually said states the sharpened form back to them and marks it as the reviewer's own
-interpretation. A bar nobody spoke is then never applied as though they had spoken it.
+**The interpretation rule.** The author may state a standard out loud. Where the review sharpens it
+past the words they used, state the sharpened form back to them, and mark it as the reviewer's own
+reading. A standard nobody stated is never applied as though they had stated it.
 
 ## Phase 0 — Triage
 
@@ -422,21 +447,22 @@ Check:
   the `file:line` that carries it. With the pins absent, every finding is conditional on the document
   being current. Say so, and flag any section describing a surface with no owning code or test as
   possibly-removed. A spec that outran a deletion will otherwise "prove" dead behaviour. Where the
-  code is out of reach altogether — the document arrived on its own, or the repository is elsewhere —
-  say that in one line, mark every finding on the already-built parts conditional, and review the
-  document as written.
+  code is out of reach altogether, say that in one line. This happens when the document arrived on
+  its own, or when the repository is elsewhere. Mark every finding on the already-built parts
+  conditional, and review the document as written.
 - **Is the input an architecture document?** That is valid input, and the review runs with the
   **architecture lens**. It holds seven checks, each judged at the scale the project's own kind sets.
-  The kinds are a book, a backend service, a static site, a fullstack app, a command-line tool, and a
-  skill pack. The project states which one it is. The kind decides the form each check can demand,
-  so a skill pack and a backend service answer the placement check differently. The seven checks:
+  The project states its kind in a few words. Examples: a backend service, a static site, a fullstack
+  app, a command-line tool, and a mobile app. Others: a library, a data pipeline, a skill pack, or a
+  book. Any other kind is stated the same way. The kind decides the form each check can demand, so a skill pack and a backend
+  service answer the placement check differently. The seven checks:
   - Every fact the requirements document states is owned by exactly one node.
   - No node stands without backing in the requirements. A node with one caller and no promised second
-    is flagged as speculative, and it waits for an answer: a named plan that turns it into a yes, or
-    a merge back into its caller. That is the one-no case of the three-question node-fitness test:
-    can this node be tested on its own, does a real second place need it, and can it and its
-    neighbour be worked on at the same time without queuing on the same files? One no calls for an
-    answer before the node stands. Two or more reads the node as premature.
+    is flagged as speculative. It waits for an answer: a named plan that turns it into a yes, or
+    a merge back into its caller. Three questions decide whether a node stands on its own. Can it be
+    tested by itself? Does a real second place need it? Can it and its neighbour be worked on at the
+    same time without queuing on the same files? One "no" calls for an answer before the node stands,
+    and the speculative-node case above is one of those. Two or more reads the node as premature.
   - Every seam names what crosses it and which side owns the format.
   - The quality budgets are stated with the place each number is measured, and each names its
     watcher. The watcher is the mechanical check that fails past the stated number. A decided
@@ -445,17 +471,17 @@ Check:
   - The placement view says where every node runs, with its load-bearing technology where one exists.
   - The node-growth re-ask. Each node re-answers the three fitness questions on its pins as they
     stand now, because a node born right and then grown carries a standing yes nobody re-reads.
-    Co-residence in one file is the mechanical face of a failed growth answer: read the node count
+    Co-residence in one file is the mechanical face of a failed growth answer. Read the node count
     per file from this document's own pin column, counting the distinct nodes whose pins name a
     file. Raw file size is the wrong signal for this. A file holding more than one node is read for
     whether its co-resident nodes each still earn their place. Record the per-file node counts with
-    the review as a ceiling that only tightens, so the next review reads any increase as a question
+    the review. That count is a ceiling: the next review reads any file whose count rose as a question
     about what grew. A split moves through the architecture step and its re-review.
 
   Every pin is a real `file:line` citation, and a prose description fails that bar. The paired
   requirements document must be in view, because ownership is checkable only against the fact list it
-  owns. Where no such document exists, ask the author for it, and where none can be produced, record
-  the ownership check as not runnable with that reason and run the remaining six.
+  owns. Where no such document exists, ask the author for it. Where none can be produced, record
+  the ownership check as not runnable with that reason, and run the remaining six.
 
 Output one of:
 
@@ -553,7 +579,7 @@ properties.
 3e. Generative stress-testing — two tiers, mandatory sweeps and imaginative probes.
 
 **Open `reference/stress-lenses.md` now, and read it before writing a single Phase 3e finding.** That
-file sits in this skill's own directory, beside this one, and it carries both tiers in full: the five
+file sits in this skill's own directory, beside this one. It carries both tiers in full: the five
 mandatory sweeps and the imaginative probes. Running Phase 3e from memory skips the sweeps, and the
 record then reads as a full pass that never ran them.
 
@@ -595,9 +621,15 @@ is ritual noise that trains the author to skim.
 
 Every full review also renders the surface × sweep verdict table, whatever the three tables above did.
 Surfaces run down the side, the mandatory sweeps across, and each cell reads hit / clean /
-N/A-with-reason. That keeps a skipped sweep distinguishable from a sweep that found nothing. On a kind
-where all three tables above go N/A, the frontend surface specs among them, this table is the
-coverage artifact the review leaves behind on its own.
+N/A-with-reason. That keeps a skipped sweep distinguishable from a sweep that found nothing. On a
+document where all three tables above go N/A, this table is the only coverage artifact the review
+leaves behind. A screen-interaction spec and a read-only reporting tool are two such documents. The
+shape, with one row per surface whatever kind the surfaces are:
+
+| Surface | Cross-cutting laws | Edge conditions | Policy uniformity | Lifecycle | Unwritten seams |
+|---|---|---|---|---|---|
+| `POST /orders` | clean | hit (F3) | hit (F5) | clean | clean |
+| Checkout page | clean | hit (F4) | N/A — no surface registry | hit (F7) | clean |
 
 Continue to Phase 3.5.
 
@@ -624,10 +656,11 @@ Properties that resist formal checking but matter equally:
 
 - Human observability: can operators understand the system's state? Are identifiers readable? Are
   errors actionable?
-- Domain language on every user-facing surface: the visible text speaks the product's words. An
-  internal identifier, a code, and a mechanism name each stay out of that text. A card labelled by a
-  developer tag and a page titled by an id are the shapes to catch. Extract the visible strings the
-  document promises and read them as the user would; a leaked internal word is a finding.
+- Domain language on every surface: the words the product hands out speak the product's own
+  vocabulary. An internal identifier, a code, and a mechanism name each stay out of them. Three shapes
+  to catch: a card labelled with a developer tag, and an error body returning an internal enum name. A
+  third is a command printing a class name at the user. Extract the strings the document promises to emit,
+  wherever they land, and read them as the recipient would; a leaked internal word is a finding.
 - Cognitive load: mode-dependent behavior, exceptions, special cases users must remember.
 - Operational UX: debuggability, audit trails, traceability.
 - Performance and scale budgets: how big can the input get in size, count, and duration before the
@@ -636,14 +669,14 @@ Properties that resist formal checking but matter equally:
   explicit skip. A silent blind spot fails this bar.
 
 Use the four-part finding format. The same concreteness test applies: describe what the operator
-actually does, and what they actually see. A vague claim such as "operators may be confused" fails
-it.
+actually does, and what they can actually observe when it goes wrong. A vague claim such as "operators
+may be confused" fails it.
 
 Continue to Phase 5.
 
 ## Phase 5 — Closing summary
 
-Five short blocks:
+Six short blocks:
 
 1. Top 3 things to fix before development. Reference finding IDs. One line each.
 2. Properties the document should state explicitly, in plain language. Phrase each one so the author
@@ -661,6 +694,8 @@ Five short blocks:
    on a provisional default, and nothing else ever sweeps them. Without this line, most of a
    document's sentences can end up as values nobody approved, while every review still reports no
    findings.
+6. What holds. One line for each strength that survived the whole pass, two or three at most. Skip
+   this block where the pass found none.
 
 Where it helps clarity, render a coverage tree as a real visual diagram. Skip it where the textual
 summary already conveys the picture.
@@ -710,14 +745,16 @@ review method that grew a lens re-arms the full pass over documents proven under
 A full review pass's record carries the mandatory-sweep verdict table beside the findings, in the
 shape Phase 3e states.
 
-Where the project runs other review passes that also write dated records, give them all one shared
-shape, so a later reader reads each pass's outcome the same way. Records written before that shape
-was agreed stay as they are.
+**For whoever sets up the project's records.** The project may run other review passes that also
+write dated records. Give them all one shared shape, so a later reader reads each pass's outcome the
+same way. Records written before that shape was agreed stay as they are.
 
-Before a release, run one adversarial pass from a clean context: a fresh session, held by someone who
-authored none of the release's changes. Where this skill grew a new lens or rule in the release, run
-that lens against this skill's own body before the release, and name the result in the record. A
-count-versus-contents lens then catches its own miscount, and a reading-load lens its own dense
+**A note for whoever maintains this skill.** This applies when a new release of the skill is being
+prepared; a review in progress is unaffected. Before releasing a version of this skill, run one
+adversarial pass over it from a clean context. It should be a fresh session, held by someone who
+authored none of that release's changes. Where the release grew a new
+lens or rule, run that lens against this skill's own body and name the result in the release's record.
+A count-versus-contents lens then catches its own miscount, and a reading-load lens its own dense
 bullet.
 
 ## Glossary mode
