@@ -227,14 +227,9 @@ a terminal one exiting to nowhere. A silent edge is the gap. The duty binds forw
 scenario's unstated edge as a finding, and leave the current change free of the backlog older
 scenarios never wrote.
 
-**The boundary lines**, so a reviewer who ran one sub-question knows what it left uncovered:
-
-- the reopen case belongs to *entry state*, as the re-entry transition's payload, while *persistence
-  and versions* covers a stored shape meeting newer code;
-- *entry symmetry* tests that a re-entry path exists, and *entry state* tests the state that path
-  opens into;
-- motion across the pair and the inverse of the means belong to *paired-transition symmetry*;
-- a whole flow's edges belong to *scenario entry and exit*.
+Each sub-question above draws its own boundary against its neighbours, save one: the reopen case
+belongs to *entry state*, as the re-entry transition's payload. *Persistence and versions* covers a
+stored shape meeting newer code instead.
 
 ### 5. Unwritten seams
 

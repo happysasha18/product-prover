@@ -69,9 +69,9 @@ Four kinds of work belong elsewhere:
   sentence read twice, and a comprehension stop are its findings. It reads whether the words land on
   a reader with no context;
 - whether the design itself is right belongs to a design-consistency review. It asks whether
-  same-kind things behave alike, and which groupings the text never declared. Run it right after this
-  pass, on the same document. This skill argues with the sentences on the page. That pass compares
-  elements that share a role, even where the text never put them side by side.
+  same-kind things behave alike, and which groupings the text never declared. This skill argues with
+  the sentences on the page. That pass compares elements that share a role, even where the text never
+  put them side by side.
 
 ## Communication principles
 
@@ -90,9 +90,9 @@ Note what's done well, alongside what's wrong. Two or three real observations is
 homes. One is the opening assessment, which names the biggest things working. The other is the closing
 summary, where a strength that survived the whole pass is worth one line.
 
-Recommend, and keep questions for the author's own knowledge. Write "Do X, here's why", or "Choose
-between A and B, here's the tradeoff". A real question asks what only the author can answer: intent,
-business priority, internal politics.
+Recommend, and keep questions for the author's own knowledge, where a question is the last resort.
+Write "Do X, here's why", or "Choose between A and B, here's the tradeoff". A real question asks what
+only the author can answer: intent, business priority, internal politics.
 
 Be opinionated where the document admits a clear answer. Where you genuinely do not know which is
 right, say that. Fence-sitting out of timidity is a failure of the review.
@@ -126,12 +126,14 @@ Each finding has four parts, in this order:
 `F2`, and on — numbered once across the whole pass in the order the findings are written. Phase 5 and
 the persisted record cite those IDs.
 
-**Part 2 — Quote with source location.** One short quote stands on its own line, in blockquote style,
-followed by a source pin. Format: `> "quote text" — Section 4 / Use case: Standard Activation`, or
+**Part 2 — Quote with source location.** One short quote, or a close paraphrase, stands on its own
+line, in blockquote style. It is followed by a source pin, so the reader traces the finding back to
+the document. Format: `> "quote text" — Section 4 / Use case: Standard Activation`, or
 `> "quote text" — from "Open Items"`. Never invent section names. Where you cannot locate the quote
 precisely, write "location not clearly anchored."
 
-**Part 3 — Operational consequence.** A valid consequence names at least three of these four:
+**Part 3 — Operational consequence.** The concreteness test: a valid consequence names at least three
+of these four:
 
 - who is affected, as a specific actor: an end user, an operator, a downstream service, an admin
   role;
@@ -146,10 +148,10 @@ Where the document is too vague to support a concrete consequence, write no vagu
 specification gap instead: "The document doesn't specify enough about <X> to assess what could go
 wrong. Before this can be reviewed, the spec needs to state <Y>."
 
-**Part 4 — Concrete proposed action.** Propose a specific artifact or a specific decision. These
-vague verbs are banned: define, formalize, ensure, establish, address, handle, consider, account for,
-govern, manage, and clarify with no object. Reaching for one of them means the instruction needs
-sharpening.
+**Part 4 — Concrete proposed action.** The action test: propose a specific artifact or a specific
+decision, every time. These vague verbs are banned: define, formalize, ensure, establish, address,
+handle, consider, account for, govern, manage, and clarify with no object. Reaching for one of them
+means the instruction needs sharpening.
 
 Where several options exist, list them tersely as a, b, c. Give each one a one-phrase tradeoff, and
 state your preference where you hold one.
@@ -195,9 +197,8 @@ tag says which:
   `recommendation · now · unclear-owner (actors)` and `recommendation · later · …`. A defect carries
   no grade.
 
-Read the kind from the finding's own ground. A broken invariant, a missing invariant, and a false
-claim are defects. A finding standing only on "these siblings should match" or "this could read
-clearer", with no invariant behind it, is a recommendation.
+Read the kind from the finding's own ground. A finding standing only on "these siblings should match"
+or "this could read clearer", with no invariant behind it, is a recommendation.
 
 Production impact is the reasoning behind that call, and it belongs in the finding's consequence. An
 atomicity gap on an automated path run thousands of times a day is a defect. The same gap on a manual
@@ -250,7 +251,7 @@ Phase 3, and they are the findings that matter most.
 - a rhetorical question in the body, such as "what happens if X?" with no answer;
 - a section marked "in progress".
 
-They go in Phase 3.5, written as commentary on known issues. Each one is already known to the author.
+They go in Phase 3.5. Each one is already known to the author.
 
 They stay apart for one reason. An author who skims wants to know first what they missed, and mixing
 the two muddies that signal.
@@ -416,12 +417,10 @@ merging back into the main line. That merge gate judges the delta. It has three 
 - a full review pass on both sides, whose blocking set is scoped to the delta.
 
 Four things block: an unmatched token, a red suite, a finding present on the new side and absent on
-the old side. A meaning change nobody named blocks too. Findings equal on both sides are pre-existing. They
-become tracked follow-ups in the same change and never block, so the merge stands free of debts it
-did not create.
-
-The pass reads the old tree and the merged tree. A finding present on both is pre-existing, and a
-finding new to the merged side is delta-scoped and blocks.
+the old side. A meaning change nobody named blocks too. The pass reads the old tree and the merged
+tree. A finding present on both is pre-existing, and a finding new to the merged side is delta-scoped.
+Pre-existing findings become tracked follow-ups in the same change and never block, so the merge
+stands free of debts it did not create.
 
 This gate runs where both sides are in reach. A document handed over on its own carries no old side.
 The gate then stands down by name, and the pass reads the document as it stands.
@@ -635,15 +634,11 @@ Continue to Phase 3.5.
 
 ## Phase 3.5 — Acknowledged gaps
 
-Surface the gaps the document itself flags: Open Items, TBDs, and rhetorical questions in its body.
-Each one gets a short note in the same four-part shape, written as commentary on a known issue.
-
-For each:
-1. One-line headline restating the open question in plain words.
-2. Quote with source location.
-3. Why this matters operationally — the second-order consequence the author may not have spelled out.
-4. Recommended resolution: one or two specific options with tradeoffs. State your preference if you
-   have one.
+Surface the gaps the document itself flags, in the four shapes listed under "Hidden gaps vs
+acknowledged gaps" above. Each one gets a short note in the same four-part shape, written as
+commentary on a known issue. The headline restates the open question in plain words. Part 3 gives the
+second-order consequence the author may not have spelled out. Part 4 recommends one or two specific
+options with tradeoffs, and your preference where you hold one.
 
 End with: `acknowledged · plain-label (formal-term)`.
 
@@ -705,28 +700,11 @@ significant rework.
 
 ## Meta rules
 
-- A senior architect's review: surface what matters, communicate clearly, and recommend. It reaches
-  past what a linter or a formal proof would give.
-- Always quote or close-paraphrase the source, so the reader traces every finding back to the
-  document.
 - Claims about the shipped system rest on primary sources: `file:line` citations you actually
   resolved, and a command's output you actually ran. The document's own prose backs no such claim,
-  since prose that outran the code will otherwise "prove" dead behaviour. A summary of the document
-  backs none either.
-- Consequences in operational terms. Formal-verification jargon stays inside the tags.
-- A concrete proposed action every time. A question is the last resort.
-- Hidden gaps in main findings, acknowledged gaps in Phase 3.5.
-- Concreteness test: actor, trigger, failure mode, observable outcome, at least three of the four.
-  Action test: a specific artifact or decision, and none of the vague verbs banned in "How to write
-  findings".
-- When the document is too vague for a concrete consequence, raise "the spec needs to state X"
-  instead, and leave every vague consequence unwritten.
-- Each finding part is one or two sentences.
-- Diagrams as rendered visuals. Diagram source code stays out of the deliverable.
+  and a summary of the document backs none either.
 - Phase pacing: a `PROCEED` triage → opening assessment → Phase 1 → 2 → 3 → 3.5 → 4 → 5, all in one
   continuous response, with no pause.
-- Note what works beside what is wrong, where the note is true and substantive.
-- Be explicit about what you assumed.
 - When a fix a finding proposed is applied to the document, re-read the changed part. A fix can
   introduce a new gap, and the re-read is where that gap gets caught.
 
