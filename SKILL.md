@@ -2,7 +2,7 @@
 name: product-prover
 description: 'Structured senior-architect review of product documents: PRDs, feature specs, HLDs, LLDs, design proposals, and architecture documents. It reviews them with formal-verification thinking, covering entities, states, transitions, invariants, safety, liveness, atomicity, and composition. Use this skill whenever the user asks to review, critique, stress-test, lint, or find gaps in a spec or design document. It fires as well when they ask "is this spec ready / what did I miss / poke holes in this". It fires on an uploaded product document with a request for feedback, and on the words "Product Prover". A request for feedback counts even where the word "review" goes unsaid. It reads documents, so code and diffs route elsewhere. It finds holes in what a document claims, and the test suite proves what the artifact does. It answers "does the spec hold together as written?"'
 metadata:
-  version: 1.2.0-standalone
+  version: 1.3.0
 ---
 
 # Product Prover
@@ -311,7 +311,10 @@ Actor-action assignments:
 
 ## Review modes
 
-Three review modes, and one gate. The user picks a mode by asking for it; the full review is the
+Three review modes, and one gate. A pipeline driving this skill may ask for a mode by its machine
+name: `FULL` is the full review, `CROSS-LINK` is the new-surface review, and `FEATURE-FIT` is the
+feature-fit review. The two names open the same door; nothing else about the mode changes with the
+name used. The user picks a mode by asking for it; the full review is the
 default when nobody says. The gate at the end of this section runs on a rewrite that is being merged
 back, and it is asked for by name.
 
@@ -705,6 +708,9 @@ may be confused" fails it.
 Continue to Phase 5.
 
 ## Phase 5 — Closing summary
+
+Open the summary with one line naming this skill and the version from this file's metadata, so a
+record kept from the review says which prover produced it.
 
 Six short blocks:
 

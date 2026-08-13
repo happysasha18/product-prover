@@ -1,4 +1,4 @@
-**product-prover** — one skill from the [live-spec pack](https://github.com/happysasha18/live-spec), installable on its own. Read-only mirror: do not open PRs here; changes land in the pack and are synced by scripts/sync-mirrors.sh.
+**product-prover** — the canonical Product Prover, in its own repository with its own version line. The [live-spec pack](https://github.com/happysasha18/live-spec) installs it as an external skill; nothing here depends on the pack. PRs and issues land here.
 
 # product-prover
 
@@ -86,10 +86,10 @@ reviewer.
 [Claude Code](https://claude.com/claude-code) is required, with the Anthropic account it runs on.
 Installing is a copy of two items into your skills directory.
 
-This folder is the source of the standalone package published at
-[github.com/happysasha18/product-prover](https://github.com/happysasha18/product-prover). That
-repository is a read-only copy: the same `SKILL.md`, `reference/`, and `examples/` you see here.
-Install from either one.
+This repository is the canonical source: `SKILL.md`, `reference/`, and `examples/` live and
+version here. The [live-spec](https://github.com/happysasha18/live-spec) pack installs these same
+files as an external skill through its own installer, so a pack install and a direct install land
+identical content.
 
 ```bash
 git clone https://github.com/happysasha18/product-prover.git
@@ -151,7 +151,8 @@ apply fixes. The count lists the oldest five, so they stay visible.
 
 **Three modes** exist. You pick one. It is a full pass over a whole spec, a new-surface pass for one
 added surface, or a feature-fit pass on one feature being added. The full pass runs when nobody names
-a mode.
+a mode. A pipeline driving the skill may name a mode by its machine name — `FULL`, `CROSS-LINK`,
+`FEATURE-FIT` — and both name sets open the same doors.
 
 Where the document describes running code, the review asks each surface for the `file:line` that
 carries it. It opens what it is given, with your permission at each read. With no citations it still
@@ -210,55 +211,28 @@ and a gap it missed on your own document is the most valuable report to send.
 
 [MIT](LICENSE) © Alexander Abramovich. The skill is prose, so it pulls in no third-party code and
 carries no dependency of its own. The sample spec is written for this repository and describes no real
-company. This is edition `1.2.0-standalone`: it carries its own version and follows no live-spec
-release, so the two move on separate clocks. The live-spec source history appended by the mirror
-records provenance. This edition's version stands above.
+company. This is release `1.3.0`, and this repository's version line is the only one the skill follows. The
+skill grew inside [live-spec](https://github.com/happysasha18/live-spec) through pack release 4.3.0;
+that history stays in the pack, and every release from the standalone line on is recorded below.
 
 ---
 
 ## Release history
 
-One line per release, generated from the pack's own history at every sync; the full story per release lives in the pack's [JOURNAL.md](https://github.com/happysasha18/live-spec/blob/main/JOURNAL.md).
+This repository's own line:
 
-- 3.6.0 · 2026-07-21 — INV-249 — inbox deposit protocol for concurrent windows
-- 3.5.0 · 2026-07-21 — INV-248 — delivery-separability prover lens
-- 3.4.0 · 2026-07-21 — INV-247 — re-derive a deferred item's state from code before resuming
-- 3.3.0 · 2026-07-21 — finalize four-movement integration
-- 3.1.0 · 2026-07-20 — the conduct-audit movement closes
-- 3.0.0 · 2026-07-20 — the back-describe migration
-- 2.9.0 · 2026-07-20 — the comms/naming machinery
-- 2.8.3 · 2026-07-20 — the hedge gate reds the common offering-hedge frames
-- 2.8.2 · 2026-07-19 — the register judge catches grading-worth-without-fact and unglossed-jargon
-- 2.8.1 · 2026-07-18 — the register judge holds base rule 2
-- 2.8.0 · 2026-07-18 — the clean-context review law
-- 2.7.1 · 2026-07-18 — patch version stamp across skills, plugin.json, and the spec title
-- 2.7.0 · 2026-07-18 — the movement's release
-- 2.6.0 · 2026-07-17 — agents learn to talk, and a law with no machine is a wish
-- 2.5.0 · 2026-07-17 — docs, gate records with addenda, version stamps
-- 2.4.0 · 2026-07-17 — every budget earns a watcher, the scoped run earns its net, the viewport becomes one banded quantity
-- 2.3.0 · 2026-07-16 — the push gate learns proportion, the lens learns depth, the harness learns distrust
-- 2.2.0 · 2026-07-16 — mirrors tell their story
-- 2.1.1 · 2026-07-16 — the day-after sweep
-- 2.1.0 · 2026-07-16 — the enforcement release
-- 2.0.0 · 2026-07-16 — the readability + compaction release
-- 1.10.1 · 2026-07-15 — the launch sweep clears stale temp litter by age, safely
-- 1.10.0 · 2026-07-15 — a cleanup touches only what it owns, never a shared resource in use
-- 1.9.0 · 2026-07-15 — the pack grows a third arrow
-- 1.8.0 · 2026-07-15 — forward-binding law gets one home, test-infrastructure family becomes a class, harness net hardens
-- 1.7.0 · 2026-07-15 — the pack ships the canonical browser test harness
-- 1.6.1 · 2026-07-15 — deferral rule gains its mechanical net + delivery arm; build-pipeline thinned
-- 1.6.0 · 2026-07-15 — a flaky owned test is a defect fixed at its root
-- 1.5.0 · 2026-07-15 — the prover and design review as one bounded loop, design review shipped alongside the prover
-- 1.0.9 · 2026-07-10 — the attribution line carries the pack version
-- 1.0.8 · 2026-07-10 — the four host checks live
-- 1.0.7 · 2026-07-10 — a norm-pointered clause owes a norm-conformance matrix row
-- 1.0.6 · 2026-07-10 — the attribution line softens to an OFFER on his same-day correction
-- 1.0.5 · 2026-07-10 — everything built with the method says so
-- 1.0.4 · 2026-07-10 — the leave-command reaches a shutdown-safe stop
-- 0.9.0 · 2026-07-08 — milestone audit
-- 0.8.0 · 2026-07-05 — milestone mechanics
-- 0.5.0 · 2026-07-05 — preventive audit run + folded
+- 1.3.0 · 2026-08-13 — the repository becomes the canon: machine-name mode aliases for pipeline
+  callers, the closing summary names the version that ran, and the mirror language leaves the README
+- 1.2.0 · 2026-08-13 — standalone reviews made compact and releasable
+- 1.1.0 · 2026-08-13 — the compact conversation contract, the sample response, and the versioned
+  acceptance rubric
+- 1.0.0 · 2026-08-05 — first standalone edition, lifted from the pack; the stress lenses split into
+  `reference/stress-lenses.md`
+
+The skill's earlier growth happened inside the [live-spec](https://github.com/happysasha18/live-spec)
+pack, through pack release 4.3.0. One line per pack release lives in the pack's
+[JOURNAL.md](https://github.com/happysasha18/live-spec/blob/main/JOURNAL.md).
 
 ---
 
-made with [live-spec](https://github.com/happysasha18/live-spec) v4.3.0
+grown in [live-spec](https://github.com/happysasha18/live-spec) · standing on its own since 1.0.0
