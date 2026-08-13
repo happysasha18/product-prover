@@ -125,9 +125,10 @@ and a closing summary.
 
 On a full pass, the property analysis also runs the five mandatory sweeps of
 `reference/stress-lenses.md`. Each records a verdict of hit, clean, or not applicable, with its
-reason, so a skipped sweep stays distinct from one that passed. Thirteen imaginative probes follow in
-that file and owe no verdict; most produce nothing, and inventing a finding to satisfy one is a
-failure.
+reason, so a skipped sweep stays distinct from one that passed. Twelve imaginative probes follow in
+that file. They owe no verdict; most produce nothing, and inventing a finding to satisfy one is a
+failure. The class lens stands beside them, and it owes a line of its own. A defect found at one
+spot is swept across the document for its look-alikes, and each pass records whether that sweep ran.
 
 The summary ends on a count of the provisional defaults. A provisional default is a sentence that
 states a behaviour and marks it `[default]`, standing until the person who owns that decision confirms

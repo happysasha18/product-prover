@@ -1,18 +1,21 @@
 # Stress lenses — Phase 3e of the review
 
-This file holds the two tiers of generative stress-testing the main pass calls for in Phase 3e. Read
-it at that point in the review.
+This file holds the three tiers of generative stress-testing the main pass calls for in Phase 3e.
+Read it at that point in the review.
 
 Stress-test every operation, transition, rule, and assumption against the families of questions
 below. The specific cases are yours to invent, from what the operation actually does.
 
-Two tiers live here:
+Three tiers live here:
 
 - **Mandatory sweeps** run on every full review. Each owes one verdict line in the persisted record,
   reading hit, clean, or N/A with its reason. A missing verdict line reads as a skipped sweep, and it
   never reads as a clean one. The record renders those verdicts as the surface × sweep table.
-- **Imaginative probes** are habits of attention. No checklist ticks them off, and no verdict is
-  owed.
+- **Imaginative probes** are habits of attention. No checklist ticks them off. They owe no verdict
+  because each probe is a check the review invents for the document in front of it.
+- **The class lens** stands beside the probes in a tier of its own. It is a standing duty: it runs
+  on every review, whatever the document holds, and it owes one line in the record, written beneath
+  the verdict table.
 
 A lens that prompts no real concern produces no finding. Inventing an issue to satisfy a lens is
 forbidden.
@@ -123,6 +126,16 @@ moment the kind is recognizable from the sentence itself, before any class is de
 asks the author to lift the principle to a class clause enumerating its members. The other answer is
 to scope it to the one member by a decided sentence. This is the prose form a declared-class
 enumeration alone would miss, since that enumeration presupposes the kind is already declared.
+
+One more member of the composition-lens family asks a different question. A general law written over
+instances chooses between two shapes. Where the instances form a closed set the author can name, the
+law enumerates them in its own clause. Where the set is open-ended, the law names its worked examples
+and leaves the set open. This file calls that choice enumerate-or-ride.
+
+The author writes that choice while writing the law, since only the author knows whether the set of
+instances is closed. A review runs no sweep of its own for it, and no verdict line answers it. This
+sweep catches the surface-shaped case, where the instances are sibling surfaces the document
+registers.
 
 ### 4. Lifecycle
 
@@ -292,19 +305,6 @@ author writes the sentence as a composition invariant, decided or marked as a pr
   clear-evidence gate self-disarms on. Where an architecture document is also in view, the
   three-source lens below supplies the missing evidence. That document names the authoritative
   surfaces the document under review omits.
-- **Class lens** — when a lens above, or any phase, surfaces a defect at one spot, treat it as a
-  sample of a class. Three questions come before the finding is written:
-
-  - *Does the same kind live elsewhere?* Sweep the whole document for the same pattern in every other
-    section and surface: the same wording, the same structure, the same omission. Write one finding
-    that names the class and lists every instance found. A point finding on a class defect sends the
-    author on the sweep the pass skipped.
-  - *Does the architecture account for the defect's cause?* A boundary drawn wrong, or left silent,
-    can let the class exist. A structural cause is a finding against the architecture document
-    itself, and it reaches past the single instance.
-  - *Does the document describe the broken behaviour at all?* A document silent on it, or
-    under-describing its composition, is the real defect the finding names, and the fix to the
-    document comes before the fix to the code. This review catches nothing the document never states.
 - **Interactive overlap across layers** — two things can sometimes take the same input at the same
   time. Four examples follow: one surface open over another while the lower layer's controls stay
   live, and two routes matching one request. Two more: two consumers on one topic, and two key
@@ -405,3 +405,31 @@ author writes the sentence as a composition invariant, decided or marked as a pr
   The habit surfaces a lens the list is missing, and it never demands every lens ship a partner. Some
   duals collapse into a lens already run: an invariant's dual is its decreasing progress measure, which
   the liveness reading already covers. Some others are nameable and rarely bite.
+
+---
+
+## The class lens
+
+One duty standing beside the probes above, in a tier of its own. The probes above owe no verdict
+because each one is a check the review invents for the document in front of it. The class lens is a
+standing duty: it runs on every review, whatever the document holds, and it owes one line in the
+record. A found defect is a sample of its class, so go find the class and sweep the look-alikes.
+
+When a lens above, or any phase, surfaces a defect at one spot, treat it as a sample of a class.
+Three questions come before the finding is written:
+
+- *Does the same kind live elsewhere?* Sweep the whole document for the same pattern in every other
+  section and surface: the same wording, the same structure, the same omission. Write one finding
+  that names the class and lists every instance found. A point finding on a class defect sends the
+  author on the sweep the pass skipped.
+- *Does the architecture account for the defect's cause?* A boundary drawn wrong, or left silent,
+  can let the class exist. A structural cause is a finding against the architecture document
+  itself, and it reaches past the single instance.
+- *Does the document describe the broken behaviour at all?* A document silent on it, or
+  under-describing its composition, is the real defect the finding names, and the fix to the
+  document comes before the fix to the code. This review catches nothing the document never states.
+
+Every review writes one class line in its record, in the shape the main pass gives it beneath the
+verdict table. A review that files a point finding and writes no class line reads as a skipped
+sweep. The line stands whatever the finding count, and a review that found nothing writes "no class"
+against a document it swept clean.

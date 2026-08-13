@@ -699,8 +699,8 @@ alternative is a guaranteed silent failure.
 
 #### Imaginative probes
 
-The probes owe no verdict. Two produced findings — surface authority (F25) and interactive overlap,
-which is folded into F23, since the bank's shared keypad and shared compartment pool are the two
+The probes owe no verdict, and the class lens beside them owes the line under the verdict table.
+Two produced findings — surface authority (F25) and interactive overlap, which is folded into F23, since the bank's shared keypad and shared compartment pool are the two
 layers competing for one input. The class lens ran on F8 and on F16, and each of those findings names
 its class and lists its instances rather than pointing at one spot. Reference integrity produced F24.
 Three probes read clean here: approved-look clauses (the document encodes no approved exemplar),
@@ -776,6 +776,8 @@ and each cell reads hit, clean, or N/A with its reason.
 | Operations dashboard (§11) | clean | hit (F19) | N/A — no surface registry | clean | hit (F15) |
 | Carrier manifest intake (§4) | clean | clean | N/A — no surface registry | hit (F13) | hit (F24) |
 | Offline event sync (§12) | hit (F16, F17) | hit (F19) | N/A — no surface registry | clean | hit (F22) |
+
+Class lens: swept — the door-event stand-in class (F8) and the unnamed-consequence class (F16).
 
 ## Phase 3.5 — Acknowledged gaps
 

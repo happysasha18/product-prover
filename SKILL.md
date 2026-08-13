@@ -300,11 +300,13 @@ back, and it is asked for by name.
   by naming a full review. Run it for any release that changes behaviour, and for any structural
   rewrite.
 - **New-surface review** — a focused pass for a single added surface. Ask for it by naming the
-  surface that was added. It runs Phases 1–2 plus the composition and stress lenses of Phase 3e,
-  aimed at the new surface's seams against the surfaces it composes with.
+  surface that was added. It runs Phases 1–2 plus the Phase 3e lenses named below, aimed at the new
+  surface's seams against the surfaces it composes with.
 
-  Six lenses run in this mode, and all six live in `reference/stress-lenses.md`:
+  Seven lenses run in this mode, and all seven live in `reference/stress-lenses.md`:
 
+  - declared cross-cutting laws — a mandatory sweep, and it owes a verdict line here. It reads the
+    new surface's clause against each declared law, and the new surface's test row beside it;
   - edge-condition completeness — a mandatory sweep, and it owes a verdict line here;
   - cross-surface policy uniformity — a mandatory sweep, and it owes a verdict line here;
   - unwritten seams — a mandatory sweep, and it owes a verdict line here;
@@ -316,11 +318,20 @@ back, and it is asked for by name.
 
   The last two are imaginative probes and owe no verdict.
 
-  The record for this mode carries a verdict line for each of the four sweep entries above, in the
-  same shape a full review uses.
+  The record for this mode carries a verdict line for each of the five sweep entries above. Each
+  line reads hit, clean, or N/A with its reason, the same three verdict words a full review writes.
+  The five entries here are this mode's own set. A full review's table carries a lifecycle column
+  where this mode carries paired-transition symmetry alone. The record also carries the class line,
+  written beneath the verdict table.
 
-  This mode skips the whole-document property sweep, and it keeps one whole-document step: the
-  **quantifier re-verify**.
+  This mode skips the property analysis of Phase 3, its steps 3a through 3d. Those steps read the
+  whole document for safety, liveness, enforceability and internal consistency. Every mandatory
+  sweep of Phase 3e runs, scoped to the new surface and its seams, with one exception. The lifecycle
+  sweep sends its paired-transition symmetry sub-question alone, and its other angles stand down
+  here. A new surface arrives with no clause and no test row yet, so the declared-laws sweep is the
+  one it most needs.
+
+  The mode keeps one whole-document step: the **quantifier re-verify**.
 
   Sweep the document for enumerations and universal quantifiers: "every", "only", "all", "exactly",
   and explicit member lists. Re-verify each such sentence against the surface set that now includes
@@ -575,28 +586,22 @@ properties.
   their agreement stated as an invariant? Two homes for one derivable fact with no tying sentence
   drift apart, and the tie is the finding's proposed sentence.
 
-3e. Generative stress-testing — two tiers, mandatory sweeps and imaginative probes.
+3e. Generative stress-testing — three tiers: mandatory sweeps, imaginative probes, and the class
+lens standing alone.
 
 **Open `reference/stress-lenses.md` now, and read it before writing a single Phase 3e finding.** That
-file sits in this skill's own directory, beside this one. It carries both tiers in full: the five
-mandatory sweeps and the imaginative probes. Running Phase 3e from memory skips the sweeps, and the
-record then reads as a full pass that never ran them.
+file sits in this skill's own directory, beside this one. It carries all three tiers in full: the
+five mandatory sweeps, the imaginative probes, and the class lens. Running Phase 3e from memory
+skips the sweeps, and the record then reads as a full pass that never ran them.
 
-The five sweeps, their questions, and the probes live in that file alone. This page names none of
-them, so a pass that skips the file runs Phase 3e on nothing.
+The sweeps' questions and the probes' full text live in that file alone. The mode list above names
+them; only the file states what each one asks.
 
 Stress-test every operation, transition, rule, and assumption against the families of questions the
 file holds. The specific cases are yours to invent, from what the operation actually does.
 
-The two tiers differ in what they owe:
-
-- A **mandatory sweep** runs on every full review and owes a verdict in the persisted record, reading
-  hit, clean, or N/A with its reason. A missing verdict reads as a skipped sweep, and it never reads
-  as a clean one. The record renders those verdicts as the surface × sweep table below: one verdict
-  per cell, meaning one per sweep per surface. Where the document lists no surfaces, the table
-  collapses to a single row, and each sweep owes one verdict in it.
-- An **imaginative probe** is a habit of attention. No checklist ticks it off, and no verdict is
-  owed.
+The tiers differ in what they owe. `reference/stress-lenses.md` states what each tier owes, beside
+the lenses themselves, and this page keeps no second copy of it.
 
 For any given operation, one or two lenses produce a real finding, and the rest read obviously fine.
 That is expected, and the work is in the imagining. Each axis owes a finding only where one is real.
@@ -620,7 +625,9 @@ is ritual noise that trains the author to skim.
 
 Every full review also renders the surface × sweep verdict table, whatever the three tables above did.
 Surfaces run down the side, the mandatory sweeps across, and each cell reads hit / clean /
-N/A-with-reason. That keeps a skipped sweep distinguishable from a sweep that found nothing. On a
+N/A-with-reason. One verdict fills each cell, meaning one per sweep per surface. Where the document
+lists no surfaces, the table collapses to a single row, and each sweep owes one verdict in it.
+That keeps a skipped sweep distinguishable from a sweep that found nothing. On a
 document where all three tables above go N/A, this table is the only coverage artifact the review
 leaves behind. A screen-interaction spec and a read-only reporting tool are two such documents. The
 shape, with one row per surface whatever kind the surfaces are:
@@ -629,6 +636,15 @@ shape, with one row per surface whatever kind the surfaces are:
 |---|---|---|---|---|---|
 | `POST /orders` | clean | hit (F3) | hit (F5) | clean | clean |
 | Checkout page | clean | hit (F4) | N/A — no surface registry | hit (F7) | clean |
+
+Then write the class line beneath that table. One of three shapes carries it:
+
+- `Class lens: swept — <the classes filed>`, where a defect was found and its look-alikes swept. The
+  line names each class the review filed.
+- `Class lens: no class`, where the review read the whole document and found no class to file. A
+  review that found no defect at all writes this line too.
+- `Class lens: N/A — <reason>`, where the review could not read the whole document, so no sweep for
+  look-alikes was open to it. The reason names what stood out of view.
 
 Continue to Phase 3.5.
 

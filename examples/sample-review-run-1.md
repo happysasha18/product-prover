@@ -719,12 +719,15 @@ Mandatory-sweep verdicts, one cell per sweep per surface:
 | Operations dashboard (§11) | clean | clean | N/A — no surface registry | clean | hit (F26) |
 | Carrier manifest intake (§4) | hit (F22 — no log clause) | clean | hit (F24) | hit (F13) | hit (F23) |
 
+Class lens: swept — the expiry-revocation class (F19) and the dependency-failure class (F23).
+
 Notes on the table. The policy-uniformity sweep's registry-based enumeration is N/A throughout — this
 project keeps no surface registry — so where that sweep reads "hit" it fired on the kind-general-rule
 read, which needs no registry. Where it reads N/A, the registry read was the only one available for
 that surface. The surface list itself was derived by this reviewer from the document's sections, and
 it is not an authority; a registry the project later keeps may divide these differently.
 
+The probes owe no verdict, and the class lens beside them owes the line under the verdict table.
 Two imaginative probes produced findings and are named where they landed: ambiguity and ties (F5),
 concurrency and order (F25). Two produced the assumption lines in "What I assumed" rather than
 findings, per the surface-authority lens's own rule: no authoritative surface for parcel records or
