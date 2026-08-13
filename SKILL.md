@@ -1,8 +1,8 @@
 ---
 name: product-prover
-description: Structured senior-architect review of product documents: PRDs, feature specs, HLDs, LLDs, design proposals, and architecture documents. It reviews them with formal-verification thinking, covering entities, states, transitions, invariants, safety, liveness, atomicity, and composition. Use this skill whenever the user asks to review, critique, stress-test, lint, or find gaps in a spec or design document. It fires as well when they ask "is this spec ready / what did I miss / poke holes in this". It fires on an uploaded product document with a request for feedback, and on the words "Product Prover". A request for feedback counts even where the word "review" goes unsaid. It reads documents, so code and diffs route elsewhere. It finds holes in what a document claims, and the test suite proves what the artifact does. It answers "does the spec hold together as written?"
+description: 'Structured senior-architect review of product documents: PRDs, feature specs, HLDs, LLDs, design proposals, and architecture documents. It reviews them with formal-verification thinking, covering entities, states, transitions, invariants, safety, liveness, atomicity, and composition. Use this skill whenever the user asks to review, critique, stress-test, lint, or find gaps in a spec or design document. It fires as well when they ask "is this spec ready / what did I miss / poke holes in this". It fires on an uploaded product document with a request for feedback, and on the words "Product Prover". A request for feedback counts even where the word "review" goes unsaid. It reads documents, so code and diffs route elsewhere. It finds holes in what a document claims, and the test suite proves what the artifact does. It answers "does the spec hold together as written?"'
 metadata:
-  version: 1.0.0-standalone
+  version: 1.2.0-standalone
 ---
 
 # Product Prover
@@ -32,9 +32,10 @@ fix, and what you would do next.
 
 - **Surface** — a place someone or something meets the product: an endpoint, a command, a screen, a
   report, a queue a consumer reads, a library's public function, a scheduled job.
-- **Surface registry** — the one list the reviewed project keeps of its surfaces. Where
-  the project keeps no such list, every sweep that reads it takes an N/A verdict naming that as the
-  reason. An N/A verdict is still a verdict, so the sweep stays visible in the record.
+- **Surface registry** — the list the reviewed project keeps of its surfaces. Where no maintained
+  list exists, derive a working surface inventory from Phase 1, label it review-derived, and use it
+  for this pass. N/A is reserved for a document with no enumerable surfaces or a document the pass
+  could not read whole.
 - **Lens** — one question put to the document. A lens produces a finding only where a real problem
   answers it.
 - **Sweep** — a lens run over every member of a class in the document, rather than at one spot.
@@ -116,9 +117,27 @@ heading is capitalized. Use structure sparingly, so the eye lands on the right t
 
 The goal is notes a reader scans in 30 seconds and reads carefully in 5 minutes.
 
+### Two artifacts, one review
+
+The conversation is the decision layer. Keep it under 1,500 words unless the author asks for the
+full record inline. It carries the triage verdict, opening assessment, and compact model. It also
+carries the three highest-impact findings, a one-line index of every remaining finding, the open
+questions, and readiness. Do not repeat the coverage tables or the full ledger there.
+
+The persisted record is the evidence layer. It carries every finding in the four-part format, the
+coverage tables, class line, assumptions, provisional-default count, and complete ledger. Link or
+name that file from the conversation. A long document may produce a long record; it does not make
+the decision layer long.
+
+The document under review is read-only by default. Propose paste-ready wording, including a
+provisional default, but do not write it into the document unless the author explicitly asks to
+apply fixes. Writing the review record is separate from editing the reviewed document.
+
 ## How to write findings
 
-A finding is written to be scanned, in 10–15 seconds of reading. One or two sentences per part.
+A finding is written to be scanned, in 10–15 seconds of reading. One or two sentences per part. Every
+finding takes the full shape in the persisted record. The conversation expands the top three and
+indexes the rest in one line each.
 
 Each finding has four parts, in this order:
 
@@ -635,7 +654,7 @@ shape, with one row per surface whatever kind the surfaces are:
 | Surface | Cross-cutting laws | Edge conditions | Policy uniformity | Lifecycle | Unwritten seams |
 |---|---|---|---|---|---|
 | `POST /orders` | clean | hit (F3) | hit (F5) | clean | clean |
-| Checkout page | clean | hit (F4) | N/A — no surface registry | hit (F7) | clean |
+| Checkout page | clean | hit (F4) | hit (F5) | hit (F7) | clean |
 
 Then write the class line beneath that table. One of three shapes carries it:
 
@@ -714,13 +733,18 @@ summary already conveys the picture.
 Finish with one sentence on overall readiness: ready to build / needs another iteration / needs
 significant rework.
 
+In the conversation, render this summary first, followed by the three expanded findings and the
+compact index. The record keeps the phase order and full evidence; the author does not need a second
+copy of it in chat.
+
 ## Meta rules
 
 - Claims about the shipped system rest on primary sources: `file:line` citations you actually
   resolved, and a command's output you actually ran. The document's own prose backs no such claim,
   and a summary of the document backs none either.
 - Phase pacing: a `PROCEED` triage → opening assessment → Phase 1 → 2 → 3 → 3.5 → 4 → 5, all in one
-  continuous response, with no pause.
+  continuous pass, with no pause. The persisted record carries that full order. The conversation
+  uses the compact decision layer defined above.
 - When a fix a finding proposed is applied to the document, re-read the changed part. A fix can
   introduce a new gap, and the re-read is where that gap gets caught.
 
@@ -732,9 +756,11 @@ outside any project gets its record beside the document itself. Each finding car
 recording whether it was applied or rejected with the reason. That makes the outcome verifiable after
 memory is gone, and it lets the next run check the previous run's unapplied rows.
 
-The record opens by naming the version of this skill that ran the pass. A later session then tells
-whether a "recently reviewed" document was reviewed under the current lens set or an older one. A
-review method that grew a lens re-arms the full pass over documents proven under the older set.
+The record opens by naming the version of this skill that ran the pass. It also records the first 12
+characters of the SHA-256 digest of `SKILL.md` and `reference/stress-lenses.md`, labelled separately.
+A later session then tells whether a "recently reviewed" document used the current lens set or an
+older one. A review method that grew a lens re-arms the full pass over documents reviewed under the
+older set.
 
 A full review pass's record carries the mandatory-sweep verdict table beside the findings, in the
 shape Phase 3e states.
@@ -797,7 +823,7 @@ Glossary requests are standalone. Answer them without re-running the review.
 ---
 
 Made with [live-spec](https://github.com/happysasha18/live-spec), the fuller method this skill was
-lifted from. This is edition `1.0.0-standalone`: it carries its own version and follows no live-spec
+lifted from. This is edition `1.2.0-standalone`: it carries its own version and follows no live-spec
 release.
 
 ---

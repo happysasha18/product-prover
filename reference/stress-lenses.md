@@ -102,9 +102,11 @@ A clause sometimes states a policy for an interaction kind that lives on several
 Four examples: an authentication rule on every endpoint of a family, and a retry policy on every
 consumer of a queue. Two more: a flag's meaning on every subcommand, and a gesture policy such as
 "browser pinch-zoom is refused" on every screen of a kind. For such a clause, enumerate the surfaces of that kind from the project's surface
-registry, the one list it keeps of its surfaces. Then check whether the clause governs every one of them,
-or only the surface where the decision was born. Where the project keeps no such list, this sweep
-takes an N/A verdict naming that as its reason. The verdict still goes in the record.
+registry, the one list it keeps of its surfaces. Where the project has no maintained registry, use
+the review-derived surface inventory extracted in Phase 1 and label it that way in the verdict
+table. Then check whether the clause governs every surface, or only the one where the decision was
+born. Take N/A only where the document has no enumerable surfaces, or where the pass could not read
+the whole document. A missing maintained registry never turns an otherwise runnable sweep into N/A.
 
 A policy written for a single surface while siblings of the same kind exist is a finding. The clause
 should name the surface class and enumerate its members, so the policy holds uniformly. This catches

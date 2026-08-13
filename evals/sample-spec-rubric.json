@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "edition": "1.2.0-standalone",
+  "artifact": "examples/sample-spec.md",
+  "acceptance": {
+    "readiness": "needs significant rework",
+    "max_conversation_words": 1500,
+    "minimum_critical_findings_in_top_three": 2,
+    "unsupported_finding_count": 0
+  },
+  "critical_findings": [
+    {
+      "id": "deposit-atomicity",
+      "evidence": ["Section 5"],
+      "claim": "The physical deposit and the Stored/code/SMS steps have no failure boundary."
+    },
+    {
+      "id": "expired-capacity-leak",
+      "evidence": ["Sections 4, 6, and 7"],
+      "claim": "Expired has no exit and expiry never frees the compartment."
+    },
+    {
+      "id": "pickup-authorization-conflict",
+      "evidence": ["Sections 6 and 8"],
+      "claim": "Recipient-only opening conflicts with operator service opening."
+    },
+    {
+      "id": "pickup-window-conflict",
+      "evidence": ["Sections 6 and 7"],
+      "claim": "A daily sweep cannot enforce an exact 72-hour pickup window."
+    },
+    {
+      "id": "sms-terminal-failure",
+      "evidence": ["Sections 9 and 10"],
+      "claim": "The retry sequence ends without a terminal failure action."
+    },
+    {
+      "id": "offline-ownership-boundary",
+      "evidence": ["Sections 5 and 12"],
+      "claim": "Offline operation leaves code generation and source-of-truth ownership unstated."
+    },
+    {
+      "id": "code-enforceability",
+      "evidence": ["Sections 3 and 6"],
+      "claim": "A six-digit code does not enforce the stated recipient identity rule."
+    }
+  ],
+  "must_not_claim": [
+    {
+      "id": "observed-runtime-behaviour",
+      "reason": "The fixture supplies prose and no running system or code."
+    },
+    {
+      "id": "real-company-facts",
+      "reason": "The fixture explicitly describes a fictional company."
+    }
+  ]
+}

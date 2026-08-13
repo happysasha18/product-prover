@@ -50,7 +50,16 @@ team already uses.
 A model reads the document afresh each time, so two runs over one unchanged file return overlapping
 lists of unequal length. That gap measures the run, and the document is the thing held constant.
 
-Two runs over this sample on 2026-08-06 returned 32 and 30 findings, and 24 of them were reached by both; the full output of each run is in [`examples/sample-review-run-1.md`](examples/sample-review-run-1.md) and [`examples/sample-review-run-2.md`](examples/sample-review-run-2.md).
+Two runs over this sample on 2026-08-06 returned 32 and 30 findings, and 24 of them were reached by
+both. Their Jaccard overlap is 63%, and their readiness verdicts differ. The full records are in
+[`examples/sample-review-run-1.md`](examples/sample-review-run-1.md) and
+[`examples/sample-review-run-2.md`](examples/sample-review-run-2.md). They are evidence from edition
+1.0.0. Edition 1.1.0 uses the shorter conversation contract below.
+
+Edition 1.1.0 adds a [compact sample response](examples/sample-response.md) and a versioned
+[acceptance rubric](evals/sample-spec-rubric.json). The rubric pins seven critical finding classes,
+two negative controls, the readiness verdict, and the 1,500-word conversation budget. Raw finding
+count is no longer the quality measure.
 
 Read a single count as one careful reader's pass. The findings both runs reached are the ones to act
 on first.
@@ -106,9 +115,14 @@ chat. To ask for a narrower pass, name it: *"feature-fit review of the export fe
 *"new-surface review — I added the /exports endpoint"*. For one term on its own, ask *"glossary:
 liveness"*. The package registers no slash command, so write every request as ordinary text.
 
-**The review writes a file into the project it runs in:** `docs/review/YYYY-MM-DD.md`, or a path you
-name. It carries each finding's kind and a column for whether the fix was applied or rejected. The
-next review starts from the last one's open rows.
+**The review writes its evidence file into the project it runs in:** `docs/review/YYYY-MM-DD.md`, or
+a path you name. It carries every finding, the coverage tables, and a column for whether the fix was
+applied or rejected. The conversation stays under 1,500 words by default: verdict, compact model,
+three expanded findings, an index of the rest, and readiness. The next review starts from the last
+record's open rows.
+
+The reviewed document stays read-only unless you explicitly ask to apply fixes. A review-only pass
+leaves paste-ready clauses and `[default]` sentences as proposals. Applying fixes changes the document.
 
 To try it on the sample first: `examples/sample-spec.md` is the parcel-locker spec quoted above,
 written with gaps in it. The install leaves it in the folder you downloaded. Open a session there
@@ -132,8 +146,8 @@ spot is swept across the document for its look-alikes, and each pass records whe
 
 The summary ends on a count of the provisional defaults. A provisional default is a sentence that
 states a behaviour and marks it `[default]`, standing until the person who owns that decision confirms
-it. The review writes that mark into your document where it closes a gap on its own reading. The
-count lists the oldest five, so they stay visible.
+it. The review proposes that marked sentence. It writes it into your document only when you ask it to
+apply fixes. The count lists the oldest five, so they stay visible.
 
 **Three modes** exist. You pick one. It is a full pass over a whole spec, a new-surface pass for one
 added surface, or a feature-fit pass on one feature being added. The full pass runs when nobody names
@@ -196,8 +210,9 @@ and a gap it missed on your own document is the most valuable report to send.
 
 [MIT](LICENSE) © Alexander Abramovich. The skill is prose, so it pulls in no third-party code and
 carries no dependency of its own. The sample spec is written for this repository and describes no real
-company. This is edition `1.0.0-standalone`: it carries its own version and follows no live-spec
-release, so the two move on separate clocks.
+company. This is edition `1.2.0-standalone`: it carries its own version and follows no live-spec
+release, so the two move on separate clocks. The live-spec source history appended by the mirror
+records provenance. This edition's version stands above.
 
 ---
 
