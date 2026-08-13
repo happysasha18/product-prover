@@ -1,4 +1,4 @@
-**product-prover** — the canonical Product Prover, in its own repository with its own version line. The [live-spec pack](https://github.com/happysasha18/live-spec) installs it as an external skill; nothing here depends on the pack. PRs and issues land here.
+**product-prover** — the canonical Product Prover, in its own repository with its own version line. The [live-spec pack](https://github.com/happysasha18/live-spec) installs it as an external skill, and everything here runs without the pack. PRs and issues land here.
 
 # product-prover
 
@@ -31,8 +31,8 @@ from it.
 ## What a finding looks like
 
 Findings arrive in operational terms, each one traced to a quote in your document. This one comes from
-a run on 2026-08-05 against `examples/sample-spec.md`, the 95-line fictional parcel-locker spec that
-ships in this folder:
+a run on 2026-08-05 against `examples/sample-spec.md`. That file is the 95-line fictional
+parcel-locker spec shipping in this folder:
 
 > **The 72-hour pickup window is enforced anywhere between hour 72 and hour 96**
 >
@@ -51,12 +51,12 @@ A model reads the document afresh each time, so two runs over one unchanged file
 lists of unequal length. That gap measures the run, and the document is the thing held constant.
 
 Two runs over this sample on 2026-08-06 returned 32 and 30 findings, and 24 of them were reached by
-both. Their Jaccard overlap is 63%, and their readiness verdicts differ. The full records are in
+both. Their Jaccard overlap — shared findings over all distinct findings — is 63%, and their readiness verdicts differ. The full records are in
 [`examples/sample-review-run-1.md`](examples/sample-review-run-1.md) and
-[`examples/sample-review-run-2.md`](examples/sample-review-run-2.md). They are evidence from edition
-1.0.0. Edition 1.1.0 uses the shorter conversation contract below.
+[`examples/sample-review-run-2.md`](examples/sample-review-run-2.md). They are evidence from release
+1.0.0. Release 1.1.0 uses the shorter conversation contract below.
 
-Edition 1.1.0 adds a [compact sample response](examples/sample-response.md) and a versioned
+Release 1.1.0 adds a [compact sample response](examples/sample-response.md) and a versioned
 [acceptance rubric](evals/sample-spec-rubric.json). The rubric pins seven critical finding classes,
 two negative controls, the readiness verdict, and the 1,500-word conversation budget. Raw finding
 count is no longer the quality measure.
@@ -88,7 +88,7 @@ Installing is a copy of two items into your skills directory.
 
 This repository is the canonical source: `SKILL.md`, `reference/`, and `examples/` live and
 version here. The [live-spec](https://github.com/happysasha18/live-spec) pack installs these same
-files as an external skill through its own installer, so a pack install and a direct install land
+files as an external skill through its own installer. A pack install and a direct install land
 identical content.
 
 ```bash
@@ -113,9 +113,9 @@ automatically; open a new session if one was already running. Then ask, in any p
 Name the file in the same message — "review docs/checkout-v2.md" — or paste the document into the
 chat. To ask for a narrower pass, name it: *"feature-fit review of the export feature I'm adding"*,
 *"new-surface review — I added the /exports endpoint"*. For one term on its own, ask *"glossary:
-liveness"*. The package registers no slash command, so write every request as ordinary text.
+liveness"*. The skill registers no slash command, so write every request as ordinary text.
 
-**The review writes its evidence file into the project it runs in:** `docs/review/YYYY-MM-DD.md`, or
+**The review writes its record into the project it runs in:** `docs/review/YYYY-MM-DD.md`, or
 a path you name. It carries every finding, the coverage tables, and a column for whether the fix was
 applied or rejected. The conversation stays under 1,500 words by default: verdict, compact model,
 three expanded findings, an index of the rest, and readiness. The next review starts from the last
@@ -138,11 +138,12 @@ structural issues, property analysis, the gaps you flagged yourself reported las
 and a closing summary.
 
 On a full pass, the property analysis also runs the five mandatory sweeps of
-`reference/stress-lenses.md`. Each records a verdict of hit, clean, or not applicable, with its
-reason, so a skipped sweep stays distinct from one that passed. Twelve imaginative probes follow in
-that file. They owe no verdict; most produce nothing, and inventing a finding to satisfy one is a
-failure. The class lens stands beside them, and it owes a line of its own. A defect found at one
-spot is swept across the document for its look-alikes, and each pass records whether that sweep ran.
+`reference/stress-lenses.md`. A sweep walks one check over every member of a class in the document.
+Each records a verdict of hit, clean, or not applicable, with its reason, so a skipped sweep stays
+distinct from one that passed. Twelve imaginative probes follow in that file. A probe is a what-if
+question put to the document. Probes owe no verdict; most produce nothing, and inventing a finding
+to satisfy one is a failure. The class lens stands beside them, and it owes a line of its own. Its move: a defect found at one
+spot is swept across the document for its look-alikes. Each pass records whether that sweep ran.
 
 The summary ends on a count of the provisional defaults. A provisional default is a sentence that
 states a behaviour and marks it `[default]`, standing until the person who owns that decision confirms
@@ -150,9 +151,10 @@ it. The review proposes that marked sentence. It writes it into your document on
 apply fixes. The count lists the oldest five, so they stay visible.
 
 **Three modes** exist. You pick one. It is a full pass over a whole spec, a new-surface pass for one
-added surface, or a feature-fit pass on one feature being added. The full pass runs when nobody names
-a mode. A pipeline driving the skill may name a mode by its machine name — `FULL`, `CROSS-LINK`,
-`FEATURE-FIT` — and both name sets open the same doors.
+added surface, or a feature-fit pass on one feature being added. A surface is a place someone or
+something meets the product: an endpoint, a screen, a command, a report. The full pass runs when
+nobody names a mode. A pipeline driving the skill may name a mode by its machine name: `FULL`,
+`CROSS-LINK`, `FEATURE-FIT`. Both name sets open the same doors.
 
 Where the document describes running code, the review asks each surface for the `file:line` that
 carries it. It opens what it is given, with your permission at each read. With no citations it still
@@ -196,7 +198,7 @@ whether the feature is worth building are outside it.
   `cp`, and that path is untested here.
 - **The trigger phrasing carries no measurement.** The description that tells Claude Code when to load
   the skill asks it to fire on a request for feedback even where the word "review" goes unsaid. How
-  often that happens is unmeasured for this edition, so name the skill when you want it for certain.
+  often that happens is unmeasured for this release, so name the skill when you want it for certain.
 
 Two more passes belong beside this one, and are left to their own reviewer. One is whether a stranger
 can read the prose. The other is whether the design itself is right. Both ship in
@@ -212,8 +214,8 @@ and a gap it missed on your own document is the most valuable report to send.
 [MIT](LICENSE) © Alexander Abramovich. The skill is prose, so it pulls in no third-party code and
 carries no dependency of its own. The sample spec is written for this repository and describes no real
 company. This is release `1.3.0`, and this repository's version line is the only one the skill follows. The
-skill grew inside [live-spec](https://github.com/happysasha18/live-spec) through pack release 4.3.0;
-that history stays in the pack, and every release from the standalone line on is recorded below.
+skill grew inside [live-spec](https://github.com/happysasha18/live-spec) through pack release 4.3.0.
+That history stays in the pack, and every release from the standalone line on is recorded below.
 
 ---
 
@@ -226,7 +228,7 @@ This repository's own line:
 - 1.2.0 · 2026-08-13 — standalone reviews made compact and releasable
 - 1.1.0 · 2026-08-13 — the compact conversation contract, the sample response, and the versioned
   acceptance rubric
-- 1.0.0 · 2026-08-05 — first standalone edition, lifted from the pack; the stress lenses split into
+- 1.0.0 · 2026-08-05 — first standalone release, lifted from the pack; the stress lenses split into
   `reference/stress-lenses.md`
 
 The skill's earlier growth happened inside the [live-spec](https://github.com/happysasha18/live-spec)
