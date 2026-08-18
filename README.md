@@ -53,8 +53,9 @@ lists of unequal length. That gap measures the run, and the document is the thin
 Two runs over this sample on 2026-08-06 returned 32 and 30 findings, and 24 of them were reached by
 both. Their Jaccard overlap — shared findings over all distinct findings — is 63%, and their readiness verdicts differ. The full records are in
 [`examples/sample-review-run-1.md`](examples/sample-review-run-1.md) and
-[`examples/sample-review-run-2.md`](examples/sample-review-run-2.md). They are evidence from release
-1.0.0. Release 1.1.0 uses the shorter conversation contract below.
+[`examples/sample-review-run-2.md`](examples/sample-review-run-2.md). Read them as evidence of overlap
+and judgment, not of today's output length — they predate the shorter conversation contract described
+below.
 
 A [compact sample response](examples/sample-response.md) and a versioned
 [acceptance rubric](evals/sample-spec-rubric.json) show the expected shape of a review. The rubric pins seven critical finding classes,
