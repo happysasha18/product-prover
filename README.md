@@ -56,8 +56,8 @@ both. Their Jaccard overlap — shared findings over all distinct findings — i
 [`examples/sample-review-run-2.md`](examples/sample-review-run-2.md). They are evidence from release
 1.0.0. Release 1.1.0 uses the shorter conversation contract below.
 
-Release 1.1.0 adds a [compact sample response](examples/sample-response.md) and a versioned
-[acceptance rubric](evals/sample-spec-rubric.json). The rubric pins seven critical finding classes,
+A [compact sample response](examples/sample-response.md) and a versioned
+[acceptance rubric](evals/sample-spec-rubric.json) show the expected shape of a review. The rubric pins seven critical finding classes,
 two negative controls, the readiness verdict, and the 1,500-word conversation budget. Raw finding
 count is no longer the quality measure.
 
@@ -213,27 +213,13 @@ and a gap it missed on your own document is the most valuable report to send.
 
 [MIT](LICENSE) © Alexander Abramovich. The skill is prose, so it pulls in no third-party code and
 carries no dependency of its own. The sample spec is written for this repository and describes no real
-company. This is release `1.3.0`, and this repository's version line is the only one the skill follows. The
-skill grew inside [live-spec](https://github.com/happysasha18/live-spec) through pack release 4.3.0.
-That history stays in the pack, and every release from the standalone line on is recorded below.
+company. This is release `1.3.1`, and this repository's version line is the only one the skill follows.
 
 ---
 
 ## Release history
 
-This repository's own line:
-
-- 1.3.0 · 2026-08-13 — the repository becomes the canon: machine-name mode aliases for pipeline
-  callers, the closing summary names the version that ran, and the mirror language leaves the README
-- 1.2.0 · 2026-08-13 — standalone reviews made compact and releasable
-- 1.1.0 · 2026-08-13 — the compact conversation contract, the sample response, and the versioned
-  acceptance rubric
-- 1.0.0 · 2026-08-05 — first standalone release, lifted from the pack; the stress lenses split into
-  `reference/stress-lenses.md`
-
-The skill's earlier growth happened inside the [live-spec](https://github.com/happysasha18/live-spec)
-pack, through pack release 4.3.0. One line per pack release lives in the pack's
-[JOURNAL.md](https://github.com/happysasha18/live-spec/blob/main/JOURNAL.md).
+See [CHANGELOG.md](CHANGELOG.md).
 
 ---
 

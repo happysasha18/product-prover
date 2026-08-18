@@ -5,7 +5,7 @@ authority behind many of its instructions: `SPEC INV-141`, `M-6`, `base rule 14`
 others. Those codes index requirements in a private requirements document. A reader outside that
 project cannot look them up.
 
-This edition keeps every instruction the codes carried and states the reason in plain words. The
+This repository keeps every instruction the codes carried and states the reason in plain words. The
 table below records each code, the rule it stood for, and where that rule now lives.
 
 The original requirements document stays private, so this table is the author's own record of the
@@ -71,10 +71,10 @@ landed" names one of them.
 | base rule 13 | A claim about the shipped system rests on a primary source: a `file:line` you resolved or a command's output you ran. Prose and summaries are leads to verify. | SKILL.md, Meta rules. |
 | base rule 14 | A found defect is a sample of its class: name the pattern, sweep every surface for siblings, and fix them in the same change. | stress-lenses, the class lens. |
 
-## Codes that carried no instruction into this edition
+## Codes that carried no instruction into this repository
 
 | Code | Why it is absent |
 |---|---|
-| INV-233's counter script | The original names a script in its own repository that counts nodes per file and fails on any increase. This edition states the count and the ceiling as something the reviewer records, since no script travels with the skill. |
-| The queued token-comparison script | The original names a row on its own backlog holding the wish for a script that produces the token comparison. No script ships either way, so this edition states the comparison as work the reviewer produces by hand. |
+| INV-233's counter script | The original names a script in its own repository that counts nodes per file and fails on any increase. This repository states the count and the ceiling as something the reviewer records, since no script travels with the skill. |
+| The queued token-comparison script | The original names a row on its own backlog holding the wish for a script that produces the token comparison. No script ships either way, so this repository states the comparison as work the reviewer produces by hand. |
 | T-16 | Cited by the neighbouring publish and base skills rather than by this one. It classifies each work item as product, infra, skill, or prose, and this review needs no such classification. |

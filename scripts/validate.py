@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate the standalone product-prover package with only the Python standard library."""
+"""Validate the product-prover package with only the Python standard library."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION_RE = re.compile(r"^\s*version:\s*([0-9]+\.[0-9]+\.[0-9]+-standalone)\s*$", re.M)
+VERSION_RE = re.compile(r"^\s*version:\s*([0-9]+\.[0-9]+\.[0-9]+)\s*$", re.M)
 
 
 def fail(message: str) -> None:
@@ -27,7 +27,7 @@ def read(relative: Path | str) -> str:
 def version_from(text: str, source: str) -> str:
     match = VERSION_RE.search(text)
     if not match:
-        fail(f"{source} carries no semantic standalone version")
+        fail(f"{source} carries no semantic version")
     return match.group(1)
 
 
@@ -40,9 +40,9 @@ def validate_package() -> str:
 
     version = version_from(skill, "SKILL.md")
     if version not in readme:
-        fail("README.md and SKILL.md disagree on the standalone version")
-    if rubric.get("edition") != version:
-        fail("the sample rubric does not name the current standalone version")
+        fail("README.md and SKILL.md disagree on the version")
+    if rubric.get("version") != version:
+        fail("the sample rubric does not name the current version")
 
     flat_skill = " ".join(skill.split())
     flat_lenses = " ".join(lenses.split())
@@ -75,7 +75,7 @@ def validate_package() -> str:
 
     workflow = read(".github/workflows/validate.yml")
     if "scripts/validate.py" not in workflow:
-        fail("standalone CI does not run this validator")
+        fail("CI does not run this validator")
     return version
 
 
@@ -83,9 +83,9 @@ def main() -> int:
     try:
         version = validate_package()
     except (AssertionError, KeyError, json.JSONDecodeError) as exc:
-        print(f"product-prover standalone: FAIL — {exc}", file=sys.stderr)
+        print(f"product-prover: FAIL — {exc}", file=sys.stderr)
         return 1
-    print(f"product-prover standalone: OK — {version}")
+    print(f"product-prover: OK — {version}")
     return 0
 
 
