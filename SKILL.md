@@ -490,10 +490,11 @@ without a document: `reference/code-lenses.md` states each in full, and this sec
 copy of it.
 
 Write findings with the four-part format from "How to write findings" above, `path:line` in place of
-a document quote. Close with the same six-block summary Phase 5 uses, scoped to what code mode
-covers: the findings, the class line, and readiness. Skip the blocks that only apply to a document —
-the provisional-default count, the properties the document should state — since code mode has no
-document to hold them.
+a document quote. Close with a summary in Phase 5's shape, kept to what code mode covers: the top
+findings to fix, open questions that genuinely need author input, recommendations queued for a
+judgment call, what holds, the class line, and the closing readiness sentence. Skip the two blocks
+that only a document can fill — the provisional-default count and the properties the document should
+state — since code mode has no document to hold them.
 
 ## Phase 0 — Triage
 
