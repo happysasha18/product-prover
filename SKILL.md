@@ -1,14 +1,16 @@
 ---
 name: product-prover
-description: 'Structured senior-architect review of product documents: PRDs, feature specs, HLDs, LLDs, design proposals, and architecture documents. It reviews them with formal-verification thinking, covering entities, states, transitions, invariants, safety, liveness, atomicity, and composition. Use this skill whenever the user asks to review, critique, stress-test, lint, or find gaps in a spec or design document. It fires as well when they ask "is this spec ready / what did I miss / poke holes in this". It fires on an uploaded product document with a request for feedback, and on the words "Product Prover". A request for feedback counts even where the word "review" goes unsaid. It reads documents, so code and diffs route elsewhere. It finds holes in what a document claims, and the test suite proves what the artifact does. It answers "does the spec hold together as written?"'
+description: 'Structured senior-architect review of product documents: PRDs, feature specs, HLDs, LLDs, design proposals, and architecture documents. It reviews them with formal-verification thinking, covering entities, states, transitions, invariants, safety, liveness, atomicity, and composition. Use this skill whenever the user asks to review, critique, stress-test, lint, or find gaps in a spec or design document. It fires as well when they ask "is this spec ready / what did I miss / poke holes in this". It fires on an uploaded product document with a request for feedback, and on the words "Product Prover". A request for feedback counts even where the word "review" goes unsaid. It reads documents, so code and diffs route elsewhere, except where no document exists for the code at all — a source directory, a family of sibling scripts, or a diff with no accompanying spec draws its code mode instead, which runs the same class-based defect analysis adapted to the closed sets and sibling groups code itself carries. Use this skill as well when the user asks to find a defect in a source directory, a set of scripts, or a diff with no document present to review it against. It finds holes in what a document claims, and the test suite proves what the artifact does. It answers "does the spec hold together as written?", and in code mode, "does this code hold together against its own siblings and its own closed sets?"'
 metadata:
-  version: 1.3.1
+  version: 1.4.0
 ---
 
 # Product Prover
 
 This skill works on its own. It needs the document under review, and it reads
-`reference/stress-lenses.md` from its own directory partway through a full pass.
+`reference/stress-lenses.md` from its own directory partway through a full pass. Where no document
+exists for the code under review, Phase 0 routes to Code mode instead, which reads
+`reference/code-lenses.md` in place of the document and the stress lenses.
 
 Some rules below name something a project may or may not have: a pre-merge check, a test suite, a
 readability review, a design-consistency review. Where the project running this review has none of
@@ -63,7 +65,8 @@ It finds holes in what a document claims, and the test suite proves what the art
 
 Four kinds of work belong elsewhere:
 
-- code and diffs stay with a code review;
+- code and diffs stay with a code review — except where no document exists for them at all, which
+  Code mode (below) covers with its own lens set;
 - style, wording, and finished prose stay with their owner, since this pass flags gaps and leaves
   taste alone;
 - whether a stranger can read the prose belongs to a readability review. An undefined term, a
@@ -466,11 +469,41 @@ with no token-identity demand over text the redesign meant to change.
 past the words they used, state the sharpened form back to them, and mark it as the reviewer's own
 reading. A standard nobody stated is never applied as though they had stated it.
 
+## Code mode
+
+Reserved for the case Phase 0 routes here: no document exists for the code under review — a source
+directory, a family of sibling scripts, or a diff with no accompanying spec. The user asks by naming
+code directly: "review this code", "find a defect in scripts/", "check these installers for a bug",
+or by handing over a diff with no document beside it. Where a document does exist for the code, the
+ordinary triage stands: pin the surfaces (Phase 0's shipped-system check) and run the full document
+pass, using the code to verify its pins.
+
+Code mode carries three of the document pass's capabilities into code, unchanged in spirit and
+adapted in what they read: class-based defect analysis, sibling-defect search, and completeness-of-
+sets checking. It carries nothing else from the document pass — no phases, no coverage tables, no
+provisional defaults, no surface × sweep table. `reference/code-lenses.md` holds the full procedure;
+open it now, before writing a single code mode finding, the same way a full pass opens
+`reference/stress-lenses.md` before Phase 3e.
+
+In short, for what code mode reads, its three lenses, its finding format, and what stays out of scope
+without a document: `reference/code-lenses.md` states each in full, and this section keeps no second
+copy of it.
+
+Write findings with the four-part format from "How to write findings" above, `path:line` in place of
+a document quote. Close with a summary in Phase 5's shape, kept to what code mode covers: the top
+findings to fix, open questions that genuinely need author input, recommendations queued for a
+judgment call, what holds, the class line, and the closing readiness sentence. Skip the two blocks
+that only a document can fill — the provisional-default count and the properties the document should
+state — since code mode has no document to hold them.
+
 ## Phase 0 — Triage
 
 Before any analysis, decide whether the input is suitable.
 
 Check:
+- **Is there a document to review at all?** Where the input is a source directory, a family of
+  sibling scripts, or a diff, with no accompanying document, this pass does not read it as a broken
+  spec. Route to `TRIAGE: CODE_MODE` instead of `WRONG_ARTIFACT`, and see Code mode above.
 - Is this a product spec, feature doc, HLD, LLD, or design proposal?
 - Does it describe a system with state, behavior, transitions, rather than marketing copy, vision
   statements, or prose with no operational content?
@@ -525,6 +558,10 @@ observations, then 2–3 sharp clarifying questions. Stop there and wait.
 
 `TRIAGE: WRONG_ARTIFACT` — a vision deck, marketing copy, a pitch, or similar. State that plainly.
 Offer to outline what the document would need to specify to become analyzable. Stop there.
+
+`TRIAGE: CODE_MODE` — the input carries no document: a source directory, a family of sibling scripts,
+or a diff, with a request to review it. State that plainly, name the scope under review, and continue
+into Code mode above in this same response, with no pause.
 
 ## Opening assessment
 
@@ -829,7 +866,7 @@ Glossary requests are standalone. Answer them without re-running the review.
 ---
 
 Made with [live-spec](https://github.com/happysasha18/live-spec), the fuller method this skill was
-lifted from. This is release `1.3.1`; this repository's version line is the only one the skill
+lifted from. This is release `1.4.0`; this repository's version line is the only one the skill
 follows. Full history: [CHANGELOG.md](CHANGELOG.md).
 
 ---

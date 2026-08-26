@@ -105,8 +105,8 @@ Without git, download
 [the zip](https://github.com/happysasha18/product-prover/archive/refs/heads/main.zip), unpack it, and
 run the last three commands from the unpacked folder.
 
-Both items have to land: the review opens `reference/stress-lenses.md` partway through the pass, from
-inside its own installed directory. Claude Code picks up skills placed in `~/.claude/skills/`
+Both items have to land: the review opens `reference/stress-lenses.md` partway through the pass, and
+`reference/code-lenses.md` in code mode, from inside its own installed directory. Claude Code picks up skills placed in `~/.claude/skills/`
 automatically; open a new session if one was already running. Then ask, in any project:
 
 > *"review this spec"* · *"poke holes in this design"* · *"is this PRD ready — what did I miss?"* · *"Product Prover this"*
@@ -157,6 +157,15 @@ something meets the product: an endpoint, a screen, a command, a report. The ful
 nobody names a mode. A pipeline driving the skill may name a mode by its machine name: `FULL`,
 `CROSS-LINK`, `FEATURE-FIT`. Both name sets open the same doors.
 
+**Code mode** is a fourth door, for when there is no document at all: a source directory, a family of
+sibling scripts, or a diff. Ask "review this code" or "find a defect in scripts/" and triage routes
+there instead of refusing the input as a wrong artifact. It carries over three things from the
+document pass — a defect found at one spot swept for its look-alikes, the mechanical techniques that
+sweep does the work with (grep, a sibling-family walk, a sibling diff, a caller walk), and closed-set
+completeness (every enum arm, every implementer, every sibling file handled the same way). It leaves
+out what needs a document to check against: declared cross-cutting laws, lifecycle sweeps, provisional
+defaults, and three-source disagreement. `reference/code-lenses.md` carries the full procedure.
+
 Where the document describes running code, the review asks each surface for the `file:line` that
 carries it. It opens what it is given, with your permission at each read. With no citations it still
 runs, and every finding on an already-built part is marked conditional on the document still matching
@@ -169,8 +178,9 @@ the code.
 It works from entities, states, transitions, invariants, preconditions, atomicity, and liveness. A
 document's genre decides nothing. Protocol and API designs, workflow and approval flows, permission
 models, migration plans, failure runbooks, firmware state machines, and architecture documents all
-qualify. Two constraints are hard. It needs a written document, since a codebase and a diagram in your
-head leave it nothing to read. And the document has to claim behaviour: point it at a vision deck and
+qualify. Two constraints are hard. It needs a written document, or, where none exists, code mode's own
+narrower ground: a source directory, a family of sibling scripts, or a diff, with no diagram-in-your-
+head substitute for either. And the document has to claim behaviour: point it at a vision deck and
 triage says so up front.
 
 The method assumes no product kind. Every sweep and every lens states its reading in terms. Those
@@ -214,7 +224,7 @@ and a gap it missed on your own document is the most valuable report to send.
 
 [MIT](LICENSE) © Alexander Abramovich. The skill is prose, so it pulls in no third-party code and
 carries no dependency of its own. The sample spec is written for this repository and describes no real
-company. This is release `1.3.1`, and this repository's version line is the only one the skill follows.
+company. This is release `1.4.0`, and this repository's version line is the only one the skill follows.
 
 ---
 
