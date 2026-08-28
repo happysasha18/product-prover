@@ -4,6 +4,9 @@
 
 This repository's own line:
 
+- 1.4.2 · 2026-08-28 — the frontmatter description in `SKILL.md` is shortened, for reliable discovery
+  routing. The README hero is split into two short paragraphs, for readability. The review logic of
+  both document mode and Code mode is unchanged.
 - 1.4.1 · 2026-08-28 — the README now positions Code mode clearly as a limited code-only mode, next
   to the spec-review it primarily does: a top-line sentence names both, an ordinary-text usage
   example covers a code-only prompt, the Code mode section links `reference/code-lenses.md` and

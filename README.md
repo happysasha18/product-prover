@@ -2,7 +2,9 @@
 
 # product-prover
 
-**A senior-architect review of your product spec, written as a [Claude Code](https://claude.com/claude-code) skill. It puts [formal-verification](https://en.wikipedia.org/wiki/Formal_verification) questions — states, transitions, invariants, atomicity, liveness — to a document written in prose. The questions are the borrowed part. The pass itself is a careful reading by a model. No solver runs, no script ships, and nothing gates your build. It primarily checks specs and designs; a Code mode can also check a code-only scope — a directory, a family of sibling scripts, a diff — for repeating defects and incomplete closed sets.**
+**Product Prover is a senior-architect review of your product specs and designs, written as a [Claude Code](https://claude.com/claude-code) skill.**
+
+**The internal method puts [formal-verification](https://en.wikipedia.org/wiki/Formal_verification) thinking — states, transitions, invariants, atomicity, liveness — to a document written in prose, and you get the findings back in plain language. No solver runs, no script ships, and nothing gates your build. A limited Code mode extends the same reading to a code-only scope — a directory, a family of sibling scripts, a diff — for repeating defects and incomplete closed sets, scoped short of a general code review.**
 
 Point it at a PRD, feature spec, HLD, architecture document, or design proposal. Four things come
 back: a short opening assessment, the structural model it extracted, the gaps that matter, and what to
@@ -227,7 +229,7 @@ and a gap it missed on your own document is the most valuable report to send.
 
 [MIT](LICENSE) © Alexander Abramovich. The skill is prose, so it pulls in no third-party code and
 carries no dependency of its own. The sample spec is written for this repository and describes no real
-company. This is release `1.4.1`, and this repository's version line is the only one the skill follows.
+company. This is release `1.4.2`, and this repository's version line is the only one the skill follows.
 
 ---
 

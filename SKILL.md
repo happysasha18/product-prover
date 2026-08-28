@@ -1,8 +1,8 @@
 ---
 name: product-prover
-description: 'Structured senior-architect review of product documents: PRDs, feature specs, HLDs, LLDs, design proposals, and architecture documents. It reviews them with formal-verification thinking, covering entities, states, transitions, invariants, safety, liveness, atomicity, and composition. Use this skill whenever the user asks to review, critique, stress-test, lint, or find gaps in a spec or design document. It fires as well when they ask "is this spec ready / what did I miss / poke holes in this". It fires on an uploaded product document with a request for feedback, and on the words "Product Prover". A request for feedback counts even where the word "review" goes unsaid. It reads documents, so code and diffs route elsewhere, except where no document exists for the code at all — a source directory, a family of sibling scripts, or a diff with no accompanying spec draws its code mode instead, which runs the same class-based defect analysis adapted to the closed sets and sibling groups code itself carries. Use this skill as well when the user asks to find a defect in a source directory, a set of scripts, or a diff with no document present to review it against. It finds holes in what a document claims, and the test suite proves what the artifact does. It answers "does the spec hold together as written?", and in code mode, "does this code hold together against its own siblings and its own closed sets?"'
+description: 'Review product specs, PRDs, designs, and architecture documents for missing behavior, contradictions, unsafe state transitions, and unreconciled seams. Use when asked to review, critique, stress-test, or find gaps in a specification or design, including "Product Prover". For a code-only directory, sibling scripts, or diff with no accompanying spec, use Code mode to find repeated defects and incomplete closed sets. Do not use Code mode as a general code review when a specification is available.'
 metadata:
-  version: 1.4.1
+  version: 1.4.2
 ---
 
 # Product Prover
@@ -866,7 +866,7 @@ Glossary requests are standalone. Answer them without re-running the review.
 ---
 
 Made with [live-spec](https://github.com/happysasha18/live-spec), the fuller method this skill was
-lifted from. This is release `1.4.1`; this repository's version line is the only one the skill
+lifted from. This is release `1.4.2`; this repository's version line is the only one the skill
 follows. Full history: [CHANGELOG.md](CHANGELOG.md).
 
 ---
