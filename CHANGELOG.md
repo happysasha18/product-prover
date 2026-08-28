@@ -4,6 +4,13 @@
 
 This repository's own line:
 
+- 1.4.1 · 2026-08-28 — the README now positions Code mode clearly as a limited code-only mode, next
+  to the spec-review it primarily does: a top-line sentence names both, an ordinary-text usage
+  example covers a code-only prompt, the Code mode section links `reference/code-lenses.md` and
+  states the boundary — no replacement for a full code review, no check against a spec that doesn't
+  exist — and Known issues no longer calls Code mode one of "the two narrow modes". `scripts/validate.py`
+  now checks that `reference/code-lenses.md` exists and is readable, since `SKILL.md` opens it in
+  Code mode. The review logic of both document mode and Code mode is unchanged.
 - 1.4.0 · 2026-08-26 — code mode: a fourth door, for a source directory, a family of sibling scripts,
   or a diff with no accompanying document. Phase 0 now routes a document-less input here instead of
   `WRONG_ARTIFACT`. It carries three capabilities from the document pass, adapted to code's own

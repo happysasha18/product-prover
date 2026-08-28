@@ -34,6 +34,7 @@ def version_from(text: str, source: str) -> str:
 def validate_package() -> str:
     skill = read("SKILL.md")
     lenses = read("reference/stress-lenses.md")
+    read("reference/code-lenses.md")
     readme = read("README.md")
     response = read("examples/sample-response.md")
     rubric = json.loads(read("evals/sample-spec-rubric.json"))

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "1.4.0",
+  "version": "1.4.1",
   "artifact": "examples/sample-spec.md",
   "acceptance": {
     "readiness": "needs significant rework",

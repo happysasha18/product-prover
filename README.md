@@ -2,7 +2,7 @@
 
 # product-prover
 
-**A senior-architect review of your product spec, written as a [Claude Code](https://claude.com/claude-code) skill. It puts [formal-verification](https://en.wikipedia.org/wiki/Formal_verification) questions — states, transitions, invariants, atomicity, liveness — to a document written in prose. The questions are the borrowed part. The pass itself is a careful reading by a model. No solver runs, no script ships, and nothing gates your build.**
+**A senior-architect review of your product spec, written as a [Claude Code](https://claude.com/claude-code) skill. It puts [formal-verification](https://en.wikipedia.org/wiki/Formal_verification) questions — states, transitions, invariants, atomicity, liveness — to a document written in prose. The questions are the borrowed part. The pass itself is a careful reading by a model. No solver runs, no script ships, and nothing gates your build. It primarily checks specs and designs; a Code mode can also check a code-only scope — a directory, a family of sibling scripts, a diff — for repeating defects and incomplete closed sets.**
 
 Point it at a PRD, feature spec, HLD, architecture document, or design proposal. Four things come
 back: a short opening assessment, the structural model it extracted, the gaps that matter, and what to
@@ -109,7 +109,7 @@ Both items have to land: the review opens `reference/stress-lenses.md` partway t
 `reference/code-lenses.md` in code mode, from inside its own installed directory. Claude Code picks up skills placed in `~/.claude/skills/`
 automatically; open a new session if one was already running. Then ask, in any project:
 
-> *"review this spec"* · *"poke holes in this design"* · *"is this PRD ready — what did I miss?"* · *"Product Prover this"*
+> *"review this spec"* · *"poke holes in this design"* · *"is this PRD ready — what did I miss?"* · *"Product Prover this"* · *"review scripts/ for a code defect"*
 
 Name the file in the same message — "review docs/checkout-v2.md" — or paste the document into the
 chat. To ask for a narrower pass, name it: *"feature-fit review of the export feature I'm adding"*,
@@ -164,7 +164,9 @@ document pass — a defect found at one spot swept for its look-alikes, the mech
 sweep does the work with (grep, a sibling-family walk, a sibling diff, a caller walk), and closed-set
 completeness (every enum arm, every implementer, every sibling file handled the same way). It leaves
 out what needs a document to check against: declared cross-cutting laws, lifecycle sweeps, provisional
-defaults, and three-source disagreement. `reference/code-lenses.md` carries the full procedure.
+defaults, and three-source disagreement. It does not replace a full code review, and it cannot check
+conformance to a spec that does not exist. [`reference/code-lenses.md`](reference/code-lenses.md)
+carries the full procedure.
 
 Where the document describes running code, the review asks each surface for the `file:line` that
 carries it. It opens what it is given, with your permission at each read. With no citations it still
@@ -199,9 +201,10 @@ whether the feature is worth building are outside it.
 
 ## Known issues
 
-- **The two narrow modes were built for a pipeline that selected them.** In the fuller method, another
-  step chose the new-surface and feature-fit passes. Here you name the mode yourself, and that
-  phrasing has been exercised less than the full pass.
+- **The two narrow document modes were built for a pipeline that selected them.** In the fuller
+  method, another step chose the new-surface and feature-fit passes. Here you name the mode yourself,
+  and that phrasing has been exercised less than the full pass. Code mode is a separate door, for
+  input with no document at all, and this known issue does not cover it.
 - **A mechanical floor stays your suite's job.** Where the method names one — a coverage test, a
   completeness check across sibling surfaces — the review names its absence in the record.
 - **The install was tested by hand, on macOS,** on 2026-08-05, followed by one full review from the
@@ -224,7 +227,7 @@ and a gap it missed on your own document is the most valuable report to send.
 
 [MIT](LICENSE) © Alexander Abramovich. The skill is prose, so it pulls in no third-party code and
 carries no dependency of its own. The sample spec is written for this repository and describes no real
-company. This is release `1.4.0`, and this repository's version line is the only one the skill follows.
+company. This is release `1.4.1`, and this repository's version line is the only one the skill follows.
 
 ---
 
