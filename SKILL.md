@@ -2,7 +2,7 @@
 name: product-prover
 description: 'Review product specs, PRDs, designs, and architecture documents for missing behavior, contradictions, unsafe state transitions, and unreconciled seams. Use when asked to review, critique, stress-test, or find gaps in a specification or design, including "Product Prover". For a code-only directory, sibling scripts, or diff with no accompanying spec, use Code mode to find repeated defects and incomplete closed sets. Do not use Code mode as a general code review when a specification is available.'
 metadata:
-  version: 1.4.3
+  version: 1.5.0
 ---
 
 # Product Prover
@@ -452,11 +452,16 @@ merging back into the main line. That merge gate judges the delta. It has three 
 - the full test suite green on the merged tree;
 - a full review pass on both sides, whose blocking set is scoped to the delta.
 
-Four things block: an unmatched token, a red suite, a finding present on the new side and absent on
-the old side. A meaning change nobody named blocks too. The pass reads the old tree and the merged
-tree. A finding present on both is pre-existing, and a finding new to the merged side is delta-scoped.
-Pre-existing findings become tracked follow-ups in the same change and never block, so the merge
-stands free of debts it did not create.
+Four things block:
+
+- an unmatched token;
+- a red suite;
+- a finding present on the new side and absent on the old side;
+- a meaning change nobody named.
+
+The pass reads the old tree and the merged tree. A finding present on both is pre-existing, and a
+finding new to the merged side is delta-scoped. Pre-existing findings become tracked follow-ups in the
+same change and never block, so the merge stands free of debts it did not create.
 
 This gate runs where both sides are in reach. A document handed over on its own carries no old side.
 The gate then stands down by name, and the pass reads the document as it stands.
@@ -515,38 +520,10 @@ Check:
   code is out of reach altogether, say that in one line. This happens when the document arrived on
   its own, or when the repository is elsewhere. Mark every finding on the already-built parts
   conditional, and review the document as written.
-- **Is the input an architecture document?** That is valid input, and the review runs with the
-  **architecture lens**. It holds seven checks, each judged at the scale the project's own kind sets.
-  The project states its kind in a few words. Examples: a backend service, a static site, a fullstack
-  app, a command-line tool, and a mobile app. Others: a library, a data pipeline, a skill pack, or a
-  book. Any other kind is stated the same way. The kind decides the form each check can demand, so a skill pack and a backend
-  service answer the placement check differently. The seven checks:
-  - Every fact the requirements document states is owned by exactly one node.
-  - No node stands without backing in the requirements. A node with one caller and no promised second
-    is flagged as speculative. It waits for an answer: a named plan that turns it into a yes, or
-    a merge back into its caller. Three questions decide whether a node stands on its own. Can it be
-    tested by itself? Does a real second place need it? Can it and its neighbour be worked on at the
-    same time without queuing on the same files? One "no" calls for an answer before the node stands,
-    and the speculative-node case above is one of those. Two or more reads the node as premature.
-  - Every seam names what crosses it and which side owns the format.
-  - The quality budgets are stated with the place each number is measured, and each names its
-    watcher. The watcher is the mechanical check that fails past the stated number. A decided
-    sentence naming why a person reads a budget by eye is the other form the watcher takes.
-  - The runtime view walks every flow the requirements promise.
-  - The placement view says where every node runs, with its load-bearing technology where one exists.
-  - The node-growth re-ask. Each node re-answers the three fitness questions on its pins as they
-    stand now, because a node born right and then grown carries a standing yes nobody re-reads.
-    Co-residence in one file is the mechanical face of a failed growth answer. Read the node count
-    per file from this document's own pin column, counting the distinct nodes whose pins name a
-    file. Raw file size is the wrong signal for this. A file holding more than one node is read for
-    whether its co-resident nodes each still earn their place. Record the per-file node counts with
-    the review. That count is a ceiling: the next review reads any file whose count rose as a question
-    about what grew. A split moves through the architecture step and its re-review.
-
-  Every pin is a real `file:line` citation, and a prose description fails that bar. The paired
-  requirements document must be in view, because ownership is checkable only against the fact list it
-  owns. Where no such document exists, ask the author for it. Where none can be produced, record
-  the ownership check as not runnable with that reason, and run the remaining six.
+- **Is the input an architecture document?** That is valid input, and it arms the **architecture
+  lens** — seven checks, which run in Phase 3e beside the mandatory sweeps. Say in the triage line
+  that the lens is armed, and name the paired requirements document its ownership check reads
+  against, or say that document is out of reach.
 
 Output one of:
 
@@ -705,6 +682,47 @@ Then write the class line beneath that table. One of three shapes carries it:
 - `Class lens: N/A — <reason>`, where the review could not read the whole document, so no sweep for
   look-alikes was open to it. The reason names what stood out of view.
 
+**The architecture lens.** Phase 0 arms this lens when the input is an architecture document, and its
+seven checks run here, beside the mandatory sweeps. Each check is judged at the scale the project's
+own kind sets. The project states its kind in a few words. Examples: a backend service, a static site,
+a fullstack app, a command-line tool, and a mobile app. Others: a library, a data pipeline, a skill
+pack, or a book. Any other kind is stated the same way. The kind decides the form each check can
+demand, so a skill pack and a backend service answer the placement check differently. The seven
+checks:
+
+- Every fact the requirements document states is owned by exactly one node.
+- No node stands without backing in the requirements. A node with one caller and no promised second
+  is flagged as speculative. It waits for an answer: a named plan that turns it into a yes, or
+  a merge back into its caller. Three questions decide whether a node stands on its own. Can it be
+  tested by itself? Does a real second place need it? Can it and its neighbour be worked on at the
+  same time without queuing on the same files? One "no" calls for an answer before the node stands,
+  and the speculative-node case above is one of those. Two or more reads the node as premature.
+- Every seam names what crosses it and which side owns the format.
+- The quality budgets are stated with the place each number is measured, and each names its
+  watcher. The watcher is the mechanical check that fails past the stated number. A decided
+  sentence naming why a person reads a budget by eye is the other form the watcher takes.
+- The runtime view walks every flow the requirements promise.
+- The placement view says where every node runs, with its load-bearing technology where one exists.
+- The node-growth re-ask. Each node re-answers the three fitness questions on its pins as they
+  stand now, because a node born right and then grown carries a standing yes nobody re-reads.
+  Co-residence in one file is the mechanical face of a failed growth answer. Read the node count
+  per file from this document's own pin column, counting the distinct nodes whose pins name a
+  file. Raw file size is the wrong signal for this. A file holding more than one node is read for
+  whether its co-resident nodes each still earn their place. Record the per-file node counts with
+  the review. That count is a ceiling: the next review reads any file whose count rose as a question
+  about what grew. A split moves through the architecture step and its re-review.
+
+Every pin is a real `file:line` citation, and a prose description fails that bar. The paired
+requirements document must be in view, because ownership is checkable only against the fact list it
+owns. Where no such document exists, ask the author for it. Where none can be produced, record
+the ownership check as not runnable with that reason, and run the remaining six.
+
+This lens writes a finding the way every other lens does: the four-part format, with the architecture
+document's own section as the source pin in Part 2. Each of the seven checks also owes one verdict
+line, reading hit, clean, or N/A with its reason — the same three verdict words the mandatory sweeps
+write. The seven lines stand together beneath the class line, each naming its check, and the per-file
+node counts stand beneath the node-growth line.
+
 Continue to Phase 3.5.
 
 ## Phase 3.5 — Acknowledged gaps
@@ -728,9 +746,13 @@ Properties that resist formal checking but matter equally:
   errors actionable?
 - Domain language on every surface: the words the product hands out speak the product's own
   vocabulary. An internal identifier, a code, and a mechanism name each stay out of them. Three shapes
-  to catch: a card labelled with a developer tag, and an error body returning an internal enum name. A
-  third is a command printing a class name at the user. Extract the strings the document promises to emit,
-  wherever they land, and read them as the recipient would; a leaked internal word is a finding.
+  to catch:
+  - a card labelled with a developer tag;
+  - an error body returning an internal enum name;
+  - a command printing a class name at the user.
+
+  Extract the strings the document promises to emit, wherever they land, and read them as the
+  recipient would; a leaked internal word is a finding.
 - Cognitive load: mode-dependent behavior, exceptions, special cases users must remember.
 - Operational UX: debuggability, audit trails, traceability.
 - Performance and scale budgets: how big can the input get in size, count, and duration before the
@@ -828,9 +850,11 @@ Triggers: a request written in plain English inside a message — "glossary", "g
 No command is registered anywhere for these words. A message that opens with a slash reaches Claude
 Code's own command picker, so the working form is ordinary text.
 
-For a single term, output three things. A one-sentence plain definition. A one-sentence example,
-taken from the document where possible. And the question this concept prompts you to ask in design
-review.
+For a single term, output three things:
+
+- a one-sentence plain definition;
+- a one-sentence example, taken from the document where possible;
+- the question this concept prompts you to ask in design review.
 
 Example for a request about liveness:
 **liveness** — a property that says something good must eventually happen. Example: a failed state
@@ -866,7 +890,7 @@ Glossary requests are standalone. Answer them without re-running the review.
 ---
 
 Made with [live-spec](https://github.com/happysasha18/live-spec), the fuller method this skill was
-lifted from. This is release `1.4.3`; this repository's version line is the only one the skill
+lifted from. This is release `1.5.0`; this repository's version line is the only one the skill
 follows. Full history: [CHANGELOG.md](CHANGELOG.md).
 
 ---

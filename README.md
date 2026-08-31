@@ -230,7 +230,7 @@ and a gap it missed on your own document is the most valuable report to send.
 
 [MIT](LICENSE) © Alexander Abramovich. The skill is prose, so it pulls in no third-party code and
 carries no dependency of its own. The sample spec is written for this repository and describes no real
-company. This is release `1.4.3`, and this repository's version line is the only one the skill follows.
+company. This is release `1.5.0`, and this repository's version line is the only one the skill follows.
 
 ---
 

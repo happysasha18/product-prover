@@ -4,6 +4,27 @@
 
 This repository's own line:
 
+- 1.5.0 · 2026-08-31 — the architecture lens has a place in the pipeline. Its seven checks were
+  written inside Phase 0, whose stated job is the triage decision alone, so nothing said when they
+  ran or what a finding from them looked like. They now run in Phase 3e beside the mandatory sweeps,
+  which is where a lens run over every member of a class already lives, and one of the seven — every
+  seam names what crosses it and which side owns the format — is the unwritten-seams sweep restated.
+  Phase 0 keeps the routing: it arms the lens and names the paired requirements document the
+  ownership check reads against. A finding from the lens takes the same four-part format every other
+  finding takes, and each of the seven checks owes one verdict line — hit, clean, or N/A with its
+  reason — standing beneath the class line, with the per-file node counts beneath the node-growth
+  line. The seven checks themselves are unchanged, and so is every other phase, mode, sweep, and
+  finding rule. A review of a document that is not an architecture document reads exactly as it did
+  in 1.4.3.
+
+  The merge gate's four blockers are now a list: an unmatched token, a red suite, a finding present
+  on the new side and absent on the old side, and a meaning change nobody named. They were two
+  sentences of prose with the fourth stranded, which the skill's own cognitive-load lens flags. All
+  four blockers are unchanged. The same shape was swept and fixed in two more places: Phase 4's three
+  shapes of leaked internal vocabulary, and glossary mode's three outputs for a single term.
+
+  Known and pending: `SKILL.md` runs past the roughly 500-line guideline for a skill body even with
+  two reference files externalized. Splitting it further belongs to its own pass.
 - 1.4.3 · 2026-08-31 — code mode is described as two lenses, not three: sibling-defect search was
   already written as "the mechanical half of that same lens", not a peer capability, so the heading
   and enumeration in `reference/code-lenses.md`, the "carries three of the document pass's
