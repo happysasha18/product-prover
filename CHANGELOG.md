@@ -4,6 +4,12 @@
 
 This repository's own line:
 
+- 1.4.3 · 2026-08-31 — code mode is described as two lenses, not three: sibling-defect search was
+  already written as "the mechanical half of that same lens", not a peer capability, so the heading
+  and enumeration in `reference/code-lenses.md`, the "carries three of the document pass's
+  capabilities" sentence in `SKILL.md`'s Code mode section, and the matching sentence in the README
+  now count two, with sibling-defect search folded into the class lens as its mechanical half. The
+  review logic is unchanged.
 - 1.4.2 · 2026-08-28 — the frontmatter description in `SKILL.md` is shortened, for reliable discovery
   routing. The README hero is split into two short paragraphs, for readability. The review logic of
   both document mode and Code mode is unchanged.

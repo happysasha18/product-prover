@@ -22,7 +22,7 @@ No document. Instead:
 - **a diff**, where one is under review instead of a whole tree — the changed hunks, read against the
   unchanged code around them and against their siblings elsewhere in the tree.
 
-## The three lenses, in code terms
+## The two lenses, in code terms
 
 **1. Class-based defect analysis** carries over unchanged. A defect found at one spot is a sample of
 its class, the same move the document pass's class lens makes. Three questions:
@@ -33,9 +33,8 @@ its class, the same move the document pass's class lens makes. Three questions:
 - does the test suite cover this class of mistake, anywhere in the tree it could occur, or only at
   the one spot where it happened to be caught?
 
-**2. Sibling-defect search** is the mechanical half of that same lens, not a fourth capability
-standing beside it. It is how "does the same mistake live elsewhere" gets answered concretely, in
-code:
+**Sibling-defect search** is the mechanical half of this same lens, not a second lens standing beside
+it. It is how "does the same mistake live elsewhere" gets answered concretely, in code:
 
 - **exact-pattern grep** — search the tree for the literal broken shape: the missing arm, the
   omitted check, the un-handled case, wherever the same tokens recur;
@@ -47,7 +46,7 @@ code:
 - **caller walk** — find every caller of the broken function or script, and check whether each call
   site depends on the behaviour the defect breaks.
 
-**3. Completeness-of-sets checking** carries over with what "the set" is built from now different.
+**2. Completeness-of-sets checking** carries over with what "the set" is built from now different.
 In a document, the set is a spec's own prose registry — an enumerated list the author wrote out. In
 code, the set is the code's own structure: an enum or union matched by a switch or match statement,
 an interface's roster of implementers, or a family of files meant to mirror each other. This reframes

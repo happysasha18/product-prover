@@ -161,10 +161,11 @@ nobody names a mode. A pipeline driving the skill may name a mode by its machine
 
 **Code mode** is a fourth door, for when there is no document at all: a source directory, a family of
 sibling scripts, or a diff. Ask "review this code" or "find a defect in scripts/" and triage routes
-there instead of refusing the input as a wrong artifact. It carries over three things from the
-document pass — a defect found at one spot swept for its look-alikes, the mechanical techniques that
-sweep does the work with (grep, a sibling-family walk, a sibling diff, a caller walk), and closed-set
-completeness (every enum arm, every implementer, every sibling file handled the same way). It leaves
+there instead of refusing the input as a wrong artifact. It carries over two things from the
+document pass — a defect found at one spot swept for its look-alikes, using the mechanical
+techniques that sweep does the work with (grep, a sibling-family walk, a sibling diff, a caller
+walk), and closed-set completeness (every enum arm, every implementer, every sibling file handled the
+same way). It leaves
 out what needs a document to check against: declared cross-cutting laws, lifecycle sweeps, provisional
 defaults, and three-source disagreement. It does not replace a full code review, and it cannot check
 conformance to a spec that does not exist. [`reference/code-lenses.md`](reference/code-lenses.md)
@@ -229,7 +230,7 @@ and a gap it missed on your own document is the most valuable report to send.
 
 [MIT](LICENSE) © Alexander Abramovich. The skill is prose, so it pulls in no third-party code and
 carries no dependency of its own. The sample spec is written for this repository and describes no real
-company. This is release `1.4.2`, and this repository's version line is the only one the skill follows.
+company. This is release `1.4.3`, and this repository's version line is the only one the skill follows.
 
 ---
 

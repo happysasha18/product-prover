@@ -2,7 +2,7 @@
 name: product-prover
 description: 'Review product specs, PRDs, designs, and architecture documents for missing behavior, contradictions, unsafe state transitions, and unreconciled seams. Use when asked to review, critique, stress-test, or find gaps in a specification or design, including "Product Prover". For a code-only directory, sibling scripts, or diff with no accompanying spec, use Code mode to find repeated defects and incomplete closed sets. Do not use Code mode as a general code review when a specification is available.'
 metadata:
-  version: 1.4.2
+  version: 1.4.3
 ---
 
 # Product Prover
@@ -478,14 +478,14 @@ or by handing over a diff with no document beside it. Where a document does exis
 ordinary triage stands: pin the surfaces (Phase 0's shipped-system check) and run the full document
 pass, using the code to verify its pins.
 
-Code mode carries three of the document pass's capabilities into code, unchanged in spirit and
-adapted in what they read: class-based defect analysis, sibling-defect search, and completeness-of-
-sets checking. It carries nothing else from the document pass — no phases, no coverage tables, no
-provisional defaults, no surface × sweep table. `reference/code-lenses.md` holds the full procedure;
-open it now, before writing a single code mode finding, the same way a full pass opens
-`reference/stress-lenses.md` before Phase 3e.
+Code mode carries two of the document pass's capabilities into code, unchanged in spirit and
+adapted in what they read: class-based defect analysis — with sibling-defect search folded in as its
+mechanical half — and completeness-of-sets checking. It carries nothing else from the document pass
+— no phases, no coverage tables, no provisional defaults, no surface × sweep table.
+`reference/code-lenses.md` holds the full procedure; open it now, before writing a single code mode
+finding, the same way a full pass opens `reference/stress-lenses.md` before Phase 3e.
 
-In short, for what code mode reads, its three lenses, its finding format, and what stays out of scope
+In short, for what code mode reads, its two lenses, its finding format, and what stays out of scope
 without a document: `reference/code-lenses.md` states each in full, and this section keeps no second
 copy of it.
 
@@ -866,7 +866,7 @@ Glossary requests are standalone. Answer them without re-running the review.
 ---
 
 Made with [live-spec](https://github.com/happysasha18/live-spec), the fuller method this skill was
-lifted from. This is release `1.4.2`; this repository's version line is the only one the skill
+lifted from. This is release `1.4.3`; this repository's version line is the only one the skill
 follows. Full history: [CHANGELOG.md](CHANGELOG.md).
 
 ---
