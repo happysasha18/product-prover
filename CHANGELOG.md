@@ -4,6 +4,20 @@
 
 This repository's own line:
 
+- 1.6.0 · 2026-08-31 — `SKILL.md` ran to 898 lines against skill-creator's guideline of roughly 500,
+  even after the stress lenses and the code lenses were externalized. Three more sections move out,
+  each one material a review reaches for only on a particular turn, never on every pass: the
+  New-surface review's seven lenses and quantifier re-verify, the Feature-fit review's seven journey
+  seams and second-sibling question, and the pre-merge gate's three parts and four blockers, all now
+  in new `reference/review-modes.md`; the architecture lens's seven checks, armed only when Phase 0
+  reads an architecture document, now in new `reference/architecture-lens.md`; and glossary mode's
+  exact term definitions, reached only by a standalone glossary request, now in new
+  `reference/glossary-terms.md`. The body keeps what every pass needs regardless of mode or input: the
+  finding format, the phases, the mandatory sweeps' and class lens's home in Phase 3e, and a short
+  pointer at each site naming when to open the new file. `scripts/validate.py` now checks all three
+  new files exist, beside the two it already checked. `SKILL.md` is 734 lines, down from 898. No
+  wording of the method changed, and a review's behaviour — what it finds, in what order, in what
+  format — is unchanged.
 - 1.5.0 · 2026-08-31 — the architecture lens has a place in the pipeline. Its seven checks were
   written inside Phase 0, whose stated job is the triage decision alone, so nothing said when they
   ran or what a finding from them looked like. They now run in Phase 3e beside the mandatory sweeps,

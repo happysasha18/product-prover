@@ -2,7 +2,7 @@
 name: product-prover
 description: 'Review product specs, PRDs, designs, and architecture documents for missing behavior, contradictions, unsafe state transitions, and unreconciled seams. Use when asked to review, critique, stress-test, or find gaps in a specification or design, including "Product Prover". For a code-only directory, sibling scripts, or diff with no accompanying spec, use Code mode to find repeated defects and incomplete closed sets. Do not use Code mode as a general code review when a specification is available.'
 metadata:
-  version: 1.5.0
+  version: 1.6.0
 ---
 
 # Product Prover
@@ -328,96 +328,18 @@ back, and it is asked for by name.
   surface that was added. It runs Phases 1–2 plus the Phase 3e lenses named below, aimed at the new
   surface's seams against the surfaces it composes with.
 
-  Seven lenses run in this mode, and all seven live in `reference/stress-lenses.md`:
-
-  - declared cross-cutting laws — a mandatory sweep, and it owes a verdict line here. It reads the
-    new surface's clause against each declared law, and the new surface's test row beside it;
-  - edge-condition completeness — a mandatory sweep, and it owes a verdict line here;
-  - cross-surface policy uniformity — a mandatory sweep, and it owes a verdict line here;
-  - unwritten seams — a mandatory sweep, and it owes a verdict line here;
-  - paired-transition symmetry — the lifecycle sweep's sub-question on paired state changes. It owes a
-    verdict line here, while the rest of the lifecycle sweep stands down;
-  - interactive overlap across layers — whether two things can take the same input at once, which
-    reads as a modal over a screen, two routes matching one request, or two consumers on one queue;
-  - delivery separability along a declared axis.
-
-  The last two are imaginative probes and owe no verdict.
-
-  The record for this mode carries a verdict line for each of the five sweep entries above. Each
-  line reads hit, clean, or N/A with its reason, the same three verdict words a full review writes.
-  The five entries here are this mode's own set. A full review's table carries a lifecycle column
-  where this mode carries paired-transition symmetry alone. The record also carries the class line,
-  written beneath the verdict table.
-
-  This mode skips the property analysis of Phase 3, its steps 3a through 3d. Those steps read the
-  whole document for safety, liveness, enforceability and internal consistency. Every mandatory
-  sweep of Phase 3e runs, scoped to the new surface and its seams, with one exception. The lifecycle
-  sweep sends its paired-transition symmetry sub-question alone, and its other angles stand down
-  here. A new surface arrives with no clause and no test row yet, so the declared-laws sweep is the
-  one it most needs.
-
-  The mode keeps one whole-document step: the **quantifier re-verify**.
-
-  Sweep the document for enumerations and universal quantifiers: "every", "only", "all", "exactly",
-  and explicit member lists. Re-verify each such sentence against the surface set that now includes
-  the newcomer. A sentence the newcomer falsifies is a finding at the add. Three shapes carry it:
-
-  - a member list that now excludes the newcomer;
-  - an "only" that now ranges wider;
-  - a terminal edge that is no longer terminal.
-
-  Use this mode on every surface add, where a full re-review would cost more than the change
-  warrants.
+  Its seven lenses, the quantifier re-verify that is this mode's one whole-document step, and the
+  record shape this mode writes live in `reference/review-modes.md`. Open it once this mode is
+  chosen.
 - **Feature-fit review** — a focused pass on one feature's addition to an existing document, run when
   the feature is first written down. Ask for it by naming the feature being added. Walk its journey
   seams against the whole document, the way the new-surface review walks a new surface's seams. A
   journey seam is one moment in the path something takes through the feature. Whoever takes that
   path is a person on a screen, a caller against an endpoint, or an operator at a command line. It
-  can also be a record moving through a pipeline. The seven seams are:
+  can also be a record moving through a pipeline.
 
-  - **arrival** — how the path first reaches the feature: a link followed, an endpoint called, a
-    command typed, a message consumed;
-  - **every next-step** — where the path can go from each point inside the feature;
-  - **return visit** — what a second pass through the feature meets: a person coming back to it, a
-    caller retrying, a job re-running over the same input;
-  - **cross-entry** — reaching the feature by a door other than the main one: a deep link, a direct
-    call that skips the wrapper, a manual replay;
-  - **implied neighbour state** — what the surfaces around it are doing while it runs: the other
-    surfaces present at the same time, the other consumers on the same queue, the neighbouring step
-    in the pipeline;
-  - **the quality bar** — the standard of craft the feature is held to, stated in terms its own kind
-    can meet: motion and spacing on a screen, response time and error wording on a service, output
-    format and exit codes on a command;
-  - **invited-next** — what the product offers as the next move once the feature is done: a
-    suggested action, a returned link to the created resource, a printed next command.
-
-  Those seven hold for a feature of any kind, and a kind with lenses of its own walks those beside
-  them. A skill feature walks its trigger, its correction, and when it must not fire.
-
-  Each lens takes one of four verdicts:
-
-  - backed by a clause in the document;
-  - closed trivially, with how it was closed written down;
-  - marked as a provisional default;
-  - a question batched for the author.
-
-  The walk also asks the **second-sibling question** by construction. Is anything in this addition a
-  second member of a kind an existing surface already has? The test is the same one-sentence role as
-  something already in the document. The role can be the same call shape on another endpoint, the
-  same flag on another command, or the same gesture on another screen. A yes calls for a
-  design-consistency review scoped to the new elements against the existing inventory. A no is
-  recorded as a lens verdict like any other.
-
-  This mode runs while the feature is being written, ahead of the full review, and it validates the
-  fit alone. Pre-existing consistency between old clauses is out of scope for this mode. A new clause
-  contradicting any existing clause is in scope, and it is the mode's first check. On a document
-  claiming a shipped system, a "backed by a clause" verdict cites a clause whose surface carries a
-  current pin (Phase 0). An unpinned clause backs a conditional verdict alone, marked the way Phase 0
-  marks them. This mode runs most often, so it is the one most exposed to the dead prose the Phase 0
-  pin requirement exists to catch.
-
-  A feature-fit review stands in for no other pass. The feature still meets the full review, or the
-  new-surface review where that is its mode, before it is built.
+  Its seven journey seams, their four verdicts, the second-sibling question, and this mode's scope
+  limits live in `reference/review-modes.md`. Open it once this mode is chosen.
 
 All three modes keep the whole document in view. A cross-section hole is findable only when both
 sides of the seam are present and named the same at review time. The new-surface review narrows the
@@ -433,42 +355,9 @@ Where a design-consistency review follows this pass, it is keyed to these modes:
 - a re-check at the pre-merge gate draws none, and the design review stands down there.
 
 **Reviewing a rewrite before it merges: judge the delta.** A restructure or a migration is gated for
-merging back into the main line. That merge gate judges the delta. It has three parts:
-
-- load-bearing token identity, old text against new, modulo the per-chunk named deltas, plus a
-  punctuation-multiset check that catches a restructure which preserved every word and changed the
-  sentence boundaries.
-
-  A load-bearing token is one word of the document's content, with markup and whitespace left out. A
-  chunk is one stretch of the old document the restructure moved as a unit. A named delta is a change
-  the restructure's own record declared for that chunk in advance.
-
-  Produce the comparison this way. Build the word-token multiset of the old text and of the new. Build
-  the punctuation multiset of each, since word-token identity alone passes a reflow that moved
-  punctuation. Set the named deltas aside, and compare each pair. Two runs of this gate must agree, so
-  write down the command or the script the project used and keep it with the gate's record. This skill
-  ships no such script. Where the project has none either, say so in the record and read the gate's
-  token part as not runnable;
-- the full test suite green on the merged tree;
-- a full review pass on both sides, whose blocking set is scoped to the delta.
-
-Four things block:
-
-- an unmatched token;
-- a red suite;
-- a finding present on the new side and absent on the old side;
-- a meaning change nobody named.
-
-The pass reads the old tree and the merged tree. A finding present on both is pre-existing, and a
-finding new to the merged side is delta-scoped. Pre-existing findings become tracked follow-ups in the
-same change and never block, so the merge stands free of debts it did not create.
-
-This gate runs where both sides are in reach. A document handed over on its own carries no old side.
-The gate then stands down by name, and the pass reads the document as it stands.
-
-The token-identity part applies to a restructure meant to preserve content. A deliberate redesign
-changes content by intent. Its merge stands on the green suite and the delta-scoped review pass,
-with no token-identity demand over text the redesign meant to change.
+merging back into the main line. That merge gate judges the delta. Its three parts, the four things
+that block, and the exception for a deliberate redesign live in `reference/review-modes.md`. Open it
+once a rewrite is gated for merging back.
 
 **The interpretation rule.** The author may state a standard out loud. Where the review sharpens it
 past the words they used, state the sharpened form back to them, and mark it as the reviewer's own
@@ -683,45 +572,10 @@ Then write the class line beneath that table. One of three shapes carries it:
   look-alikes was open to it. The reason names what stood out of view.
 
 **The architecture lens.** Phase 0 arms this lens when the input is an architecture document, and its
-seven checks run here, beside the mandatory sweeps. Each check is judged at the scale the project's
-own kind sets. The project states its kind in a few words. Examples: a backend service, a static site,
-a fullstack app, a command-line tool, and a mobile app. Others: a library, a data pipeline, a skill
-pack, or a book. Any other kind is stated the same way. The kind decides the form each check can
-demand, so a skill pack and a backend service answer the placement check differently. The seven
-checks:
-
-- Every fact the requirements document states is owned by exactly one node.
-- No node stands without backing in the requirements. A node with one caller and no promised second
-  is flagged as speculative. It waits for an answer: a named plan that turns it into a yes, or
-  a merge back into its caller. Three questions decide whether a node stands on its own. Can it be
-  tested by itself? Does a real second place need it? Can it and its neighbour be worked on at the
-  same time without queuing on the same files? One "no" calls for an answer before the node stands,
-  and the speculative-node case above is one of those. Two or more reads the node as premature.
-- Every seam names what crosses it and which side owns the format.
-- The quality budgets are stated with the place each number is measured, and each names its
-  watcher. The watcher is the mechanical check that fails past the stated number. A decided
-  sentence naming why a person reads a budget by eye is the other form the watcher takes.
-- The runtime view walks every flow the requirements promise.
-- The placement view says where every node runs, with its load-bearing technology where one exists.
-- The node-growth re-ask. Each node re-answers the three fitness questions on its pins as they
-  stand now, because a node born right and then grown carries a standing yes nobody re-reads.
-  Co-residence in one file is the mechanical face of a failed growth answer. Read the node count
-  per file from this document's own pin column, counting the distinct nodes whose pins name a
-  file. Raw file size is the wrong signal for this. A file holding more than one node is read for
-  whether its co-resident nodes each still earn their place. Record the per-file node counts with
-  the review. That count is a ceiling: the next review reads any file whose count rose as a question
-  about what grew. A split moves through the architecture step and its re-review.
-
-Every pin is a real `file:line` citation, and a prose description fails that bar. The paired
-requirements document must be in view, because ownership is checkable only against the fact list it
-owns. Where no such document exists, ask the author for it. Where none can be produced, record
-the ownership check as not runnable with that reason, and run the remaining six.
-
-This lens writes a finding the way every other lens does: the four-part format, with the architecture
-document's own section as the source pin in Part 2. Each of the seven checks also owes one verdict
-line, reading hit, clean, or N/A with its reason — the same three verdict words the mandatory sweeps
-write. The seven lines stand together beneath the class line, each naming its check, and the per-file
-node counts stand beneath the node-growth line.
+seven checks run here, beside the mandatory sweeps. The checks themselves, how each is judged at the
+project's own kind, the ownership requirement against the paired requirements document, and the
+verdict lines and node counts this lens owes all live in `reference/architecture-lens.md`. Open it
+once Phase 0 arms the lens.
 
 Continue to Phase 3.5.
 
@@ -864,33 +718,15 @@ ask: for every state, can the entity get out of it?
 For a glossary request naming no term, list every formal term used so far in this session, one-sentence
 definitions only.
 
-Definitions to use (keep these exact, and paraphrase none of them loosely):
-- **state-space** — the set of all situations the system can be in.
-- **transitions** — the moves between states.
-- **actors** — who initiates an action: user, role, automated service, external system.
-- **composition** — how separate components combine. Clean when components have sharp roles.
-- **abstraction** — replacing case-by-case enumeration with a general rule.
-- **invariant** — a property that must hold across every reachable state.
-- **precondition** — what must be true before an action runs.
-- **postcondition** — what must be true after an action completes.
-- **atomicity** — an operation either completes fully or leaves no trace.
-- **rollback** — what the system reverts to on failure.
-- **safety** — the family of properties meaning "nothing bad ever happens".
-- **liveness** — the family of properties meaning "something good eventually happens".
-- **dead-end** — a state with no defined exit.
-- **discharge** — actually proving (or implementing) a property using the system's primitives.
-- **consistency** — whether the spec's stated rules can all simultaneously hold.
-- **contradiction** — two stated rules that openly conflict.
-- **observability** — whether operators can see and understand the system's state.
-- **cognitive-load** — mental effort users spend tracking modes, exceptions.
-- **ops-ux** — operational UX: debuggability, audit trails, traceability.
+The exact definitions to use live in `reference/glossary-terms.md`. Open it before answering, and
+paraphrase none of them loosely.
 
 Glossary requests are standalone. Answer them without re-running the review.
 
 ---
 
 Made with [live-spec](https://github.com/happysasha18/live-spec), the fuller method this skill was
-lifted from. This is release `1.5.0`; this repository's version line is the only one the skill
+lifted from. This is release `1.6.0`; this repository's version line is the only one the skill
 follows. Full history: [CHANGELOG.md](CHANGELOG.md).
 
 ---
