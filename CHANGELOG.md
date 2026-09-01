@@ -4,6 +4,13 @@
 
 This repository's own line:
 
+- 1.6.2 · 2026-09-01 — 1.6.1's short-form rewrite dropped the sentence naming the class lens
+  ("The class lens stands beside them, and it owes a line of its own") and the line following it
+  ("Each pass records whether that sweep ran"), the only place a standalone reader of the README
+  alone learns that sweep exists. Restored as three sentences in "How the logic works", ahead of
+  the pointer to `docs/how-it-works.md`, without reopening the section into a paragraph. No wording
+  of the method changed, and a review's behaviour — what it finds, in what order, in what format —
+  is unchanged.
 - 1.6.1 · 2026-09-01 — the README is rewritten short. It ran to 243 lines and opened on the method
   rather than on what a reader gets, so a first-time reader met the internal vocabulary before the
   problem it solves. The new order is what you get, an example finding quoted from the sample run,

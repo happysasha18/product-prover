@@ -28,7 +28,7 @@ Full run on the same spec, ten findings and a compact model of the whole documen
 
 ## How the logic works
 
-The skill never says "formal verification" anywhere you'd read it — the vocabulary shapes how it looks for gaps, then stays behind in the tag at the end of each finding. What it actually checks and why: **[the full explanation, with the lenses and what each one catches →](docs/how-it-works.md)**
+The skill never says "formal verification" anywhere you'd read it — the vocabulary shapes how it looks for gaps, then stays behind in the tag at the end of each finding. Mandatory sweeps and open-ended probes run against the document. The class lens stands beside them, and it owes a line of its own. Its move: a defect found at one spot is swept across the document for its look-alikes. Each pass records whether that sweep ran. What it actually checks and why: **[the full explanation, with the lenses and what each one catches →](docs/how-it-works.md)**
 
 ## Does this fit your document?
 
@@ -63,7 +63,7 @@ This repo is the canonical source. The [live-spec](https://github.com/happysasha
 
 ---
 
-[MIT](LICENSE) © Alexander Abramovich. The skill is prose, so it pulls in no third-party code and carries no dependency of its own. The sample spec is written for this repository and describes no real company. This is release `1.6.1`, and this repository's version line is the only one the skill follows.
+[MIT](LICENSE) © Alexander Abramovich. The skill is prose, so it pulls in no third-party code and carries no dependency of its own. The sample spec is written for this repository and describes no real company. This is release `1.6.2`, and this repository's version line is the only one the skill follows.
 
 ---
 
