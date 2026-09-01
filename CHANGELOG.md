@@ -4,6 +4,16 @@
 
 This repository's own line:
 
+- 1.6.1 · 2026-09-01 — the README is rewritten short. It ran to 243 lines and opened on the method
+  rather than on what a reader gets, so a first-time reader met the internal vocabulary before the
+  problem it solves. The new order is what you get, an example finding quoted from the sample run,
+  how the logic works, who it fits, then usage and install last. Two sections move out of the README
+  into their own pages: the fuller account of the method, the genre question, and what sits beside
+  this pass are now in new `docs/how-it-works.md`, and the four known issues are now in new
+  `docs/known-issues.md`, both linked from the README. The sample-response pointer named five
+  findings where `examples/sample-response.md` carries ten, and now names ten. `README.md` is 70
+  lines, down from 243. No wording of the method changed, and a review's behaviour — what it finds,
+  in what order, in what format — is unchanged.
 - 1.6.0 · 2026-08-31 — `SKILL.md` ran to 898 lines against skill-creator's guideline of roughly 500,
   even after the stress lenses and the code lenses were externalized. Three more sections move out,
   each one material a review reaches for only on a particular turn, never on every pass: the

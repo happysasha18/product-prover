@@ -63,7 +63,7 @@ This repo is the canonical source. The [live-spec](https://github.com/happysasha
 
 ---
 
-[MIT](LICENSE) © Alexander Abramovich. The skill is prose, so it pulls in no third-party code and carries no dependency of its own. The sample spec is written for this repository and describes no real company. This is release `1.6.0`, and this repository's version line is the only one the skill follows.
+[MIT](LICENSE) © Alexander Abramovich. The skill is prose, so it pulls in no third-party code and carries no dependency of its own. The sample spec is written for this repository and describes no real company. This is release `1.6.1`, and this repository's version line is the only one the skill follows.
 
 ---
 

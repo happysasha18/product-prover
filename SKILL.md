@@ -2,7 +2,7 @@
 name: product-prover
 description: 'Review product specs, PRDs, designs, and architecture documents for missing behavior, contradictions, unsafe state transitions, and unreconciled seams. Use when asked to review, critique, stress-test, or find gaps in a specification or design, including "Product Prover". For a code-only directory, sibling scripts, or diff with no accompanying spec, use Code mode to find repeated defects and incomplete closed sets. Do not use Code mode as a general code review when a specification is available.'
 metadata:
-  version: 1.6.0
+  version: 1.6.1
 ---
 
 # Product Prover
@@ -726,7 +726,7 @@ Glossary requests are standalone. Answer them without re-running the review.
 ---
 
 Made with [live-spec](https://github.com/happysasha18/live-spec), the fuller method this skill was
-lifted from. This is release `1.6.0`; this repository's version line is the only one the skill
+lifted from. This is release `1.6.1`; this repository's version line is the only one the skill
 follows. Full history: [CHANGELOG.md](CHANGELOG.md).
 
 ---
