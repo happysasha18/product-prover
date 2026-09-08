@@ -4,6 +4,21 @@
 
 This repository's own line:
 
+- 1.6.3 · 2026-09-08 — Phase 3e's opening instruction read as a cross product. "Generative
+  stress-testing. Stress-test every operation, transition, rule, and assumption against the families
+  of questions below. The specific cases are yours to invent" pairs every stated item with every
+  question family and asks for an invented case in each pair, and the unwritten-seams sweep then said
+  "derive the reachable situations yourself" and "walk every axis", which multiplies each surface by
+  seven axes and by every other surface that can stand beside it. A reader following both literally
+  builds a situation space in the tens of thousands and writes a sentence for each. Both now name
+  what bounds them: the phase is "Stress-testing the document", the questions are put to the items
+  the document states, a case is invented where a question bites, the seam walk takes its situations
+  from the named axes at one read per axis, and the co-presence axis reads the surfaces the document
+  places beside this one. The Sweep definition says the same thing at the vocabulary level — a lens
+  read across every member of a class the document already names, and what the document names is what
+  a sweep reads. The word "sweep" is unchanged, along with the five sweep names, the surface × sweep
+  verdict table, and the class line. Nothing was added and no rule was removed; what a review finds
+  and the format it reports in are unchanged.
 - 1.6.2 · 2026-09-01 — 1.6.1's short-form rewrite dropped the sentence naming the class lens
   ("The class lens stands beside them, and it owes a line of its own") and the line following it
   ("Each pass records whether that sweep ran"), the only place a standalone reader of the README

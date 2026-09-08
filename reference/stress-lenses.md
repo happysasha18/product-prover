@@ -1,10 +1,11 @@
 # Stress lenses — Phase 3e of the review
 
-This file holds the three tiers of generative stress-testing the main pass calls for in Phase 3e.
+This file holds the three tiers of stress-testing the main pass calls for in Phase 3e.
 Read it at that point in the review.
 
-Stress-test every operation, transition, rule, and assumption against the families of questions
-below. The specific cases are yours to invent, from what the operation actually does.
+Put the families of questions below to every operation, transition, rule, and assumption the document
+states. Where a question bites, the specific case is yours to invent, from what that operation
+actually does.
 
 Three tiers live here:
 
@@ -248,17 +249,18 @@ stored shape meeting newer code instead.
 
 ### 5. Unwritten seams
 
-For every stateful surface, derive the reachable situations yourself and check each one for a written
-answer. The axes the author remembered to fill are the starting point, and the walk carries past
-them.
+For every stateful surface, take its reachable situations from the axes below and check each one for a
+written answer. The axes the author remembered to fill are the starting point, and the walk carries
+past them.
 
-Walk every axis the surface passes through while it is already active. Those axes are view, mode,
-user tier, version, the environment band it runs in, re-entry, and two writers acting on it at once.
+Read each axis the surface passes through while it is already active, one read per axis. Those axes
+are view, mode, user tier, version, the environment band it runs in, re-entry, and two writers acting
+on it at once.
 A relayout
 when the window changes shape re-runs an entry animation nobody composed. A second instance: a config
 reload while a request is in flight leaves that request on the old values with nothing stating so.
 
-Then walk the axis authors forget most: every other surface that can be present at the same time.
+Then read the axis authors forget most: the other surfaces the document places beside this one.
 Those are the things present alongside it. Three examples: the siblings on the same screen, the other
 consumers on the same queue, and the neighbouring stage of the same pipeline. The list also includes
 the surface one step before and one step after it in the flow. That other surface counts whether or

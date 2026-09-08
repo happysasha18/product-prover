@@ -470,7 +470,7 @@ rather than from three independent ones.
 
 `defect · missing-rule (invariant)`
 
-### 3e. Generative stress-testing
+### 3e. Stress-testing the document
 
 `reference/stress-lenses.md` was read before any finding in this subsection was written. Findings
 F16–F25 come from it. Both tiers ran: the five mandatory sweeps, each of which owes a verdict in the

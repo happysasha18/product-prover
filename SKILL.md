@@ -2,7 +2,7 @@
 name: product-prover
 description: 'Review product specs, PRDs, designs, and architecture documents for missing behavior, contradictions, unsafe state transitions, and unreconciled seams. Use when asked to review, critique, stress-test, or find gaps in a specification or design, including "Product Prover". For a code-only directory, sibling scripts, or diff with no accompanying spec, use Code mode to find repeated defects and incomplete closed sets. Do not use Code mode as a general code review when a specification is available.'
 metadata:
-  version: 1.6.2
+  version: 1.6.3
 ---
 
 # Product Prover
@@ -40,7 +40,8 @@ fix, and what you would do next.
   could not read whole.
 - **Lens** — one question put to the document. A lens produces a finding only where a real problem
   answers it.
-- **Sweep** — a lens run over every member of a class in the document, rather than at one spot.
+- **Sweep** — a lens read across every member of a class the document already names, rather than at
+  one spot. What the document names is what a sweep reads.
 - **Seam** — a join the document has to write an answer for. Three kinds appear below, and every sweep
   and lens names which kind it walks. A structural seam is the boundary between two parts, and it owes
   what crosses it and which side owns the format. A situational seam is one reachable situation a
@@ -511,7 +512,7 @@ properties.
   their agreement stated as an invariant? Two homes for one derivable fact with no tying sentence
   drift apart, and the tie is the finding's proposed sentence.
 
-3e. Generative stress-testing — three tiers: mandatory sweeps, imaginative probes, and the class
+3e. Stress-testing the document — three tiers: mandatory sweeps, imaginative probes, and the class
 lens standing alone.
 
 **Open `reference/stress-lenses.md` now, and read it before writing a single Phase 3e finding.** That
@@ -522,8 +523,9 @@ skips the sweeps, and the record then reads as a full pass that never ran them.
 The sweeps' questions and the probes' full text live in that file alone. The mode list above names
 them; only the file states what each one asks.
 
-Stress-test every operation, transition, rule, and assumption against the families of questions the
-file holds. The specific cases are yours to invent, from what the operation actually does.
+Put the families of questions the file holds to every operation, transition, rule, and assumption the
+document states. Where a question bites, the specific case is yours to invent, from what that
+operation actually does.
 
 The tiers differ in what they owe. `reference/stress-lenses.md` states what each tier owes, beside
 the lenses themselves, and this page keeps no second copy of it.
@@ -726,7 +728,7 @@ Glossary requests are standalone. Answer them without re-running the review.
 ---
 
 Made with [live-spec](https://github.com/happysasha18/live-spec), the fuller method this skill was
-lifted from. This is release `1.6.2`; this repository's version line is the only one the skill
+lifted from. This is release `1.6.3`; this repository's version line is the only one the skill
 follows. Full history: [CHANGELOG.md](CHANGELOG.md).
 
 ---

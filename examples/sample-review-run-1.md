@@ -557,7 +557,7 @@ dashboard deriving one number from the other and never storing both.
 
 `defect · missing-rule (invariant)`
 
-### 3e. Generative stress-testing
+### 3e. Stress-testing the document
 
 `reference/stress-lenses.md` was read in full before these findings were written. Sweep verdicts are
 in the table at the end of this phase; imaginative probes owe none, and the two they produced are
