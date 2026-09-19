@@ -43,8 +43,6 @@ It works from entities, states, transitions, invariants, preconditions, atomicit
 
 It finds holes in what a document *claims*; your test suite proves what the artifact *does*. Applying a fix, rejecting it, and settling a judgment call stay with you.
 
-Two more passes belong beside this one: whether a stranger can read the prose, and whether the design itself is right. Both ship in [live-spec](https://github.com/happysasha18/live-spec), the fuller method this skill was lifted from — full details: [`docs/how-it-works.md`](docs/how-it-works.md).
-
 ## Use it
 
 Point it at a spec, an architecture document, or — with no document at all — a codebase, and ask for a review:
