@@ -26,6 +26,13 @@ Run against a parcel-locker spec, the skill returns findings like this — a quo
 
 Full run on the same spec, ten findings and a compact model of the whole document: [`examples/sample-response.md`](examples/sample-response.md).
 
+## Article demonstration
+
+The deliberately incomplete parcel-locker input and its full historical Product Prover v4.3.0
+review, used in *Prose as Code: Applying Formal Verification to Product Specs*, live in
+[`examples/parcel-locker-article-demo/`](examples/parcel-locker-article-demo/). It is an
+explanatory artifact, not this release's canonical sample or test fixture.
+
 ## How the logic works
 
 The skill never says "formal verification" anywhere you'd read it — the vocabulary shapes how it looks for gaps, then stays behind in the tag at the end of each finding. Mandatory sweeps and open-ended probes run against the document. The class lens stands beside them, and it owes a line of its own. Its move: a defect found at one spot is swept across the document for its look-alikes. Each pass records whether that sweep ran. What it actually checks and why: **[the full explanation, with the lenses and what each one catches →](docs/how-it-works.md)**
