@@ -33,6 +33,11 @@ review, used in [*Prose as Code: Applying Formal Verification to Product Specs*]
 [`examples/parcel-locker-article-demo/`](examples/parcel-locker-article-demo/). It is an
 explanatory artifact, not this release's canonical sample or test fixture.
 
+The current regression set pairs a deliberately flawed Parcel spec with a repaired control and an
+explicitly ordered negative control in
+[`examples/parcel-locker-witness-eval/`](examples/parcel-locker-witness-eval/). Its independent
+release readout is [`evals/release-1.7.0.md`](evals/release-1.7.0.md).
+
 ## How the logic works
 
 The skill never says "formal verification" anywhere you'd read it — the vocabulary shapes how it looks for gaps, then stays behind in the tag at the end of each finding. Mandatory sweeps and open-ended probes run against the document. When a suspected gap depends on replay, competing rules, a component boundary, or eventual progress, a small behavioral witness tests it before it becomes a finding. The class lens stands beside them, and it owes a line of its own. Its move: a defect found at one spot is swept across the document for its look-alikes. Each pass records whether that sweep ran. What it actually checks and why: **[the full explanation, with the lenses and what each one catches →](docs/how-it-works.md)**

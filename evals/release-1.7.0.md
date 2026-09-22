@@ -10,6 +10,7 @@ the behavioral witness procedure before reading the fixture rubric.
 - `SKILL.md`: `d3ba7029fee2`
 - `reference/stress-lenses.md`: `50832a4de839`
 - `reference/behavioral-witnesses.md`: `a991ef969132`
+- `reference/architecture-lens.md`: `ac38221894c5`
 
 ## Results
 
@@ -22,6 +23,7 @@ the behavioral witness procedure before reading the fixture rubric.
 - Repaired control: no supported witness-level finding.
 - Explicitly ordered control: no idempotence, commutativity, inverse, or compensation finding.
 
-The reviewer then read the rubric. All five positive expectations and every repaired/ordered
-negative control matched. The package validator, the skill-package quick validator, and
-`git diff --check` passed after the fixture and validator corrections.
+After the blind pass and rubric comparison, the replay promise, repaired control, and validator were
+corrected. A subsequent independent reread supported all five positive expectations and rejected
+every listed false positive. The package validator, the skill-package quick validator, and
+`git diff --check` then passed.
