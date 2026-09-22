@@ -2,15 +2,17 @@
 name: product-prover
 description: 'Review product specs, PRDs, designs, and architecture documents for missing behavior, contradictions, unsafe state transitions, and unreconciled seams. Use when asked to review, critique, stress-test, or find gaps in a specification or design, including "Product Prover". For a code-only directory, sibling scripts, or diff with no accompanying spec, use Code mode to find repeated defects and incomplete closed sets. Do not use Code mode as a general code review when a specification is available.'
 metadata:
-  version: 1.6.3
+  version: 1.7.0
 ---
 
 # Product Prover
 
 This skill works on its own. It needs the document under review, and it reads
-`reference/stress-lenses.md` from its own directory partway through a full pass. Where no document
-exists for the code under review, Phase 0 routes to Code mode instead, which reads
-`reference/code-lenses.md` in place of the document and the stress lenses.
+`reference/stress-lenses.md` from its own directory partway through a full pass. A suspected replay,
+rule-selection, boundary-promise, or progress gap conditionally opens
+`reference/behavioral-witnesses.md`. Where no document exists for the code under review, Phase 0
+routes to Code mode instead, which reads `reference/code-lenses.md` in place of the document and the
+stress lenses.
 
 Some rules below name something a project may or may not have: a pre-merge check, a test suite, a
 readability review, a design-consistency review. Where the project running this review has none of
@@ -40,6 +42,9 @@ fix, and what you would do next.
   could not read whole.
 - **Lens** — one question put to the document. A lens produces a finding only where a real problem
   answers it.
+- **Witness** — the smallest concrete sequence, local rule table, boundary comparison, or progress
+  cycle that decides a suspected gap. It supports an existing finding; it does not create a second
+  finding for the same repair.
 - **Sweep** — a lens read across every member of a class the document already names, rather than at
   one spot. What the document names is what a sweep reads.
 - **Seam** — a join the document has to write an answer for. Three kinds appear below, and every sweep
@@ -504,6 +509,12 @@ properties.
 - Spec-model mismatch: properties promised but unenforceable in the underlying system.
 - Counterexamples: for each non-trivial property, can you construct a sequence that breaks it?
 
+Where a suspected gap concerns repeated or overlapping operations, competing conditional rules, a
+promise crossing a named component boundary, or eventual completion of a repeated process, read
+`reference/behavioral-witnesses.md`. Use the matching witness form to test the concern before filing
+it. These forms support the existing property analysis and stress lenses; they add no mandatory
+surface sweep and no minimum finding count.
+
 3d. Internal consistency:
 - Contradicting requirements that can't simultaneously hold.
 - Spec-model contradictions: behavior specified that no actor or transition supports.
@@ -677,11 +688,12 @@ outside any project gets its record beside the document itself. Each finding car
 recording whether it was applied or rejected with the reason. That makes the outcome verifiable after
 memory is gone, and it lets the next run check the previous run's unapplied rows.
 
-The record opens by naming the version of this skill that ran the pass. It also records the first 12
-characters of the SHA-256 digest of `SKILL.md` and `reference/stress-lenses.md`, labelled separately.
-A later session then tells whether a "recently reviewed" document used the current lens set or an
-older one. A review method that grew a lens re-arms the full pass over documents reviewed under the
-older set.
+The record opens by naming the version of this skill that ran the pass. It also records, labelled
+separately, the first 12 characters of the SHA-256 digest of `SKILL.md` and every reference file
+loaded during the pass. A full pass always loads `reference/stress-lenses.md`; conditional modes and
+witnesses add their own loaded references. A later session then tells whether a "recently reviewed"
+document used the current lens set or an older one. A review method that grew a lens re-arms the full
+pass over documents reviewed under the older set.
 
 A full review pass's record carries the mandatory-sweep verdict table beside the findings, in the
 shape Phase 3e states.
@@ -728,7 +740,7 @@ Glossary requests are standalone. Answer them without re-running the review.
 ---
 
 Made with [live-spec](https://github.com/happysasha18/live-spec), the fuller method this skill was
-lifted from. This is release `1.6.3`; this repository's version line is the only one the skill
+lifted from. This is release `1.7.0`; this repository's version line is the only one the skill
 follows. Full history: [CHANGELOG.md](CHANGELOG.md).
 
 ---

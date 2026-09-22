@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "version": "1.7.0",
+  "flawed_spec_expected": [
+    "A replay can generate a second credential or external notification despite one logical request.",
+    "Accepted by the notification gateway is weaker than received by the recipient.",
+    "The retry promise has no actor, schedule, bound, or terminal recovery path.",
+    "At now == expires_at both Collect and Expire apply because the rule table has no priority.",
+    "Concurrent collection and expiry have no precedence or serialization."
+  ],
+  "fixed_spec_must_not_report": [
+    "Deposit replay is unspecified.",
+    "Queue acceptance proves recipient delivery.",
+    "DeliveryPending can repeat forever without a bound.",
+    "Collection and expiry overlap at the exact boundary.",
+    "Collection and expiry can both perform side effects before one wins."
+  ],
+  "ordered_control_must_not_report": [
+    "Capture and Void must commute.",
+    "The specified terminal-state conflict is a missing inverse or compensation path."
+  ]
+}

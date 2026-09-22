@@ -69,7 +69,7 @@ does to the parcel, code, event log, and recipient notification.
 
 ## Remaining finding index
 
-- F4 · defect · The daily sweep enforces the 72-hour promise between hour 72 and hour 96 · Sections 6–7.
+- F4 · defect · The timestamp and guard that make a code invalid at the 72-hour boundary are unspecified · Sections 6–7.
 - F5 · defect · Notification retries end without a terminal failure action or operator signal · Sections 9–10.
 - F6 · defect · Offline operation names no owner for code generation or conflict reconciliation · Sections 5 and 12.
 - F7 · defect · `Registered` has no age-out path when a manifested parcel never arrives · Section 4.

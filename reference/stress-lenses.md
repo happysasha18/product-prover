@@ -1,6 +1,10 @@
 # Stress lenses — Phase 3e of the review
 
 This file holds the three tiers of stress-testing the main pass calls for in Phase 3e.
+
+When a concurrency or ordering concern needs a concrete replay or interleaving before it can be
+filed, use the replay or order form in `behavioral-witnesses.md`. The witness supplies evidence for
+this lens; it does not add another sweep or duplicate finding.
 Read it at that point in the review.
 
 Put the families of questions below to every operation, transition, rule, and assumption the document

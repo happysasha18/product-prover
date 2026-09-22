@@ -4,6 +4,15 @@
 
 This repository's own line:
 
+- 1.7.0 · 2026-09-22 — Added four conditional behavioral witness forms for concerns that prose alone
+  makes easy to overclaim: replay or order, competing rule selection, promises across component
+  boundaries, and eventual progress. They support the existing Phase 3 analysis and stress lenses;
+  they add no mandatory sweep, category, or minimum finding count, and the same repair remains one
+  finding. The persisted record now fingerprints every reference loaded in a pass. A new parcel
+  fixture pairs deliberate witness-level defects with a repaired control, plus an explicitly ordered
+  negative control that must not be reported merely because its operations do not commute. The
+  sample rubric also stops claiming that a nightly sweep alone proves codes remain valid past the
+  72-hour boundary: the actual gap is that code validity and a collection racing expiry are unstated.
 - 1.6.3 · 2026-09-08 — Phase 3e's opening instruction read as a cross product. "Generative
   stress-testing. Stress-test every operation, transition, rule, and assumption against the families
   of questions below. The specific cases are yours to invent" pairs every stated item with every

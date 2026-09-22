@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "1.6.3",
+  "version": "1.7.0",
   "artifact": "examples/sample-spec.md",
   "acceptance": {
     "readiness": "needs significant rework",
@@ -27,7 +27,7 @@
     {
       "id": "pickup-window-conflict",
       "evidence": ["Sections 6 and 7"],
-      "claim": "A daily sweep cannot enforce an exact 72-hour pickup window."
+      "claim": "The collection path does not say at which timestamp or guard expiry makes a code invalid."
     },
     {
       "id": "sms-terminal-failure",

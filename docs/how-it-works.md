@@ -10,6 +10,18 @@ The method assumes no product kind. Every sweep and every lens states its readin
 
 It finds holes in what a document *claims*, and your test suite proves what the artifact *does*. Applying a fix, rejecting it, and settling a judgment call stay with you. Market fit, pricing, and whether the feature is worth building are outside it.
 
+## Behavioral witnesses
+
+Some concerns are easy to overstate in prose. A retry is not necessarily required to be idempotent,
+two operations are not necessarily required to commute, and a queue acknowledgement is not
+necessarily a delivery promise. Product Prover therefore uses four conditional witness forms only
+when the document arms them: replay or order, rule selection, a promise across a component boundary,
+and progress through a repeated process. Each witness constructs the smallest sequence, table, or
+cycle that can decide the concern and labels any step the document does not determine as
+unspecified. It supports an ordinary finding and never creates a duplicate finding or an extra
+mandatory sweep. The exact forms live in
+[`reference/behavioral-witnesses.md`](../reference/behavioral-witnesses.md).
+
 ## What sits beside it
 
 Two more passes belong beside this one, and are left to their own reviewer. One is whether a stranger can read the prose. The other is whether the design itself is right. Both ship in [live-spec](https://github.com/happysasha18/live-spec), the fuller method this skill was lifted from. It wires this review to a spec author, a test author, and a set of mechanical gates.

@@ -29,13 +29,13 @@ Full run on the same spec, ten findings and a compact model of the whole documen
 ## Article demonstration
 
 The deliberately incomplete parcel-locker input and its full historical Product Prover v4.3.0
-review, used in *Prose as Code: Applying Formal Verification to Product Specs*, live in
+review, used in [*Prose as Code: Applying Formal Verification to Product Specs*](https://alexanderabramovich.medium.com/prose-as-code-applying-formal-verification-to-product-specs-14f04fee8f2d?source=friends_link&sk=e293d19e7adcd1126c593219e22cf7e3), live in
 [`examples/parcel-locker-article-demo/`](examples/parcel-locker-article-demo/). It is an
 explanatory artifact, not this release's canonical sample or test fixture.
 
 ## How the logic works
 
-The skill never says "formal verification" anywhere you'd read it — the vocabulary shapes how it looks for gaps, then stays behind in the tag at the end of each finding. Mandatory sweeps and open-ended probes run against the document. The class lens stands beside them, and it owes a line of its own. Its move: a defect found at one spot is swept across the document for its look-alikes. Each pass records whether that sweep ran. What it actually checks and why: **[the full explanation, with the lenses and what each one catches →](docs/how-it-works.md)**
+The skill never says "formal verification" anywhere you'd read it — the vocabulary shapes how it looks for gaps, then stays behind in the tag at the end of each finding. Mandatory sweeps and open-ended probes run against the document. When a suspected gap depends on replay, competing rules, a component boundary, or eventual progress, a small behavioral witness tests it before it becomes a finding. The class lens stands beside them, and it owes a line of its own. Its move: a defect found at one spot is swept across the document for its look-alikes. Each pass records whether that sweep ran. What it actually checks and why: **[the full explanation, with the lenses and what each one catches →](docs/how-it-works.md)**
 
 ## Does this fit your document?
 
@@ -68,7 +68,7 @@ This repo is the canonical source. The [live-spec](https://github.com/happysasha
 
 ---
 
-[MIT](LICENSE) © Alexander Abramovich. The skill is prose, so it pulls in no third-party code and carries no dependency of its own. The sample spec is written for this repository and describes no real company. This is release `1.6.3`, and this repository's version line is the only one the skill follows.
+[MIT](LICENSE) © Alexander Abramovich. The skill is prose, so it pulls in no third-party code and carries no dependency of its own. The sample spec is written for this repository and describes no real company. This is release `1.7.0`, and this repository's version line is the only one the skill follows.
 
 ---
 

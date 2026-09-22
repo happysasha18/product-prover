@@ -21,7 +21,9 @@ checks:
   tested by itself? Does a real second place need it? Can it and its neighbour be worked on at the
   same time without queuing on the same files? One "no" calls for an answer before the node stands,
   and the speculative-node case above is one of those. Two or more reads the node as premature.
-- Every seam names what crosses it and which side owns the format.
+- Every seam names what crosses it and which side owns the format. Where one side's promise may not
+  satisfy the other's dependency, test that concern with the boundary-promise form in
+  `behavioral-witnesses.md` before filing it.
 - The quality budgets are stated with the place each number is measured, and each names its
   watcher. The watcher is the mechanical check that fails past the stated number. A decided
   sentence naming why a person reads a budget by eye is the other form the watcher takes.
